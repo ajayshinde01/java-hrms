@@ -92,4 +92,14 @@ public class GlobalExceptionHandler {
 				new ApiResponse("Role already present or Role Id is already taken. Try for another Role Id"),
 				HttpStatus.BAD_REQUEST);
 	}
+	
+    @ExceptionHandler(DivisionNotFound.class)
+    public ResponseEntity<?> handleDivisionNotFoundException(DivisionNotFound divisionNotFound){
+		 
+    	ApiResponse apiResponse = new ApiResponse();
+    	apiResponse.setMessage(divisionNotFound.getMessage());
+    	apiResponse.setDateTime(LocalDateTime.now());
+    	return new ResponseEntity<>(apiResponse,HttpStatus.BAD_REQUEST);
+    	
+    }
 }
