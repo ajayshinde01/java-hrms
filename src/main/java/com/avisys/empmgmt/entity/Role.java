@@ -30,50 +30,46 @@ import lombok.Setter;
 public class Role {
 
 	@Id
-	@Column(name="ID")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "role_seq")
-	@SequenceGenerator(sequenceName = "role_seq", name = "role_seq",initialValue = 1000,allocationSize = 1 )
-	private long id; 
-	
+	@Column(name = "ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_seq")
+	@SequenceGenerator(sequenceName = "role_seq", name = "role_seq", initialValue = 1000, allocationSize = 1)
+	private long id;
+
 	@NotBlank
 	@NotNull
 
-	@Column(name="role_id")
+	@Column(name = "role_id")
 	private String roleId;
-	
+
 	@NotBlank
 	@NotNull
-	@Column(name="name")
+	@Column(name = "name")
 	private String roleName;
-	
-	
-	
+
 	// Fields For Logging Purpose
-	
-	@Column(name="Org_code")
+
+	@Column(name = "Org_code")
 	private String orgCode;
-	
-	
-	@Column(name="is_Deleted")
+
+	@Column(name = "is_Deleted")
 	private boolean isDeleted;
-	
-	@Column(name="Created_at")
+
+	@Column(name = "Created_at")
 	private LocalDateTime createdAt;
-	
-	@Column(name="Updated_at")
+
+	@Column(name = "Updated_at")
 	private LocalDateTime updatedAt;
-	
-	@Column(name="Created_by")
+
+	@Column(name = "Created_by")
 	private String createdBy;
-	
-	@Column(name="Updated_by")
+
+	@Column(name = "Updated_by")
 	private String updatedBy;
-	
-	
-	public Role(String roleId,String roleName, String orgCode, boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt,
-			String createdBy, String updatedBy) {
+
+	public Role(String roleId, String roleName, String orgCode, boolean isDeleted, LocalDateTime createdAt,
+			LocalDateTime updatedAt, String createdBy, String updatedBy) {
 		super();
-		this.roleId=roleId;
+		this.roleId = roleId;
 		this.roleName = roleName;
 		this.orgCode = orgCode;
 		this.isDeleted = isDeleted;
@@ -81,10 +77,6 @@ public class Role {
 		this.updatedAt = updatedAt;
 		this.createdBy = createdBy;
 		this.updatedBy = updatedBy;
-	}
-
-	public Role() {
-		super();
 	}
 
 	public long getId() {
@@ -159,25 +151,4 @@ public class Role {
 		this.updatedBy = updatedBy;
 	}
 
-	
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	
-	
-	
-	
-	
 }
