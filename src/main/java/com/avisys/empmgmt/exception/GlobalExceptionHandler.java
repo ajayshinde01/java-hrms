@@ -110,4 +110,11 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
 
 	}
+
+	@ExceptionHandler(DepartmentException.class)
+	public ResponseEntity<ApiResponse> DataNotFoundException(DepartmentException ex) {
+		String message = ex.getMessage();
+		ApiResponse apiResponse = new ApiResponse(message);
+		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
+	}
 }
