@@ -15,7 +15,7 @@ import com.avisys.empmgmt.dto.DesignationDto;
 import com.avisys.empmgmt.entity.Designation;
 import com.avisys.empmgmt.exception.DesignationNotFound;
 import com.avisys.empmgmt.repository.DesignationRepo;
-import com.avisys.empmgmt.util.DesignationUtils;
+import com.avisys.empmgmt.util.Utils;
 
 @Service
 @Transactional
@@ -25,7 +25,7 @@ public class DesignationService implements IDesignationService {
 	private DesignationRepo designationRepo;
 
 	@Autowired
-	private DesignationUtils designationUtils;
+	private Utils designationUtils;
 
 
 	@Override

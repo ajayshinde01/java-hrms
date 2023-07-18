@@ -44,24 +44,52 @@ public class GlobalExceptionHandler {
 
 		return new ResponseEntity(new ApiResponse("Data Already Present..."), HttpStatus.NOT_FOUND);
 	}
-	
-	 @ExceptionHandler(DesignationNotFound.class)
-	    public ResponseEntity<?> handleDesignationNotFoundExceptions( DesignationNotFound exception, WebRequest webRequest) {
-	        ApiResponse response = new ApiResponse();
-	        response.setDateTime(LocalDateTime.now());
-	        response.setMessage(exception.getMessage());
-	        return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
-	         
-	    }
-	 
-	 protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+
+	@ExceptionHandler(DesignationNotFound.class)
+	public ResponseEntity<?> handleDesignationNotFoundExceptions(DesignationNotFound exception, WebRequest webRequest) {
+		ApiResponse response = new ApiResponse();
+		response.setDateTime(LocalDateTime.now());
+		response.setMessage(exception.getMessage());
+		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+
+	}
+
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-		 Map<String, String> errors=new HashMap<>();
-		 ex.getBindingResult().getAllErrors().forEach((error)->{
-			 String field=((FieldError) error).getField();
-			 String message=error.getDefaultMessage();
-			 errors.put(field,message);
-		 });
+		Map<String, String> errors = new HashMap<>();
+		ex.getBindingResult().getAllErrors().forEach((error) -> {
+			String field = ((FieldError) error).getField();
+			String message = error.getDefaultMessage();
+			errors.put(field, message);
+		});
 		return new ResponseEntity<Object>(errors, HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(value = NoRoleFoundException.class)
+
+	public ResponseEntity<Object> exception(NoRoleFoundException exception) {
+		return new ResponseEntity(new ApiResponse("Role not found"), HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler(value = EmptyListException.class)
+
+	public ResponseEntity<Object> exception(EmptyListException exception) {
+		return new ResponseEntity<>(new ApiResponse("No Records found"), HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler(value = InvalidInputException.class)
+
+	public ResponseEntity<Object> exception(InvalidInputException exception) {
+		return new ResponseEntity<>(
+				"Field should not be blank, should not contain number and should not contain special characters",
+				HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(value = RoleAlreadyPresentException.class)
+
+	public ResponseEntity<Object> exception(RoleAlreadyPresentException exception) {
+		return new ResponseEntity<>(
+				new ApiResponse("Role already present or Role Id is already taken. Try for another Role Id"),
+				HttpStatus.BAD_REQUEST);
 	}
 }
