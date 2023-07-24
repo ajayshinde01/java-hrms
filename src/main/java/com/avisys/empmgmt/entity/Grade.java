@@ -16,7 +16,7 @@ import lombok.Getter;
 
 @Entity
 @Getter
-public class Grade {
+public class Grade extends Status{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Id_sequence_generator")
@@ -37,21 +37,6 @@ public class Grade {
 	@NotNull(message = "Grade Type  is not null")
 	@Column(name = "type")
 	private String gradeType;
-
-	@Column(name = "org_code")
-	private String orgCode;
-	@Column(name = "is_deleted")
-	private boolean isDeleted;
-
-	@Column(name = "created_by")
-	private String createdBy;
-	@Column(name = "created_at")
-	private LocalDateTime createdAt;
-
-	@Column(name = "updated_at")
-	private LocalDateTime updatedAt;
-	@Column(name = "updated_by")
-	private String updatedBy;
 
 	public Grade() {
 		super();
@@ -113,52 +98,5 @@ public class Grade {
 		this.gradeType = gradeType;
 	}
 
-	public String getOrgCode() {
-		return orgCode;
-	}
-
-	public void setOrgCode(String orgCode) {
-		this.orgCode = orgCode;
-	}
-
-	public boolean isDeleted() {
-		return isDeleted;
-	}
-
-	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
-	}
-
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public String getUpdatedBy() {
-		return updatedBy;
-	}
-
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
-	}
 
 }

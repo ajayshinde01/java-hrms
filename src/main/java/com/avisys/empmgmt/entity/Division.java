@@ -14,7 +14,7 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "division")
-public class Division {
+public class Division extends Status{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "divisionId_generator")
 	@SequenceGenerator(name="divisionId_generator", sequenceName = "division_seq", initialValue = 1, allocationSize = 1)
@@ -36,27 +36,6 @@ public class Division {
 	@Column(name = "description")
 	private String divisionDescription;
 	
-	@NotNull(message="Orgcode should not be null")
-	@NotBlank(message="Orgcode should not be blank")
-	@Size(min = 3,message = "Orgcode must be of 3 character")
-	@Column(name = "org_code")
-    private String orgCode;
-	
-	@Column(name = "is_deleted")
-    private boolean isDeleted;
-	
-	@Column(name = "created_at")
-    private LocalDateTime createdAt;
-	
-	@Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-	
-	@Column(name = "created_by")
-    private String createdBy;
-	
-	@Column(name = "updated_by")
-    private String updatedBy;
-    
     public Division() {
 		super();
 	}
@@ -123,55 +102,6 @@ public class Division {
 	public void setdivisionDescription(String divisionDescription) {
 		this.divisionDescription = divisionDescription;
 	}
-
-	public String getOrgCode() {
-		return orgCode;
-	}
-
-	public void setOrgCode(String orgCode) {
-		this.orgCode = orgCode;
-	}
-
-	public boolean isDeleted() {
-		return isDeleted;
-	}
-
-	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
-	}
-
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public String getUpdatedBy() {
-		return updatedBy;
-	}
-
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
-	}
-    
     
     
 }

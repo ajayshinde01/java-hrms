@@ -114,7 +114,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(DepartmentException.class)
 	public ResponseEntity<ApiResponse> DataNotFoundException(DepartmentException ex) {
 		String message = ex.getMessage();
-		ApiResponse apiResponse = new ApiResponse(message);
+		ApiResponse apiResponse = new ApiResponse(message,LocalDateTime.now());
 		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
 	}
 }

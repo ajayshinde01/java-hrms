@@ -8,8 +8,8 @@ import com.avisys.empmgmt.dto.CreateDivisionDto;
 import com.avisys.empmgmt.dto.DivisionDto;
 import com.avisys.empmgmt.entity.Division;
 
-public interface IDivisonService {
-   List<DivisionDto> getAllDivison();
+public interface IDivisionService {
+   List<DivisionDto> getAllDivision();
 
    String saveDivision(CreateDivisionDto division);
 

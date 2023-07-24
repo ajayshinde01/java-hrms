@@ -37,7 +37,6 @@ public class RoleServiceImpl implements RoleService {
 	{
 		LocalDateTime now = LocalDateTime.now();
 		System.out.println(now);
-		List<GETResponse> responseList=null;
 		List<Role> allRoles=  this.roleRepo.findByIsDeletedFalse();
 		if(allRoles.isEmpty()) throw new EmptyListException();
 		

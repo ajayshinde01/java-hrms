@@ -45,8 +45,8 @@ public class DepartmentController {
 	}
 
 	@PostMapping("/add-department")
-	public ResponseEntity<?> addDepartment(@Valid @RequestBody DepartmentDto depatment) throws DepartmentException {
-		String createDepartment = this.departmentService.createDepartment(depatment);
+	public ResponseEntity<?> addDepartment(@Valid @RequestBody DepartmentDto department) throws DepartmentException {
+		String createDepartment = this.departmentService.createDepartment(department);
 		return new ResponseEntity<>(new ApiResponse(createDepartment), HttpStatus.CREATED);
 	}
 

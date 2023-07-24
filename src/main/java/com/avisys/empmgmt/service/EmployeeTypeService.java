@@ -1,5 +1,6 @@
 package com.avisys.empmgmt.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -10,10 +11,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.avisys.empmgmt.dto.EmployeeTypeDTO;
+import com.avisys.empmgmt.entity.Division;
 import com.avisys.empmgmt.entity.EmployeeType;
 import com.avisys.empmgmt.exception.ResourceNotFoundException;
 import com.avisys.empmgmt.exception.DataAlreadyPresentException;
 import com.avisys.empmgmt.repository.EmployeeTypeRepository;
+import com.avisys.empmgmt.util.ApiResponse;
 
 @Service
 public class EmployeeTypeService {
@@ -29,66 +32,62 @@ public class EmployeeTypeService {
 
 		List<EmployeeType> list = null;
 
-		list = employeeTypeRepository.findAllByDeleted(false);
+		list = employeeTypeRepository.findAllByIsDeleted(false);
 		if (list.isEmpty()) {
 			throw new ResourceNotFoundException("Sorry... No Record Found");
 		}
-
+		else {
 		List<EmployeeTypeDTO> empDTO = list.stream().map(e -> mapper.map(e, EmployeeTypeDTO.class))
 				.collect(Collectors.toList());
-
-		for (EmployeeTypeDTO employeeTypeDTO : empDTO) {
-			employeeTypeDTO.setMessage("Records Shown Successfully...");
-		}
 		return empDTO;
+		}
 	}
 
 	/************* Create Record ******************/
 	
 	public EmployeeTypeDTO CreateorSaveEmployeeType(EmployeeTypeDTO employeeTypeDTO) {
 		EmployeeType employeeType = mapper.map(employeeTypeDTO, EmployeeType.class);
-		Optional<EmployeeType> e = this.employeeTypeRepository.findByIdAndDeleted(employeeType.getId(), false);
+		Optional<EmployeeType> e = this.employeeTypeRepository.findByEmployeeTypeIdAndIsDeleted(employeeTypeDTO.getEmployeeTypeId(), false);
+		System.out.println(e.get());
 		if (e.isPresent()) {
 			throw new DataAlreadyPresentException();
 		}
-
+		else {
+		employeeType.setCreatedAt(LocalDateTime.now());
+		employeeType.setUpdatedAt(LocalDateTime.now());
+		employeeType.setDeleted(false);
 		EmployeeType employee = employeeTypeRepository.save(employeeType);
 		EmployeeTypeDTO empDTO = mapper.map(employee, EmployeeTypeDTO.class);
-		String mesg = "Record Stored Successfully...";
-		empDTO.setMessage(mesg);
 		return empDTO;
+		}
 	}
 
 	/************* Get-ById ******************/
 	
-	public EmployeeTypeDTO getByEmpId(Long id) throws ResourceNotFoundException {
-		Optional<EmployeeType> findByIdAndDeleted = employeeTypeRepository.findByIdAndDeleted(id, false);
+	public EmployeeTypeDTO getByEmpId(String employeeTypeId) throws ResourceNotFoundException {
+		Optional<EmployeeType> findByIdAndDeleted = employeeTypeRepository.findByEmployeeTypeIdAndIsDeleted(employeeTypeId, false);
 		if (findByIdAndDeleted.isEmpty()) {
-			throw new ResourceNotFoundException("Record with Id " + id + " " + "does not exist");
+			throw new ResourceNotFoundException("Record with Id " + employeeTypeId + " " + "does not exist");
 		}
 		EmployeeType employeeType = findByIdAndDeleted.get();
 		EmployeeTypeDTO employeeTypeDTO = mapper.map(employeeType, EmployeeTypeDTO.class);
-		String mesg = "Record with ID" + " " + id + " " + "found Successfully...";
-		employeeTypeDTO.setMessage(mesg);
 		return employeeTypeDTO;
 
 	}
 
 	/************* Delete-ById ******************/
 	
-	public ResponseEntity<String> delete(Long id) {
-		Optional<EmployeeType> findByIdAndDeleted = employeeTypeRepository.findByIdAndDeleted(id, false);
+	public ResponseEntity<?> delete(String employeeTypeId) {
+		Optional<EmployeeType> findByIdAndDeleted = employeeTypeRepository.findByEmployeeTypeIdAndIsDeleted(employeeTypeId, false);
 
 		if (findByIdAndDeleted.isPresent()) {
 			EmployeeType employee = findByIdAndDeleted.get();
 			employee.setDeleted(true);
 			employeeTypeRepository.save(employee);
 
-			String successMessage = "Record Deleted Successfully"; // Define the success message
-
-			return ResponseEntity.ok(successMessage);
+			return ResponseEntity.ok(new ApiResponse("Record Deleted Successfully"));
 		} else {
-			throw new ResourceNotFoundException("Record with Id " + id + " Not Found...");
+			throw new ResourceNotFoundException("Record with Id " + employeeTypeId + " Not Found...");
 		}
 
 	}
@@ -97,31 +96,40 @@ public class EmployeeTypeService {
 	
 	public EmployeeTypeDTO update(EmployeeTypeDTO employeeTypeDTO, Long id) {
 		Optional<EmployeeType> updateEmpId = employeeTypeRepository.findById(id);
-		if (!updateEmpId.isPresent()) {
+		if (!updateEmpId.isPresent()||updateEmpId.get().isDeleted()) {
 			throw new ResourceNotFoundException("Updatation Fails with Id:- " + id);
 		}
-		EmployeeType updateEmpType = updateEmpId.get();
-		updateEmpType.setType(employeeTypeDTO.getType());
-		updateEmpType.setOrgCode(employeeTypeDTO.getOrgCode());
-//		updateEmpType.setUpdatedAt(employeeTypeDTO.getUpdatedAt());
-		updateEmpType.setUpdatedBy(employeeTypeDTO.getUpdatedBy());
-		EmployeeType type = employeeTypeRepository.save(updateEmpType);
-		EmployeeTypeDTO empDTO = mapper.map(type, EmployeeTypeDTO.class);
-		System.out.println(empDTO.toString());
-		empDTO.setUpdatedAt(type.getUpdatedAt());
-		System.out.println(type.getUpdatedAt());
-		empDTO.setMessage("Record Update Successfully...");
-		return empDTO;
+		else {
+			Optional<EmployeeType> employeeTypeByEmpTypeId = employeeTypeRepository
+					.findByEmployeeTypeId(employeeTypeDTO.getEmployeeTypeId());
+			if(employeeTypeByEmpTypeId.isEmpty() || employeeTypeDTO.getId().equals(updateEmpId.get().getEmployeeTypeId())
+					&& employeeTypeDTO.getEmployeeTypeId().equals(updateEmpId.get().getEmployeeTypeId())) {
+				EmployeeType updateEmpType = updateEmpId.get();
+				updateEmpType.setType(employeeTypeDTO.getType());
+				updateEmpType.setOrgCode(employeeTypeDTO.getOrgCode());
+//				updateEmpType.setUpdatedAt(employeeTypeDTO.getUpdatedAt());
+				updateEmpType.setUpdatedBy(employeeTypeDTO.getUpdatedBy());
+				EmployeeType type = employeeTypeRepository.save(updateEmpType);
+				EmployeeTypeDTO empDTO = mapper.map(type, EmployeeTypeDTO.class);
+				System.out.println(empDTO.toString());
+				empDTO.setUpdatedAt(LocalDateTime.now());
+				System.out.println(type.getUpdatedAt());
+				return empDTO;
+			}
+			else {
+				throw new ResourceNotFoundException("Employee Type Id Is Already Present");
+			}
+		}
 	}
 
 	/************* Pagination-Search,Sort,Page,Size ******************/
 
-	public Page<EmployeeTypeDTO> search(String type, Pageable pageable) {
+	public Page<EmployeeTypeDTO> search(String searchValue, Pageable pageable) {
 		Page<EmployeeType> employeeType;
-		if (type.isEmpty()) {
-			employeeType = employeeTypeRepository.findAllByDeleted(pageable, false);
+		if (searchValue.isEmpty()) {
+			employeeType = employeeTypeRepository.findAllByIsDeleted(pageable, false);
 		} else {
-			employeeType = employeeTypeRepository.findByTypeIsContainingAndDeleted(type, pageable, false);
+			employeeType = employeeTypeRepository.searchEmployeeType(searchValue.toLowerCase(),pageable).get();
 		}
 		return employeeType.map(this::convertToDTO);
 	}
@@ -135,7 +143,6 @@ public class EmployeeTypeService {
 		employeeTypeDTO.setCreatedBy(employeeType.getCreatedBy());
 		employeeTypeDTO.setUpdatedAt(employeeType.getUpdatedAt());
 		employeeTypeDTO.setUpdatedBy(employeeType.getUpdatedBy());
-		employeeTypeDTO.setMessage("Details Shown Successfully...");
 		return employeeTypeDTO;
 	}
 }

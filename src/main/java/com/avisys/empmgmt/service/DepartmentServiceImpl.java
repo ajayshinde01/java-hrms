@@ -50,7 +50,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 		Department department = this.modelMapper.map(departmentDto, Department.class);
 		department.setCreatedAt(LocalDateTime.now());
 		department.setCreatedBy("Akshay");
-		department.setIsDeleted(false);
+		department.setDeleted(false);
 		departmentRepository.save(department);
 		return "Department created successfully";
 	}
@@ -58,9 +58,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public String deleteDepartment(String departmentId) throws DepartmentException {
 		Optional<Department> optionalDepartment = this.departmentRepository.findByDepartmentId(departmentId);
-		if (optionalDepartment.isPresent() &&  !optionalDepartment.get().getIsDeleted()) {
+		if (optionalDepartment.isPresent() &&  !optionalDepartment.get().isDeleted()) {
 			Department department = optionalDepartment.get();
-			department.setIsDeleted(true); // Set isDeleted flag to true
+			department.setDeleted(true); // Set isDeleted flag to true
 			departmentRepository.save(department); // Update the department entity
 			return "Department deleted successfully";
 		} else {
@@ -71,7 +71,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public DepartmentDto getByIdDepartments(String departmentId) throws DepartmentException {
 		Optional<Department> department = departmentRepository.findByDepartmentId(departmentId);
-		if (department.isPresent() && !department.get().getIsDeleted()) {
+		if (department.isPresent() && !department.get().isDeleted()) {
 			return this.modelMapper.map(department, DepartmentDto.class);
 		} else {
 			throw new DepartmentException("Department not found");
@@ -86,7 +86,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
         Optional<Department> departmentOptionalObj = departmentRepository.findById(departmentDto.getId());
         
-        if (departmentOptionalObj.isEmpty() || departmentOptionalObj.get().getIsDeleted() == true) {
+        if (departmentOptionalObj.isEmpty() || departmentOptionalObj.get().isDeleted() == true) {
             String message = "No Department Present in the Database";
             throw new DepartmentException(message);
         }

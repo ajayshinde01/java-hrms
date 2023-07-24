@@ -20,7 +20,7 @@ import jakarta.transaction.Transactional;
 
 @Service
 @Transactional
-public class DivisonService implements IDivisonService {
+public class DivisionService implements IDivisionService {
 
 	@Autowired
 	private DivisonRepository divisonRepository;
@@ -29,7 +29,7 @@ public class DivisonService implements IDivisonService {
 	private Utils util;
 
 	@Override
-	public List<DivisionDto> getAllDivison() {
+	public List<DivisionDto> getAllDivision() {
 		List<Division> divisions = divisonRepository.findByIsDeletedFalse().get();
 		if (divisions.isEmpty()) {
 			throw new DivisionNotFound("Divisions Not Found");

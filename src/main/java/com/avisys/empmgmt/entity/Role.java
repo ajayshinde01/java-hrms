@@ -27,7 +27,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Role {
+public class Role extends Status{
 
 	@Id
 	@Column(name = "ID")
@@ -46,25 +46,6 @@ public class Role {
 	@Column(name = "name")
 	private String roleName;
 
-	// Fields For Logging Purpose
-
-	@Column(name = "Org_code")
-	private String orgCode;
-
-	@Column(name = "is_Deleted")
-	private boolean isDeleted;
-
-	@Column(name = "Created_at")
-	private LocalDateTime createdAt;
-
-	@Column(name = "Updated_at")
-	private LocalDateTime updatedAt;
-
-	@Column(name = "Created_by")
-	private String createdBy;
-
-	@Column(name = "Updated_by")
-	private String updatedBy;
 
 	public Role(String roleId, String roleName, String orgCode, boolean isDeleted, LocalDateTime createdAt,
 			LocalDateTime updatedAt, String createdBy, String updatedBy) {
@@ -101,54 +82,6 @@ public class Role {
 
 	public void setRoleId(String roleId) {
 		this.roleId = roleId;
-	}
-
-	public String getOrgCode() {
-		return orgCode;
-	}
-
-	public void setOrgCode(String orgCode) {
-		this.orgCode = orgCode;
-	}
-
-	public boolean isDeleted() {
-		return isDeleted;
-	}
-
-	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
-	}
-
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public String getUpdatedBy() {
-		return updatedBy;
-	}
-
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
 	}
 
 }

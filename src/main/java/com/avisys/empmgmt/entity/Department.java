@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="DEPARTMENTS")
-public class Department {
+public class Department extends Status{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "Id_squenece_generator")
 	@SequenceGenerator(name="Id_squenece_generator", initialValue = 1, allocationSize = 1)
@@ -30,24 +30,6 @@ public class Department {
 	@Column(name="DESCRIPTION")
 	private String departmentDescription;
 	
-	@Column(name="ORGCODE")
-	private String orgCode;
-    
-	@Column(name="Delete_Status")	
-	private boolean isDeleted;
-    
-	@Column(name="create_Date")
-	private LocalDateTime createdAt;
-    
-	@Column(name="update_Date")
-	private LocalDateTime updatedAt;
-    
-	@Column(name="CreatedBy")
-	private String createdBy;
-    
-	@Column(name="UpdatedBy")
-	private String updatedBy;
-    
 	public Department() {
 		super();
 	}
@@ -82,53 +64,5 @@ public class Department {
 
 	public void setDepartmentDescription(String departmentDescription) {
 		this.departmentDescription = departmentDescription;
-	}
-
-	public String getOrgCode() {
-		return orgCode;
-	}
-
-	public void setOrgCode(String orgCode) {
-		this.orgCode = orgCode;
-	}
-
-	public Boolean getIsDeleted() {
-		return isDeleted;
-	}
-
-	public void setIsDeleted(Boolean isDeleted) {
-		this.isDeleted = isDeleted;
-	}
-
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(LocalDateTime localDateTime) {
-		this.createdAt = localDateTime;
-	}
-
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public String getUpdatedBy() {
-		return updatedBy;
-	}
-
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
 	}
 }

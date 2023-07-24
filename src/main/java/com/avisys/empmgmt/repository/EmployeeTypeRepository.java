@@ -6,19 +6,29 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import com.avisys.empmgmt.entity.Division;
 import com.avisys.empmgmt.entity.EmployeeType;
 
 @Repository
 public interface EmployeeTypeRepository extends JpaRepository<EmployeeType, Long> {
 
-	Optional<EmployeeType> findByIdAndDeleted(Long id, boolean deleted);
+	Optional<EmployeeType> findByIdAndIsDeleted(Long id, boolean isDeleted);
+	
+	Page<EmployeeType> findAllByIsDeleted(Pageable pageable, boolean isDeleted);
 
-	Optional<EmployeeType> getByIdAndDeleted(Long id, boolean deleted);
+	Page<EmployeeType> findByTypeIsContainingAndIsDeleted(String type, Pageable pageable, boolean isDeleted);
 
-	Page<EmployeeType> findAllByDeleted(Pageable pageable, boolean deleted);
 
-	Page<EmployeeType> findByTypeIsContainingAndDeleted(String type, Pageable pageable, boolean deleted);
+	 @Query("Select e from EmployeeType e where (lower(e.employeeTypeId) like %:searchValue% or lower(e.type) like %:searchValue% )and e.isDeleted = false")
+	 Optional<Page<EmployeeType>> searchEmployeeType(@Param("searchValue")String searchValue, Pageable pageble);
+	
+	List<EmployeeType> findAllByIsDeleted(boolean isDeleted);
 
-	List<EmployeeType> findAllByDeleted(boolean deleted);
+	Optional<EmployeeType> findByEmployeeTypeId(String employeeTypeId);
+
+	Optional<EmployeeType> findByEmployeeTypeIdAndIsDeleted(String employeeTypeId, boolean b);
 }

@@ -22,60 +22,61 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.avisys.empmgmt.dto.CreateDivisionDto;
 import com.avisys.empmgmt.dto.DivisionDto;
-import com.avisys.empmgmt.service.IDivisonService;
+import com.avisys.empmgmt.service.IDivisionService;
+import com.avisys.empmgmt.service.IDivisionService;
 import com.avisys.empmgmt.util.ApiResponse;
 
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/employee/division")
-public class DivisonController {
+public class DivisionController {
 
 	@Autowired
-	private IDivisonService divisonService;
+	private IDivisionService divisionService;
 
-	Logger logger = Logger.getLogger(DivisonController.class);
+	Logger logger = Logger.getLogger(DivisionController.class);
 	
-	public DivisonController() {
+	public DivisionController() {
 
 	}
 
 	@GetMapping("/get-all")
 	public ResponseEntity<?> getAllDivison() {
         logger.info("getAllDivison method called");
-		List<DivisionDto> divisons = divisonService.getAllDivison();
+		List<DivisionDto> divisons = divisionService.getAllDivision();
 		return new ResponseEntity<>(divisons, HttpStatus.OK);
    }
 
 	@PostMapping("/create")
 	public ResponseEntity<?> createDivision(@Valid @RequestBody CreateDivisionDto division) {
 		logger.info("createDivision method called");
-		return new ResponseEntity<>(new ApiResponse(divisonService.saveDivision(division),LocalDateTime.now()), HttpStatus.CREATED);
+		return new ResponseEntity<>(new ApiResponse(divisionService.saveDivision(division),LocalDateTime.now()), HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/{divisionId}")
 	public ResponseEntity<?> deleteDivisionById(@PathVariable("divisionId") String divisionId) {
 		logger.info("deleteDivisionById method called");
-		return new ResponseEntity<>(new ApiResponse(divisonService.deleteDivisionById(divisionId),LocalDateTime.now()), HttpStatus.OK);
+		return new ResponseEntity<>(new ApiResponse(divisionService.deleteDivisionById(divisionId),LocalDateTime.now()), HttpStatus.OK);
 	}
 
 	@GetMapping("/{divisionId}")
 	public ResponseEntity<?> getDivisionById(@PathVariable("divisionId") String divisionId) {
 		logger.info("getDivisionById method called");
-		DivisionDto divisionDto = divisonService.getDivisionById(divisionId);
+		DivisionDto divisionDto = divisionService.getDivisionById(divisionId);
 		return new ResponseEntity<>( divisionDto, HttpStatus.OK);
 	}
 	
 	@GetMapping("/search")
 	public ResponseEntity<?> searchDivision(@RequestParam(defaultValue = "") String searchValue,@PageableDefault(direction = Direction.ASC) Pageable pageable){
 		logger.info("pagination method called");
-		return new ResponseEntity<>(divisonService.searchDivision(searchValue.toLowerCase(),pageable),HttpStatus.OK);	
+		return new ResponseEntity<>(divisionService.searchDivision(searchValue.toLowerCase(),pageable),HttpStatus.OK);	
 	}
 	
 	@PutMapping("/update")
 	public ResponseEntity<?> updateDivision(@Valid @RequestBody DivisionDto divisionDto){
 		logger.info("updateDivision method called");	
-		return new ResponseEntity<>(new ApiResponse(divisonService.updateDivision(divisionDto),LocalDateTime.now()),HttpStatus.OK);
+		return new ResponseEntity<>(new ApiResponse(divisionService.updateDivision(divisionDto),LocalDateTime.now()),HttpStatus.OK);
 	}
 
 }

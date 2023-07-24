@@ -1,5 +1,6 @@
 package com.avisys.empmgmt.dto;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
@@ -12,6 +13,12 @@ public class EmployeeTypeDTO {
 	@NotNull(message = "Type Should not be null")
 	@Size(min = 3, max = 15, message = "type size min = 3 & max = 15")
 	private String type;
+	
+	@Column(name = "employee_type_id")
+	@NotNull(message="Employee Type Id should not be null")
+	@NotBlank(message="Employee Type Id should not be blank")
+	@Size(min = 3,message = "Division Id must be of 3 character")
+	private String employeeTypeId;
 
 	@NotBlank(message = "Org code Should not be blank")
 	@NotNull(message = "Org code Should not be null")
@@ -20,9 +27,9 @@ public class EmployeeTypeDTO {
 
 	private boolean deleted = Boolean.FALSE;
 
-	private Date createdAt;
+	private LocalDateTime createdAt;
 
-	private Date updatedAt;
+	private LocalDateTime updatedAt;
 
 	@NotBlank(message = "Created by Should not be blank")
 	@NotNull(message = "Created by code Should not be null")
@@ -33,18 +40,16 @@ public class EmployeeTypeDTO {
 	@Column(name = "Updated_By")
 	private String updatedBy;
 
-	private String message;
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
 	public Long getId() {
 		return id;
+	}
+
+	public String getEmployeeTypeId() {
+		return employeeTypeId;
+	}
+
+	public void setEmployeeTypeId(String employeeTypeId) {
+		this.employeeTypeId = employeeTypeId;
 	}
 
 	public void setId(Long id) {
@@ -75,19 +80,19 @@ public class EmployeeTypeDTO {
 		this.deleted = deleted;
 	}
 
-	public Date getCreatedAt() {
+	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public Date getUpdatedAt() {
+	public LocalDateTime getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(Date updatedAt) {
+	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 
@@ -111,7 +116,7 @@ public class EmployeeTypeDTO {
 	public String toString() {
 		return "EmployeeTypeDTO [id=" + id + ", type=" + type + ", orgCode=" + orgCode + ", deleted=" + deleted
 				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", createdBy=" + createdBy + ", updatedBy="
-				+ updatedBy + ", message=" + message + "]";
+				+ updatedBy + "]";
 	}
 
 }

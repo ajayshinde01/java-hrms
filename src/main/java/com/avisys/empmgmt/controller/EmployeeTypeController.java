@@ -50,17 +50,17 @@ public class EmployeeTypeController {
 	}
 
 	/************** Get-ById *******************/
-	@GetMapping("/by-id/{id}")
-	public ResponseEntity<EmployeeTypeDTO> findEmpId(@PathVariable Long id) {
-		EmployeeTypeDTO employeeTypeDTO = employeeTypeService.getByEmpId(id);
+	@GetMapping("/by-id/{employeeTypeId}")
+	public ResponseEntity<EmployeeTypeDTO> findEmpId(@PathVariable String employeeTypeId) {
+		EmployeeTypeDTO employeeTypeDTO = employeeTypeService.getByEmpId(employeeTypeId);
 		logger.info("Getting Information By Id Successfully...");
 		return ResponseEntity.ok(employeeTypeDTO);
 	}
 
 	/************** Delete-ById *******************/
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> delete(@PathVariable Long id) {
-		ResponseEntity<String> employeeDeleted = employeeTypeService.delete(id);
+	@DeleteMapping("/delete/{employeeTypeId}")
+	public ResponseEntity<?> delete(@PathVariable String employeeTypeId) {
+		ResponseEntity<?> employeeDeleted = employeeTypeService.delete(employeeTypeId);
 		logger.info("Delete Information By Id Successfully...");
 		return employeeDeleted;
 	}
@@ -77,9 +77,9 @@ public class EmployeeTypeController {
 	/************** Pagination *******************/
 
 	@GetMapping("/search")
-	public ResponseEntity<Page<EmployeeTypeDTO>> search(@RequestParam(defaultValue = "") String type,
+	public ResponseEntity<Page<EmployeeTypeDTO>> search(@RequestParam(defaultValue = "") String searchValue,
 			Pageable pageable) {
-		Page<EmployeeTypeDTO> page = employeeTypeService.search(type, pageable);
+		Page<EmployeeTypeDTO> page = employeeTypeService.search(searchValue, pageable);
 		return ResponseEntity.ok(page);
 	}
 
