@@ -1,5 +1,6 @@
 package com.avisys.empmgmt.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,20 +48,20 @@ public class DepartmentController {
 	@PostMapping("/add-department")
 	public ResponseEntity<?> addDepartment(@Valid @RequestBody DepartmentDto department) throws DepartmentException {
 		String createDepartment = this.departmentService.createDepartment(department);
-		return new ResponseEntity<>(new ApiResponse(createDepartment), HttpStatus.CREATED);
+		return new ResponseEntity<>(new ApiResponse(createDepartment,LocalDateTime.now()), HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/{department-Id}")
 	public ResponseEntity<?> deleteDepartment(@PathVariable("department-Id") String departmentId)
 			throws DepartmentException {
 		String deletedDepartment = this.departmentService.deleteDepartment(departmentId);
-		return new ResponseEntity<>(new ApiResponse(deletedDepartment), HttpStatus.OK);
+		return new ResponseEntity<>(new ApiResponse(deletedDepartment,LocalDateTime.now()), HttpStatus.OK);
 	}
 
 	@PutMapping
 	public ResponseEntity<?> updateDepartment(@Valid @RequestBody DepartmentDto department) throws DepartmentException {
 		String updateDepartment = this.departmentService.updateDepartment(department);
-		return new ResponseEntity<>(new ApiResponse(updateDepartment), HttpStatus.OK);
+		return new ResponseEntity<>(new ApiResponse(updateDepartment,LocalDateTime.now()), HttpStatus.OK);
 	}
 
 	@GetMapping("/search")

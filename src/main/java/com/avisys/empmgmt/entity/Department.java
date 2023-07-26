@@ -1,8 +1,5 @@
 package com.avisys.empmgmt.entity;
 
-
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,24 +7,34 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 
 @Entity
-@Table(name="DEPARTMENTS")
+@Table(name="departments")
 public class Department extends Status{
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "Id_squenece_generator")
-	@SequenceGenerator(name="Id_squenece_generator", initialValue = 1, allocationSize = 1)
-	@Column(name="ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "department_id_squenece_generator")
+	@SequenceGenerator(name="department_id_squenece_generator", initialValue = 1, allocationSize = 1)
+	@Column(name="id")
 	private Long id;
 	
-	@Column(name="DEPARTMENT_ID", unique=true)
+	@Column(name="department_id", unique=true)
+	@NotNull(message="Id must not be null")
+	@NotBlank(message="Id must not be blank")
+	@Size(min=2, max=8, message="Id should be in between 2 to 8 character")
 	private String departmentId;
 	
-	@Column(name="NAME")
+	@Column(name="department_name")
+	@NotNull(message="Name must not be null")
+	@NotBlank(message="Name must not be blank")
+	@Size(min=4, message="Name must be min of 4 character")
 	private String departmentName;
 	
-	@Column(name="DESCRIPTION")
+	@Column(name="description")
+	@NotNull(message="Description should not be null")
 	private String departmentDescription;
 	
 	public Department() {
@@ -65,4 +72,6 @@ public class Department extends Status{
 	public void setDepartmentDescription(String departmentDescription) {
 		this.departmentDescription = departmentDescription;
 	}
+	
+	
 }

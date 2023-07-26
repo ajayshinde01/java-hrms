@@ -31,14 +31,18 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(error_Details, HttpStatus.NOT_FOUND);
 	}
 
+	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<String> handleValidationExceptions(MethodArgumentNotValidException ex) {
-		List<ObjectError> errors = ex.getBindingResult().getAllErrors();
-		String errorMessage = errors.stream().map(DefaultMessageSourceResolvable::getDefaultMessage)
-				.collect(Collectors.joining(", "));
-		return ResponseEntity.badRequest().body(errorMessage);
+	public ResponseEntity<?> handleValidationExceptions(MethodArgumentNotValidException ex) {
+		Map<String, String> errors = new HashMap<>();
+	     ex.getBindingResult().getAllErrors().forEach((error) -> {
+		String field = ((FieldError) error).getField();
+		String message = error.getDefaultMessage();
+		errors.put(field, message);
+	     });
+		return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
 	}
-
+	
 	@ExceptionHandler(DataAlreadyPresentException.class)
 	public ResponseEntity<String> DataAlreadyPresentException(DataAlreadyPresentException ex) {
 
@@ -54,16 +58,6 @@ public class GlobalExceptionHandler {
 
 	}
 
-	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-			HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-		Map<String, String> errors = new HashMap<>();
-		ex.getBindingResult().getAllErrors().forEach((error) -> {
-			String field = ((FieldError) error).getField();
-			String message = error.getDefaultMessage();
-			errors.put(field, message);
-		});
-		return new ResponseEntity<Object>(errors, HttpStatus.BAD_REQUEST);
-	}
 
 	@ExceptionHandler(value = NoRoleFoundException.class)
 
@@ -86,7 +80,6 @@ public class GlobalExceptionHandler {
 	}
 
 	@ExceptionHandler(value = RoleAlreadyPresentException.class)
-
 	public ResponseEntity<Object> exception(RoleAlreadyPresentException exception) {
 		return new ResponseEntity<>(
 				new ApiResponse("Role already present or Role Id is already taken. Try for another Role Id"),
@@ -113,6 +106,13 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(DepartmentException.class)
 	public ResponseEntity<ApiResponse> DataNotFoundException(DepartmentException ex) {
+		String message = ex.getMessage();
+		ApiResponse apiResponse = new ApiResponse(message,LocalDateTime.now());
+		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(EmployeeException.class)
+	public ResponseEntity<ApiResponse> DataNotFoundException(EmployeeException ex) {
 		String message = ex.getMessage();
 		ApiResponse apiResponse = new ApiResponse(message,LocalDateTime.now());
 		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
