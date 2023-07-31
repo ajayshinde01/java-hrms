@@ -91,43 +91,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 		} else
 			return employeeDto;
 	}
-
-//	@Override
-//	public String updateEmployee(@Valid EmployeeDto employeeDto) throws EmployeeException {
-//		if (employeeDto.getId() == null) {
-//            throw new EmployeeException("Id Should Not be null");
-//        }
-//        Optional<Employee> employeeOptionalObj = employeeRepository.findById(employeeDto.getId());
-//        
-//        if (employeeOptionalObj.isEmpty() || employeeOptionalObj.get().isDeleted() == true) {
-//            String message = "No Department Present in the Database";
-//            throw new EmployeeException(message);
-//        }
-//        
-//        Employee  employeeObj =  employeeOptionalObj.get();
-//        Optional<Employee> employeeIdObj = employeeRepository.findByEmployeeCode(employeeDto.getEmployeeCode());
-//        if (employeeIdObj.isEmpty()|| employeeDto.getEmployeeCode().equals(employeeObj.getEmployeeCode())) {
-//        	Employee employee = employeeOptionalObj.get();
-//        	employee.setEmployeeCode(employeeDto.getEmployeeCode());
-//        	employee.setFirstName(employeeDto.getFirstName());
-//        	employee.setMiddleName(employeeDto.getMiddleName());
-//        	employee.setLastName(employeeDto.getLastName());
-//        	employee.setDateOfBirth(employeeDto.getDateOfBirth());
-//        	employee.setLastName(employeeDto.getLastName());
-//        	employee.setGender(employeeDto.getGender());
-//        	employee.setDateOfJoining(employeeDto.getDateOfJoining());
-//        	employee.setAge(employeeDto.getAge());
-//        	employee.setDivision(employeeDto.getDivision());
-//        	employee.setUserId(employeeDto.getUserId());
-//            employee.setOrgCode(employeeDto.getOrgCode());
-//            employee.setUpdatedBy(employeeDto.getUpdatedBy());
-//            employee.setUpdatedAt(LocalDateTime.now());
-//            employeeRepository.save(employee);
-//        } else {
-//            throw new EmployeeException("Invalid employeeId ");
-//        }
-//        return "employee Updated Successfully";
-//	}
 	
 	@Override
 	public String updateEmployee(@Valid EmployeeDto employeeDto) throws EmployeeException {

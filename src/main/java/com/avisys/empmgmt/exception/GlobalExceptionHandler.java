@@ -117,4 +117,11 @@ public class GlobalExceptionHandler {
 		ApiResponse apiResponse = new ApiResponse(message,LocalDateTime.now());
 		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
 	}
+	
+	@ExceptionHandler(AddressException.class)
+	public ResponseEntity<ApiResponse> DataNotFoundException(AddressException ex) {
+		String message = ex.getMessage();
+		ApiResponse apiResponse = new ApiResponse(message,LocalDateTime.now());
+		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
+	}
 }

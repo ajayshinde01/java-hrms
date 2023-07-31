@@ -2,12 +2,17 @@ package com.avisys.empmgmt.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -76,6 +81,75 @@ public class Employee extends Status{
 	
 	@Column(name="user_id")
 	private String userId;
+	
+	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Address> addressList=new ArrayList<>();
+
+	protected Employee() {
+		super();
+	}
+
+	protected Employee(
+			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
+			boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy,
+			Long id,
+			@NotNull(message = "employee code must not be null") @NotBlank(message = "employee code must not be blank") @Size(min = 2, max = 8, message = "Id should be in between 2 to 8 character") String employeeCode,
+			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String firstName,
+			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String middleName,
+			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String lastName,
+			@NotNull(message = "Date must not be null") LocalDate dateOfBirth,
+			@NotNull(message = "Gender must not be null") @NotBlank(message = "Gender must not be blank") String gender,
+			@NotNull(message = "Date must not be null") LocalDate dateOfJoining,
+			@NotNull(message = "Age must not be null") @NotBlank(message = "Age must not be blank") String age,
+			@NotNull(message = "Status must not be null") @NotBlank(message = "Status must not be blank") String status,
+			@NotNull(message = "Division must not be null") @NotBlank(message = "Division must not be blank") String division,
+			String userId, List<Address> addressList) {
+		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
+		this.id = id;
+		this.employeeCode = employeeCode;
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
+		this.dateOfBirth = dateOfBirth;
+		this.gender = gender;
+		this.dateOfJoining = dateOfJoining;
+		this.age = age;
+		this.status = status;
+		this.division = division;
+		this.userId = userId;
+		this.addressList = addressList;
+	}
+	
+	
+
+	protected Employee(
+			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
+			boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy,
+			@NotNull(message = "employee code must not be null") @NotBlank(message = "employee code must not be blank") @Size(min = 2, max = 8, message = "Id should be in between 2 to 8 character") String employeeCode,
+			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String firstName,
+			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String middleName,
+			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String lastName,
+			@NotNull(message = "Date must not be null") LocalDate dateOfBirth,
+			@NotNull(message = "Gender must not be null") @NotBlank(message = "Gender must not be blank") String gender,
+			@NotNull(message = "Date must not be null") LocalDate dateOfJoining,
+			@NotNull(message = "Age must not be null") @NotBlank(message = "Age must not be blank") String age,
+			@NotNull(message = "Status must not be null") @NotBlank(message = "Status must not be blank") String status,
+			@NotNull(message = "Division must not be null") @NotBlank(message = "Division must not be blank") String division,
+			String userId, List<Address> addressList) {
+		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
+		this.employeeCode = employeeCode;
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
+		this.dateOfBirth = dateOfBirth;
+		this.gender = gender;
+		this.dateOfJoining = dateOfJoining;
+		this.age = age;
+		this.status = status;
+		this.division = division;
+		this.userId = userId;
+		this.addressList = addressList;
+	}
 
 	public Long getId() {
 		return id;
@@ -173,44 +247,11 @@ public class Employee extends Status{
 		this.userId = userId;
 	}
 
-	public Employee() {
-		super();
+	public List<Address> getAddressList() {
+		return addressList;
 	}
 
-	protected Employee(
-			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
-			boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy,
-			Long id,
-			@NotNull(message = "employee code must not be null") @NotBlank(message = "employee code must not be blank") @Size(min = 2, max = 8, message = "Id should be in between 2 to 8 character") String employeeCode,
-			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String firstName,
-			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String middleName,
-			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String lastName,
-			@NotNull(message = "Date must not be null") LocalDate dateOfBirth,
-			@NotNull(message = "Gender must not be null") @NotBlank(message = "Gender must not be blank") String gender,
-			@NotNull(message = "Date must not be null") LocalDate dateOfJoining,
-			@NotNull(message = "Age must not be null") @NotBlank(message = "Age must not be blank") String age,
-			@NotNull(message = "Status must not be null") @NotBlank(message = "Status must not be blank") String status,
-			@NotNull(message = "Division must not be null") @NotBlank(message = "Division must not be blank") String division,
-			String userId) {
-		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
-		this.id = id;
-		this.employeeCode = employeeCode;
-		this.firstName = firstName;
-		this.middleName = middleName;
-		this.lastName = lastName;
-		this.dateOfBirth = dateOfBirth;
-		this.gender = gender;
-		this.dateOfJoining = dateOfJoining;
-		this.age = age;
-		this.status = status;
-		this.division = division;
-		this.userId = userId;
-	}
-
-	
-
-	
-//	@OneToMany(mappedBy = "employeeInfo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//	private List<Address> addressList=new ArrayList<>();
-		
+	public void setAddressList(List<Address> addressList) {
+		this.addressList = addressList;
+	}		
 }

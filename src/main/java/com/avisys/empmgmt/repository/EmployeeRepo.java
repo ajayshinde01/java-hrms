@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.avisys.empmgmt.entity.Address;
 import com.avisys.empmgmt.entity.Employee;
 
 @Repository
@@ -20,5 +21,9 @@ public interface EmployeeRepo extends JpaRepository<Employee, Long> {
 	Page<Employee> searchByEmployee(Pageable pageable, String key);
 
 	List<Employee> findByIsDeletedFalse();
+
+//	Optional<Employee> findByIdAndIsDeletedFalse(Long employeeId);
+
+	Optional<Employee> findByEmployeeCodeAndIsDeletedFalse(String employeeCode);
 
 }
