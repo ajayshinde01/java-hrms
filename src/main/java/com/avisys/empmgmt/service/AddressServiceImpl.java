@@ -56,8 +56,7 @@ public class AddressServiceImpl implements AddressService {
 	@Override
 	public List<AddressDto> getAddressByEmployee(String employeeCode) throws AddressException, EmployeeException {
 		Employee employee = employeeRepository.findByEmployeeCodeAndIsDeletedFalse(employeeCode).orElseThrow(()->new EmployeeException("Employee not found"));
-		
-		
+
 		List<Address> addresses=this.addressRepository.findByEmployeeAndIsDeletedFalse(employee);
 		if (addresses.isEmpty()) {
 			throw new AddressException("Array is empty");

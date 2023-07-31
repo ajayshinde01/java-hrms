@@ -1,17 +1,15 @@
 package com.avisys.empmgmt.exception;
 
-public class EmployeeException extends RuntimeException{
-
-	private static final long serialVersionUID = 1L;
-
+public class CompanyDetailNotFound extends RuntimeException{
 	
 	private String message;
 	
-	public EmployeeException() {
+	public CompanyDetailNotFound() {
 		
 	}
 
-	public EmployeeException(String message) {
+	public CompanyDetailNotFound(String message) {
+		super();
 		this.message = message;
 	}
 

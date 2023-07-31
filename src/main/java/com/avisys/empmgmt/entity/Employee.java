@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -84,12 +85,16 @@ public class Employee extends Status{
 	
 	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Address> addressList=new ArrayList<>();
+	
+	@OneToOne(mappedBy = "employee",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private CompanyDetail companyDetail;
+	
 
 	protected Employee() {
 		super();
 	}
 
-	protected Employee(
+	public Employee(
 			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
 			boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy,
 			Long id,
@@ -103,7 +108,7 @@ public class Employee extends Status{
 			@NotNull(message = "Age must not be null") @NotBlank(message = "Age must not be blank") String age,
 			@NotNull(message = "Status must not be null") @NotBlank(message = "Status must not be blank") String status,
 			@NotNull(message = "Division must not be null") @NotBlank(message = "Division must not be blank") String division,
-			String userId, List<Address> addressList) {
+			String userId, List<Address> addressList, CompanyDetail companyDetail) {
 		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
 		this.id = id;
 		this.employeeCode = employeeCode;
@@ -118,11 +123,10 @@ public class Employee extends Status{
 		this.division = division;
 		this.userId = userId;
 		this.addressList = addressList;
+		this.companyDetail = companyDetail;
 	}
-	
-	
 
-	protected Employee(
+	public Employee(
 			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
 			boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy,
 			@NotNull(message = "employee code must not be null") @NotBlank(message = "employee code must not be blank") @Size(min = 2, max = 8, message = "Id should be in between 2 to 8 character") String employeeCode,
@@ -135,7 +139,7 @@ public class Employee extends Status{
 			@NotNull(message = "Age must not be null") @NotBlank(message = "Age must not be blank") String age,
 			@NotNull(message = "Status must not be null") @NotBlank(message = "Status must not be blank") String status,
 			@NotNull(message = "Division must not be null") @NotBlank(message = "Division must not be blank") String division,
-			String userId, List<Address> addressList) {
+			String userId, List<Address> addressList, CompanyDetail companyDetail) {
 		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
 		this.employeeCode = employeeCode;
 		this.firstName = firstName;
@@ -149,6 +153,7 @@ public class Employee extends Status{
 		this.division = division;
 		this.userId = userId;
 		this.addressList = addressList;
+		this.companyDetail = companyDetail;
 	}
 
 	public Long getId() {
@@ -253,5 +258,15 @@ public class Employee extends Status{
 
 	public void setAddressList(List<Address> addressList) {
 		this.addressList = addressList;
+	}
+
+	public CompanyDetail getCompanyDetail() {
+		return companyDetail;
+	}
+
+	public void setCompanyDetail(CompanyDetail companyDetail) {
+		this.companyDetail = companyDetail;
 	}		
+	
+	
 }

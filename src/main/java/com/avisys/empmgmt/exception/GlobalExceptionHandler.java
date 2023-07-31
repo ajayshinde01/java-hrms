@@ -92,7 +92,7 @@ public class GlobalExceptionHandler {
 		ApiResponse apiResponse = new ApiResponse();
 		apiResponse.setMessage(divisionNotFound.getMessage());
 		apiResponse.setDateTime(LocalDateTime.now());
-		return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
 
 	}
 
@@ -123,5 +123,21 @@ public class GlobalExceptionHandler {
 		String message = ex.getMessage();
 		ApiResponse apiResponse = new ApiResponse(message,LocalDateTime.now());
 		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(CompanyDetailAlreadyPresent.class)
+	public ResponseEntity<?> CompanyDetailAlreadyPresent(CompanyDetailAlreadyPresent exception, WebRequest webRequest) {
+		ApiResponse response = new ApiResponse();
+		response.setDateTime(LocalDateTime.now());
+		response.setMessage(exception.getMessage());
+		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+	}   
+	
+	@ExceptionHandler(CompanyDetailNotFound.class)
+	public ResponseEntity<?> CompanyDetailNotFound(CompanyDetailNotFound exception, WebRequest webRequest) {
+		ApiResponse response = new ApiResponse();
+		response.setDateTime(LocalDateTime.now());
+		response.setMessage(exception.getMessage());
+		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 	}
 }
