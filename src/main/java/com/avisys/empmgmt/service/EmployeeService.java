@@ -15,16 +15,16 @@ import jakarta.validation.Valid;
 @Service
 public interface EmployeeService {
 
-	public List<EmployeeDto> getAllEmployee() throws EmployeeException;
+	public List<EmployeeDto> getAllEmployee();
 
-	public String createEmployee(@Valid EmployeeDto employee) throws EmployeeException;
+	public String createEmployee(@Valid EmployeeDto employee);
 
-	public EmployeeDto getByEmployee(String employeeCode) throws EmployeeException;
+	Page<EmployeeDto> searchEmployee(Pageable pageable, String keyword);
 
-	public String deleteEmployee(String employeeCode) throws EmployeeException;
+	public String updateEmployee(@Valid EmployeeDto employee);
 
-	Page<EmployeeDto> searchEmployee(Pageable pageable, String keyword) throws EmployeeException;
+	public EmployeeDto getByEmployee(Long employeeId);
 
-	public String updateEmployee(@Valid EmployeeDto employee) throws EmployeeException;
+	public String deleteEmployee(Long employeeId);
 	
 }

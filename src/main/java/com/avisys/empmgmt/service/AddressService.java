@@ -14,12 +14,12 @@ import jakarta.validation.Valid;
 @Service
 public interface AddressService {
 
-	String createAddress(@Valid AddressDto addressDto, String employeeCode) throws AddressException, EmployeeException;
-	
-	String updateAddress(AddressDto addressDto, String employeeCode) throws AddressException, EmployeeException;
+	String createAddress(@Valid AddressDto addressDto, Long employeeId);
 
-	String deleteAddress(String employeeCode, Long addressId) throws AddressException, EmployeeException;
+	List<AddressDto> getAddressByEmployee(Long employeeId);
 
-	List<AddressDto> getAddressByEmployee(String employeeCode) throws AddressException, EmployeeException;
+	String updateAddress(AddressDto addressDto, Long employeeId);
+
+	String deleteAddress(Long employeeId, Long addressId);
 
 }

@@ -31,29 +31,27 @@ public class AddressController {
 	@Autowired
 	private AddressService addressService;
 	
-	@PostMapping("/{employee-code}/address")
-	public ResponseEntity<?> addAddress(@Valid @RequestBody AddressDto address, @PathVariable("employee-code") String employeeCode) throws AddressException, EmployeeException {
-		String createAddress = addressService.createAddress(address,employeeCode);
+	@PostMapping("/{employee-id}/address")
+	public ResponseEntity<?> addAddress(@Valid @RequestBody AddressDto address, @PathVariable("employee-id") Long employeeId) {
+		String createAddress = addressService.createAddress(address,employeeId);
 		return new ResponseEntity<>(new ApiResponse(createAddress,LocalDateTime.now()), HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/{employee-code}/address")
-	public ResponseEntity<List<AddressDto>> getAddressByEmployeeId(@PathVariable("employee-code") String employeeCode)
-			throws AddressException, EmployeeException{
-		List<AddressDto> getAddress = this.addressService.getAddressByEmployee(employeeCode);
+	@GetMapping("/{employee-id}/address")
+	public ResponseEntity<List<AddressDto>> getAddressByEmployeeId(@PathVariable("employee-id") Long employeeId){
+		List<AddressDto> getAddress = this.addressService.getAddressByEmployee(employeeId);
 		return new ResponseEntity<List<AddressDto>>(getAddress,HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/{employee-code}/address/{address-Id}")
-	public ResponseEntity<?> deleteEmployeeAddress(@PathVariable("employee-code") String employeeCode, @PathVariable("address-Id") Long addressId )
-			throws AddressException, EmployeeException {
-		String deletedAddress = this.addressService.deleteAddress(employeeCode,addressId);
+	@DeleteMapping("/{employee-id}/address/{address-id}")
+	public ResponseEntity<?> deleteEmployeeAddress(@PathVariable("employee-id") Long employeeId, @PathVariable("address-id") Long addressId ){
+		String deletedAddress = this.addressService.deleteAddress(employeeId,addressId);
 		return new ResponseEntity<>(new ApiResponse(deletedAddress,LocalDateTime.now()), HttpStatus.OK);
 	}
 	
-	@PutMapping("/{employee-code}/address")
-	public ResponseEntity<?> updateEmployeeAddress(@Valid @RequestBody AddressDto addressDto, @PathVariable("employee-code") String employeeCode ) throws AddressException, EmployeeException {
-		String updateEmployeeAddress = this.addressService.updateAddress(addressDto,employeeCode);
+	@PutMapping("/{employee-id}/address")
+	public ResponseEntity<?> updateEmployeeAddress(@Valid @RequestBody AddressDto addressDto, @PathVariable("employee-id") Long employeeId ) {
+		String updateEmployeeAddress = this.addressService.updateAddress(addressDto,employeeId);
 		return new ResponseEntity<>(new ApiResponse(updateEmployeeAddress,LocalDateTime.now()), HttpStatus.OK);
 	}
 	

@@ -33,9 +33,9 @@ public class AddressServiceImpl implements AddressService {
 	private EmployeeRepo employeeRepository;
 
 	@Override
-	public String createAddress(@Valid AddressDto addressDto, String employeeCode) throws AddressException, EmployeeException {
+	public String createAddress(@Valid AddressDto addressDto, Long employeeId){
 		
-		Employee employee=this.employeeRepository.findByEmployeeCodeAndIsDeletedFalse(employeeCode).orElseThrow(()-> new EmployeeException("Employee not found"));
+		Employee employee=this.employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()-> new EmployeeException("Employee not found"));
 		
 		List<Address> addressList = addressRepository.findByaddressType(addressDto.getAddressType());
 		for (Address address : addressList) {
@@ -54,9 +54,10 @@ public class AddressServiceImpl implements AddressService {
 	}
 	
 	@Override
-	public List<AddressDto> getAddressByEmployee(String employeeCode) throws AddressException, EmployeeException {
-		Employee employee = employeeRepository.findByEmployeeCodeAndIsDeletedFalse(employeeCode).orElseThrow(()->new EmployeeException("Employee not found"));
-
+	public List<AddressDto> getAddressByEmployee(Long employeeId){
+		Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
+		
+		
 		List<Address> addresses=this.addressRepository.findByEmployeeAndIsDeletedFalse(employee);
 		if (addresses.isEmpty()) {
 			throw new AddressException("Array is empty");
@@ -67,8 +68,8 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public String updateAddress( AddressDto addressDto,String employeeCode) throws AddressException, EmployeeException {
-		Employee employee=employeeRepository.findByEmployeeCodeAndIsDeletedFalse(employeeCode).orElseThrow(()->new EmployeeException("Employee not found"));
+	public String updateAddress( AddressDto addressDto,Long employeeId) {
+		Employee employee=employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
 		List<Address> addressList = addressRepository.findByaddressType(addressDto.getAddressType());
 		for (Address address : addressList) {
 		    if (address.getEmployee().equals(employee)) {
@@ -90,19 +91,19 @@ public class AddressServiceImpl implements AddressService {
 	        addressRepository.save(addressObj);
 	 
 	    return "Address Updated Successfully";
-	    } else throw new AddressException("EmployeeCode doesn't have this addressId");
+	    } else throw new AddressException("EmployeeId doesn't have this addressId");
 	}
 
 	@Override
-	public String deleteAddress(String employeeCode, Long addressId) throws AddressException, EmployeeException {
-		Employee employee=this.employeeRepository.findByEmployeeCodeAndIsDeletedFalse(employeeCode).orElseThrow(()->new EmployeeException("Employee not found"));
+	public String deleteAddress(Long employeeId, Long addressId) {
+		Employee employee=this.employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
 		Address address = addressRepository.findByIdAndIsDeletedFalse(addressId).orElseThrow(()->new AddressException("Address not found"));
 			
 		if(employee==address.getEmployee()) {
 			address.setDeleted(true);
 			addressRepository.save(address); 
 			return "Address deleted successfully";
-		}else throw new AddressException("employeeCode doesn't match with AddressId");
+		}else throw new AddressException("employeeId doesn't match with AddressId");
 	}
 
 }

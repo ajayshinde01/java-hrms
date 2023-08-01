@@ -36,41 +36,38 @@ public class EmployeeController {
 	private EmployeeService employeeService;
 
 	@GetMapping("/get-all")
-	public ResponseEntity<?> getAllEmployee() throws EmployeeException{
+	public ResponseEntity<?> getAllEmployee(){
 		List<EmployeeDto> allEmployeeInfo=this.employeeService.getAllEmployee();
 		return new ResponseEntity<List<EmployeeDto>>(allEmployeeInfo, HttpStatus.OK);
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<?> addEmployee(@Valid @RequestBody EmployeeDto employee) throws EmployeeException {
+	public ResponseEntity<?> addEmployee(@Valid @RequestBody EmployeeDto employee){
 		String createEmployee = this.employeeService.createEmployee(employee);
 		return new ResponseEntity<>(new ApiResponse(createEmployee,LocalDateTime.now()), HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/{employee-code}")
-	public ResponseEntity<EmployeeDto> getByEmployeeCode(@PathVariable("employee-code") String employeeCode)
-			throws DepartmentException, EmployeeException {
-		EmployeeDto getEmployee = this.employeeService.getByEmployee(employeeCode);
+	@GetMapping("/{employee-id}")
+	public ResponseEntity<EmployeeDto> getByEmployeeCode(@PathVariable("employee-id") Long employeeId) {
+		EmployeeDto getEmployee = this.employeeService.getByEmployee(employeeId);
 		return new ResponseEntity<EmployeeDto>(getEmployee, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/{employee-code}")
-	public ResponseEntity<?> deleteEmployee(@PathVariable("employee-code") String employeeCode)
-			throws DepartmentException, EmployeeException {
-		String deletedEmployee = this.employeeService.deleteEmployee(employeeCode);
+	@DeleteMapping("/{employee-id}")
+	public ResponseEntity<?> deleteEmployee(@PathVariable("employee-id") Long employeeId) {
+		String deletedEmployee = this.employeeService.deleteEmployee(employeeId);
 		return new ResponseEntity<>(new ApiResponse(deletedEmployee,LocalDateTime.now()), HttpStatus.OK);
 	}
 	
 	@PutMapping
-	public ResponseEntity<?> updateEmployee(@Valid @RequestBody EmployeeDto employee) throws EmployeeException {
+	public ResponseEntity<?> updateEmployee(@Valid @RequestBody EmployeeDto employee) {
 		String updateEmployee = this.employeeService.updateEmployee(employee);
 		return new ResponseEntity<>(new ApiResponse(updateEmployee,LocalDateTime.now()), HttpStatus.OK);
 	}
 	
 	@GetMapping("/search")
 	public ResponseEntity<Page<EmployeeDto>> searchEmployee(@PageableDefault Pageable pageable,
-			@RequestParam(value = "keyword", defaultValue = "", required = false) String keyword)
-			throws EmployeeException {
+			@RequestParam(value = "keyword", defaultValue = "", required = false) String keyword) {
 		Page<EmployeeDto> result = this.employeeService.searchEmployee(pageable, keyword);
 		return new ResponseEntity<Page<EmployeeDto>>(result, HttpStatus.OK);
 	}

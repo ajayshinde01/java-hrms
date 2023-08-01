@@ -30,7 +30,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	private ModelMapper modelMapper;
 
-	public List<EmployeeDto> getAllEmployee() throws EmployeeException{
+	public List<EmployeeDto> getAllEmployee(){
 		List<Employee> employeeInfo=this.employeeRepository.findByIsDeletedFalse();
 		List<EmployeeDto> employeeDtos = employeeInfo.stream()
 				.map((Employee) -> this.modelMapper.map(Employee, EmployeeDto.class))
@@ -44,11 +44,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public String createEmployee(@Valid EmployeeDto employeeDto) throws EmployeeException {
+	public String createEmployee(@Valid EmployeeDto employeeDto){
 		Optional<Employee> optionalEmployee = employeeRepository.findByEmployeeCode(employeeDto.getEmployeeCode());
-		if (optionalEmployee.isPresent()) {
-			throw new EmployeeException("Employee code should not be duplicate");
-		}
+        if (optionalEmployee.isPresent()) {
+            throw new EmployeeException("Employee code should not be duplicate");
+        }
 		Employee employee = this.modelMapper.map(employeeDto, Employee.class);
 		employee.setCreatedAt(LocalDateTime.now());
 		employee.setCreatedBy(employeeDto.getCreatedBy());
@@ -58,30 +58,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public EmployeeDto getByEmployee(String employeeCode) throws EmployeeException {
-		Optional<Employee> employee = employeeRepository.findByEmployeeCode(employeeCode);
-		if (employee.isPresent() && !employee.get().isDeleted()) {
-			return this.modelMapper.map(employee, EmployeeDto.class);
-		} else {
-			throw new EmployeeException("Employee not found");
-		}
+	public EmployeeDto getByEmployee(Long employeeId){
+		Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()-> new EmployeeException("Employee not found"));
+			return this.modelMapper.map(employee, EmployeeDto.class);	
 	}
 
 	@Override
-	public String deleteEmployee(String employeeCode) throws EmployeeException {
-		Optional<Employee> optionalEmployee = this.employeeRepository.findByEmployeeCode(employeeCode);
-		if (optionalEmployee.isPresent() &&  !optionalEmployee.get().isDeleted()) {
-			Employee employee = optionalEmployee.get();
+	public String deleteEmployee(Long employeeId) {
+		Employee employee = this.employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()-> new EmployeeException("Employee not found"));
 			employee.setDeleted(true); // Set isDeleted flag to true
 			employeeRepository.save(employee); // Update the department entity
 			return "Employee deleted successfully";
-		} else {
-			throw new EmployeeException("Employee not found");
-		}
 	}
 	
 	@Override
-	public Page<EmployeeDto> searchEmployee(Pageable pageable, String keyword) throws EmployeeException {
+	public Page<EmployeeDto> searchEmployee(Pageable pageable, String keyword){
 			keyword = keyword.toLowerCase();
 		Page<Employee> Employee = employeeRepository.searchByEmployee(pageable,keyword);
 		Page<EmployeeDto> employeeDto = (Page<EmployeeDto>) Employee
@@ -93,20 +84,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 	
 	@Override
-	public String updateEmployee(@Valid EmployeeDto employeeDto) throws EmployeeException {
+	public String updateEmployee(@Valid EmployeeDto employeeDto){
 	    if (employeeDto.getId() == null) {
 	        throw new EmployeeException("Id Should Not be null");
 	    }
-	    Optional<Employee> employeeOptionalObj = employeeRepository.findById(employeeDto.getId());
+	    Employee employeeObj = employeeRepository.findByIdAndIsDeletedFalse(employeeDto.getId()).orElseThrow(()-> new EmployeeException("No Employee Present in the Database"));
 
-	    if (employeeOptionalObj.isEmpty() || employeeOptionalObj.get().isDeleted()) {
-	        throw new EmployeeException("No Employee Present in the Database");
-	    }
-
-	    Employee employeeObj = employeeOptionalObj.get();
-	    Optional<Employee> employeeIdObj = employeeRepository.findByEmployeeCode(employeeDto.getEmployeeCode());
-
-	    if (employeeIdObj.isEmpty() || employeeDto.getEmployeeCode().equals(employeeObj.getEmployeeCode())) {
 	        // Map the fields from EmployeeDto to Employee using ModelMapper
 	        modelMapper.map(employeeDto, employeeObj);
 
@@ -116,9 +99,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	        employeeObj.setDeleted(false);
 
 	        employeeRepository.save(employeeObj);
-	    } else {
-	        throw new EmployeeException("Invalid employeeId");
-	    }
+	
 	    return "Employee Updated Successfully";
 	}
 	

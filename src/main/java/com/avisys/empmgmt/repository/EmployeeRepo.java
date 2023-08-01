@@ -15,17 +15,17 @@ import com.avisys.empmgmt.entity.Employee;
 @Repository
 public interface EmployeeRepo extends JpaRepository<Employee, Long> {
 
-	Optional<Employee> findByEmployeeCode(String employeeCode);
 
 	@Query("SELECT e FROM Employee e WHERE (LOWER(e.firstName) LIKE %:key% OR LOWER(e.middleName) LIKE %:key% OR LOWER(e.lastName) LIKE %:key% ) and e.isDeleted=false")
 	Page<Employee> searchByEmployee(Pageable pageable, String key);
 
 	List<Employee> findByIsDeletedFalse();
 
-//	Optional<Employee> findByIdAndIsDeletedFalse(Long employeeId);
+	Optional<Employee> findByIdAndIsDeletedFalse(Long employeeId);
 
 	Optional<Employee> findByEmployeeCodeAndIsDeletedFalse(String employeeCode);
-	
-	Optional<Employee> findByIdAndIsDeletedFalse(Long id);
+
+	Optional<Employee> findByEmployeeCode(String employeeCode);
+
 
 }
