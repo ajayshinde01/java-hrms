@@ -29,7 +29,7 @@ import com.avisys.empmgmt.util.ApiResponse;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/employee/division")
+@RequestMapping("division")
 public class DivisionController {
 
 	@Autowired

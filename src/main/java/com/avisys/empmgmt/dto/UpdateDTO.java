@@ -23,7 +23,7 @@ public class UpdateDTO {
 
 	@NotNull
 	@NotBlank(message = "Role Name cant be blank")
-	@Pattern(regexp = "^[a-zA-Z ]*$", message = "Role name should not contain digit or special characters")
+    @Pattern(regexp = "^[a-zA-Z]+[a-zA-Z0-9 ]+$",message = "Name must starts with alphabets")
 	private String name;
 
 	@NotNull

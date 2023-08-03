@@ -21,7 +21,7 @@ import com.avisys.empmgmt.util.ApiResponse;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/company-detail")
+@RequestMapping("company-detail")
 public class CompanyDetailController {
 	
 	@Autowired

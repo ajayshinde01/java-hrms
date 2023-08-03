@@ -25,13 +25,13 @@ import com.avisys.empmgmt.util.ApiResponse;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("employee")
+@RequestMapping("address")
 public class AddressController {
 	
 	@Autowired
 	private AddressService addressService;
 	
-	@PostMapping("/{employee-id}/address")
+	@PostMapping("/{employee-id}/create")
 	public ResponseEntity<?> addAddress(@Valid @RequestBody AddressDto address, @PathVariable("employee-id") Long employeeId) {
 		String createAddress = addressService.createAddress(address,employeeId);
 		return new ResponseEntity<>(new ApiResponse(createAddress,LocalDateTime.now()), HttpStatus.CREATED);
@@ -49,22 +49,11 @@ public class AddressController {
 		return new ResponseEntity<>(new ApiResponse(deletedAddress,LocalDateTime.now()), HttpStatus.OK);
 	}
 	
-	@PutMapping("/{employee-id}/address")
+	@PutMapping("/{employee-id}/update")
 	public ResponseEntity<?> updateEmployeeAddress(@Valid @RequestBody AddressDto addressDto, @PathVariable("employee-id") Long employeeId ) {
 		String updateEmployeeAddress = this.addressService.updateAddress(addressDto,employeeId);
 		return new ResponseEntity<>(new ApiResponse(updateEmployeeAddress,LocalDateTime.now()), HttpStatus.OK);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 }

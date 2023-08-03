@@ -23,7 +23,7 @@ import com.avisys.empmgmt.service.EmployeeTypeService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/employee-type")
+@RequestMapping("employee-type")
 public class EmployeeTypeController {
 
 	@Autowired

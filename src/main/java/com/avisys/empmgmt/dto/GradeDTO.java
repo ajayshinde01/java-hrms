@@ -4,6 +4,7 @@ import com.avisys.empmgmt.entity.Grade;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public class GradeDTO {
@@ -20,6 +21,7 @@ public class GradeDTO {
 	@NotBlank(message = "Grade Name is required")
 	@Size(min = 2, message = " Grade Id Min size 2")
 	@Size(max = 20, message = "Grade Id Mix size 20")
+    @Pattern(regexp = "^[a-zA-Z]+[a-zA-Z0-9 ]+$",message = "Name must starts with alphabets")
 	private String gradeName;
 
 	@NotNull(message = "Grade Name is not null")

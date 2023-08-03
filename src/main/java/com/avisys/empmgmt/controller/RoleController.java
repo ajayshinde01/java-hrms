@@ -30,7 +30,7 @@ import com.avisys.empmgmt.util.Utils;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("employee/role")
+@RequestMapping("role")
 public class RoleController {
 
 	@Autowired

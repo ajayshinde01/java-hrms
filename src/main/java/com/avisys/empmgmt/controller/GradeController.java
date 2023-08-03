@@ -24,7 +24,7 @@ import com.avisys.empmgmt.util.ApiResponse;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("employee/grade")
+@RequestMapping("grade")
 public class GradeController {
 
 	@Autowired

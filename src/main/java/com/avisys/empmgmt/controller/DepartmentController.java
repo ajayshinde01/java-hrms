@@ -27,7 +27,7 @@ import com.avisys.empmgmt.util.ApiResponse;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("employee/departments")
+@RequestMapping("departments")
 public class DepartmentController {
 	@Autowired
 	private DepartmentService departmentService;

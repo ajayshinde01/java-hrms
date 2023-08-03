@@ -2,6 +2,7 @@ package com.avisys.empmgmt.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public class CreateDivisionDto {
@@ -9,12 +10,14 @@ public class CreateDivisionDto {
 	@NotBlank(message="Division Id should not be blank")
 	@Size(min = 3,message = "Division Id must be of 3 character")
 	@Size(max = 6,message = "Division Id must be of 6 character")
+    @Pattern(regexp = "^(?!.*\s)[A-Za-z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers")
 	private String divisionId;
     
 	@NotNull(message="divisionName should not be null")
 	@NotBlank(message="divisionName should not be blank")
 	@Size(min = 3,message = "divisionName must be of 3 character")
     @Size(max = 20,message = "divisionName must be of 20 character")
+    @Pattern(regexp = "^[a-zA-Z]+[a-zA-Z0-9 ]+$",message = "Name must starts with alphabets")
 	private String divisionName;
     
     @NotBlank(message = "Division Description should not be blank" )

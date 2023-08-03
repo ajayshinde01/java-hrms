@@ -26,7 +26,7 @@ import com.avisys.empmgmt.util.ApiResponse;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/designation")
+@RequestMapping("designation")
 public class DesignationController {
 	
 	private Logger logger = Logger.getLogger(DesignationController.class);
