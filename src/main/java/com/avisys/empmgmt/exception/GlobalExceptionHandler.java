@@ -1,19 +1,14 @@
 package com.avisys.empmgmt.exception;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-
-import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -34,13 +29,13 @@ public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<?> handleValidationExceptions(MethodArgumentNotValidException ex) {
-		Map<String, String> errors = new HashMap<>();
-	     ex.getBindingResult().getAllErrors().forEach((error) -> {
-		String field = ((FieldError) error).getField();
-		String message = error.getDefaultMessage();
-		errors.put(field, message);
-	     });
-		return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+		 Map<String, List<String>> fieldErrors = new HashMap<>();
+	        for (FieldError error : ex.getBindingResult().getFieldErrors()) {
+	            String fieldName = error.getField();
+	            String errorMessage = error.getDefaultMessage();
+	            fieldErrors.computeIfAbsent(fieldName, k -> new ArrayList<>()).add(errorMessage);
+	        }
+		return new ResponseEntity<>(fieldErrors, HttpStatus.BAD_REQUEST);
 	}
 	
 	@ExceptionHandler(DataAlreadyPresentException.class)
@@ -99,8 +94,8 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(GradeException.class)
 	public ResponseEntity<?> gradeIdNotPresent(GradeException ex) {
 		String message = ex.getMessage();
-
-		return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+		ApiResponse apiResponse = new ApiResponse(message,LocalDateTime.now());
+		return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
 
 	}
 
@@ -139,5 +134,42 @@ public class GlobalExceptionHandler {
 		response.setDateTime(LocalDateTime.now());
 		response.setMessage(exception.getMessage());
 		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+	}
+
+    @ExceptionHandler(NoPersonalDetailsFound.class)
+	public ResponseEntity<?> handleNoPersonalDetailsFoundException(NoPersonalDetailsFound exception, WebRequest webRequest) {
+		ApiResponse response = new ApiResponse();
+		response.setDateTime(LocalDateTime.now());
+		response.setMessage(exception.getMessage());
+		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+
+	}
+       	
+    @ExceptionHandler(DuplicatePersonalDetail.class)
+	public ResponseEntity<?> handleDuplicatePersonalDetailException(DuplicatePersonalDetail exception, WebRequest webRequest) {
+		ApiResponse response = new ApiResponse();
+		response.setDateTime(LocalDateTime.now());
+		response.setMessage(exception.getMessage());
+		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+
+	}   
+       	
+
+    @ExceptionHandler(JoiningDetailAlreadyPresent.class)
+	public ResponseEntity<?> handleJoiningDetailAlreadyPresentException(JoiningDetailAlreadyPresent exception, WebRequest webRequest) {
+		ApiResponse response = new ApiResponse();
+		response.setDateTime(LocalDateTime.now());
+		response.setMessage(exception.getMessage());
+		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+
+	}
+       	
+    @ExceptionHandler(JoiningDetailNotFound.class)
+	public ResponseEntity<?> handleJoiningDetailNotFoundException(JoiningDetailNotFound exception, WebRequest webRequest) {
+		ApiResponse response = new ApiResponse();
+		response.setDateTime(LocalDateTime.now());
+		response.setMessage(exception.getMessage());
+		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+
 	}
 }
