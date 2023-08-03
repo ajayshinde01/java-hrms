@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.avisys.empmgmt.dto.PersonalDetailsDTO;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,6 +20,7 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -33,6 +36,7 @@ public class Employee extends Status{
 	@NotNull(message="employee code must not be null")
 	@NotBlank(message="employee code must not be blank")
 	@Size(min=2, max=8, message="Id should be in between 2 to 8 character")
+	@Pattern(regexp = "^(?!.*\s)[A-Za-z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers")
 	private String employeeCode;
 	
 	@Column(name="first_name")
@@ -88,7 +92,12 @@ public class Employee extends Status{
 	
 	@OneToOne(mappedBy = "employee",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private CompanyDetail companyDetail;
+
+	@OneToOne(mappedBy = "employee",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private PersonalDetails personalDetails;
 	
+	@OneToOne(mappedBy = "employee",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private JoiningDetail joiningDetail;
 
 	protected Employee() {
 		super();
@@ -108,7 +117,8 @@ public class Employee extends Status{
 			@NotNull(message = "Age must not be null") @NotBlank(message = "Age must not be blank") String age,
 			@NotNull(message = "Status must not be null") @NotBlank(message = "Status must not be blank") String status,
 			@NotNull(message = "Division must not be null") @NotBlank(message = "Division must not be blank") String division,
-			String userId, List<Address> addressList, CompanyDetail companyDetail) {
+			String userId, List<Address> addressList, CompanyDetail companyDetail, PersonalDetails personalDetails,
+			JoiningDetail joiningDetail) {
 		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
 		this.id = id;
 		this.employeeCode = employeeCode;
@@ -124,6 +134,8 @@ public class Employee extends Status{
 		this.userId = userId;
 		this.addressList = addressList;
 		this.companyDetail = companyDetail;
+		this.personalDetails = personalDetails;
+		this.joiningDetail = joiningDetail;
 	}
 
 	public Employee(
@@ -139,7 +151,8 @@ public class Employee extends Status{
 			@NotNull(message = "Age must not be null") @NotBlank(message = "Age must not be blank") String age,
 			@NotNull(message = "Status must not be null") @NotBlank(message = "Status must not be blank") String status,
 			@NotNull(message = "Division must not be null") @NotBlank(message = "Division must not be blank") String division,
-			String userId, List<Address> addressList, CompanyDetail companyDetail) {
+			String userId, List<Address> addressList, CompanyDetail companyDetail, PersonalDetails personalDetails,
+			JoiningDetail joiningDetail) {
 		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
 		this.employeeCode = employeeCode;
 		this.firstName = firstName;
@@ -154,6 +167,8 @@ public class Employee extends Status{
 		this.userId = userId;
 		this.addressList = addressList;
 		this.companyDetail = companyDetail;
+		this.personalDetails = personalDetails;
+		this.joiningDetail = joiningDetail;
 	}
 
 	public Long getId() {
@@ -266,7 +281,22 @@ public class Employee extends Status{
 
 	public void setCompanyDetail(CompanyDetail companyDetail) {
 		this.companyDetail = companyDetail;
-	}		
-	
+	}
+
+	public PersonalDetails getPersonalDetails() {
+		return personalDetails;
+	}
+
+	public void setPersonalDetails(PersonalDetails personalDetails) {
+		this.personalDetails = personalDetails;
+	}
+
+	public JoiningDetail getJoiningDetail() {
+		return joiningDetail;
+	}
+
+	public void setJoiningDetail(JoiningDetail joiningDetail) {
+		this.joiningDetail = joiningDetail;
+	}
 	
 }

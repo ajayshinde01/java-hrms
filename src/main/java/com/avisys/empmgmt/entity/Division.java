@@ -10,6 +10,7 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -24,11 +25,13 @@ public class Division extends Status{
 	@NotNull(message="Division Id should not be null")
 	@NotBlank(message="Division Id should not be blank")
 	@Size(min = 3,message = "Division Id must be of 3 character")
+	@Pattern(regexp = "^(?!.*\s)[A-Za-z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers")
 	private String divisionId;
 	
 	@NotNull(message="Division Id should not be null")
 	@NotBlank(message="Division Id should not be blank")
 	@Size(min = 3,message = "Division Id must be of 3 character")
+    @Pattern(regexp = "^[a-zA-Z]+[a-zA-Z0-9 ]+$",message = "Name must starts with alphabets")
 	@Column(name = "name")
 	private String divisionName;
 	

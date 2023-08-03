@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 
 @Entity
@@ -26,10 +27,12 @@ public class Grade extends Status{
 	@NotBlank(message = "Grade Id is required")
 	@NotNull(message = "Grade Id is not null")
 	@Column(name = "grade_id", unique = true)
+	@Pattern(regexp = "^(?!.*\s)[A-Za-z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers")
 	private String gradeId;
 
 	@NotBlank(message = "Grade Name is required")
 	@NotNull(message = "Grade Name  is not null")
+    @Pattern(regexp = "^[a-zA-Z]+[a-zA-Z0-9 ]+$",message = "Name must starts with alphabets")
 	@Column(name = "name")
 	private String gradeName;
 

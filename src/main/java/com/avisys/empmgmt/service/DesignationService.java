@@ -3,6 +3,8 @@ package com.avisys.empmgmt.service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,7 +35,7 @@ public class DesignationService implements IDesignationService {
 		List<Designation> designationList = designationRepo.findByIsDeletedFalse()
 				.orElseThrow(() -> new DesignationNotFound("Designation List is Empty"));
 		List<DesignationDto> designationDtoList = designationList.stream()
-				.map(d -> designationUtils.designationToDesignationDto(d)).toList();
+				.map(d -> designationUtils.designationToDesignationDto(d)).collect(Collectors.toList());
 		if (designationDtoList.isEmpty())
 			throw new DesignationNotFound();
 		return designationDtoList;

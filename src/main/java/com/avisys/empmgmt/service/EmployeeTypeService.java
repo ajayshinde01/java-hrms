@@ -46,9 +46,8 @@ public class EmployeeTypeService {
 	/************* Create Record ******************/
 	
 	public EmployeeTypeDTO CreateorSaveEmployeeType(EmployeeTypeDTO employeeTypeDTO) {
-		EmployeeType employeeType = mapper.map(employeeTypeDTO, EmployeeType.class);
+		EmployeeType employeeType = this.mapper.map(employeeTypeDTO, EmployeeType.class);
 		Optional<EmployeeType> e = this.employeeTypeRepository.findByEmployeeTypeIdAndIsDeleted(employeeTypeDTO.getEmployeeTypeId(), false);
-		System.out.println(e.get());
 		if (e.isPresent()) {
 			throw new DataAlreadyPresentException();
 		}

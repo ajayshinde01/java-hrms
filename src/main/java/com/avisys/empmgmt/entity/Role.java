@@ -16,6 +16,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,13 +40,20 @@ public class Role extends Status{
 	@NotNull
 
 	@Column(name = "role_id")
+	@Pattern(regexp = "^(?!.*\s)[A-Za-z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers")
 	private String roleId;
 
 	@NotBlank
 	@NotNull
+    @Pattern(regexp = "^[a-zA-Z]+[a-zA-Z0-9 ]+$",message = "Name must starts with alphabets")
 	@Column(name = "name")
 	private String roleName;
 
+
+	public Role() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public Role(String roleId, String roleName, String orgCode, boolean isDeleted, LocalDateTime createdAt,
 			LocalDateTime updatedAt, String createdBy, String updatedBy) {

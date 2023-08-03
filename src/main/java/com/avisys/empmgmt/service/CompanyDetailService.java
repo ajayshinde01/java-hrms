@@ -64,7 +64,7 @@ public class CompanyDetailService {
 		CompanyDetail companyDetailToUpdate = companyDetailRepository.findById(companyDetailDto.getId())
 				.orElseThrow(() -> new CompanyDetailNotFound("Company Detail Not found to update"));
 		if (companyDetailToUpdate.isDeleted()) {
-			throw new CompanyDetailNotFound("This Company Detail is deleted, can't be update!");
+			throw new CompanyDetailNotFound("Company Details Not Found To Update");
 		}
 		else {
 			companyDetailDto.setUpdatedAt(LocalDateTime.now());

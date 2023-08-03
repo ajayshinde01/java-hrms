@@ -9,6 +9,7 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 
@@ -25,12 +26,14 @@ public class Department extends Status{
 	@NotNull(message="Id must not be null")
 	@NotBlank(message="Id must not be blank")
 	@Size(min=2, max=8, message="Id should be in between 2 to 8 character")
+    @Pattern(regexp = "^(?!.*\s)[A-Za-z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers")
 	private String departmentId;
 	
 	@Column(name="department_name")
 	@NotNull(message="Name must not be null")
 	@NotBlank(message="Name must not be blank")
 	@Size(min=4, message="Name must be min of 4 character")
+    @Pattern(regexp = "^[a-zA-Z]+[a-zA-Z0-9 ]+$",message = "Name must starts with alphabets")
 	private String departmentName;
 	
 	@Column(name="description")

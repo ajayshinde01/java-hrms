@@ -8,11 +8,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name="company_details")
@@ -58,21 +60,35 @@ public class CompanyDetail extends Status{
 	@OneToOne
 	@JoinColumn(name="employee_id_fk")
 	private Employee employee;
+	
+	@ManyToOne
+	@JoinColumn(name="designation_id")
+	private Designation designation;
 
+	@ManyToOne
+	@JoinColumn(name="department_id)")
+	private Department department;
+
+	@ManyToOne
+	@JoinColumn(name="grade_id")
+	private Grade grade;
+	
+	@ManyToOne
+	@JoinColumn(name="role_id")
+	private Role role;
+	
+	@ManyToOne
+	@JoinColumn(name="employee_type_id")
+	private EmployeeType employeeType;
+	
 	public CompanyDetail() {
 		super();
 	}
 
-	public CompanyDetail(
-			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
-			boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy,
-			@NotBlank(message = "Company Email should not be blank") @NotNull(message = "Company Email should not be null") String companyEmail,
-			@NotNull(message = "Client Email should not be null") String clientEmail,
-			@NotBlank(message = "billable should not be blank") @NotNull(message = "billable should not be null") String billable,
-			@NotBlank(message = "shift should not be blank") @NotNull(message = "shift should not be null") String shift,
-			@NotBlank(message = "reviewer_manager should not be blank") @NotNull(message = "reviewer_manager should not be null") String reviewerManager,
-			@NotBlank(message = "reporting_manager should not be blank") @NotNull(message = "reporting_manager should not be null") String reportingManager,
-			@NotNull(message = "probation should not be null") int probation, Employee employee) {
+	public CompanyDetail(String orgCode,boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, 
+			String updatedBy,String companyEmail, String clientEmail,String billable,String shift,String reviewerManager,
+			String reportingManager,int probation, Employee employee,
+			Designation designation, Department department, Grade grade, Role role, EmployeeType employeeType) {
 		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
 		this.companyEmail = companyEmail;
 		this.clientEmail = clientEmail;
@@ -82,6 +98,11 @@ public class CompanyDetail extends Status{
 		this.reportingManager = reportingManager;
 		this.probation = probation;
 		this.employee = employee;
+		this.designation = designation;
+		this.department = department;
+		this.grade = grade;
+		this.role = role;
+		this.employeeType = employeeType;
 	}
 
 	public Long getId() {
@@ -156,4 +177,51 @@ public class CompanyDetail extends Status{
 		this.employee = employee;
 	}
 
+	public Designation getDesignation() {
+		return designation;
+	}
+
+	public void setDesignation(Designation designation) {
+		this.designation = designation;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+
+
+	public Grade getGrade() {
+		return grade;
+	}
+
+
+
+	public void setGrade(Grade grade) {
+		this.grade = grade;
+	}
+
+
+	public Role getRole() {
+		return role;
+	}
+
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public EmployeeType getEmployeeType() {
+		return employeeType;
+	}
+
+	public void setEmployeeType(EmployeeType employeeType) {
+		this.employeeType = employeeType;
+	}
+
+	
 }

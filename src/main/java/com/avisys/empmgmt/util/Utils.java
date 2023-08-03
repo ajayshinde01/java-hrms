@@ -2,6 +2,7 @@ package com.avisys.empmgmt.util;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -41,7 +42,7 @@ public class Utils {
 						division.getdivisionName(), division.getdivisionDescription(), division.getOrgCode(),
 						division.isDeleted(), division.getCreatedAt(), division.getUpdatedAt(), division.getCreatedBy(),
 						division.getUpdatedBy()))
-				.toList();
+				.collect(Collectors.toList());
 		return divisionsDto;
 	}
 
