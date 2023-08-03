@@ -5,9 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.avisys.empmgmt.dto.AddressDto;
-import com.avisys.empmgmt.entity.Address;
-import com.avisys.empmgmt.exception.AddressException;
-import com.avisys.empmgmt.exception.EmployeeException;
 
 import jakarta.validation.Valid;
 

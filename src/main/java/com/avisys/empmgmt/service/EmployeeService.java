@@ -5,9 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import com.avisys.empmgmt.dto.EmployeeDto;
-import com.avisys.empmgmt.exception.EmployeeException;
 
 import jakarta.validation.Valid;
 

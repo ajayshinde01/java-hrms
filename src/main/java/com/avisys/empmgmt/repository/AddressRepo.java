@@ -12,12 +12,15 @@ import com.avisys.empmgmt.entity.Employee;
 @Repository
 public interface AddressRepo extends JpaRepository<Address, Long>{
 
-	List<Address> findByaddressType(String addressType);
 
 	Optional<Address> findByEmployeeId(Long employeeId);
 
 	Optional<Address> findByIdAndIsDeletedFalse(Long addressId);
 
 	List<Address> findByEmployeeAndIsDeletedFalse(Employee employee);
+
+	List<Address> findByaddressTypeAndIsDeletedFalse(String addressType);
+
+	List<Address> findByEmployee(Employee employee);
 
 }

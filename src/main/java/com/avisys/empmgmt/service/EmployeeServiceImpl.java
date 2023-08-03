@@ -10,12 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import com.avisys.empmgmt.dto.DepartmentDto;
 import com.avisys.empmgmt.dto.EmployeeDto;
-import com.avisys.empmgmt.entity.Department;
 import com.avisys.empmgmt.entity.Employee;
-import com.avisys.empmgmt.exception.DepartmentException;
 import com.avisys.empmgmt.exception.EmployeeException;
 import com.avisys.empmgmt.repository.EmployeeRepo;
 
@@ -85,6 +81,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	@Override
 	public String updateEmployee(@Valid EmployeeDto employeeDto){
+		Optional<Employee> optionalEmployee = employeeRepository.findByEmployeeCode(employeeDto.getEmployeeCode());
+        if (optionalEmployee.isPresent()) {
+            throw new EmployeeException("Employee code should not be duplicate");
+        }
 	    if (employeeDto.getId() == null) {
 	        throw new EmployeeException("Id Should Not be null");
 	    }

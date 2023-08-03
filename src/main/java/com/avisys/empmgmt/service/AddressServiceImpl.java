@@ -2,8 +2,6 @@ package com.avisys.empmgmt.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -14,7 +12,6 @@ import com.avisys.empmgmt.dto.AddressDto;
 import com.avisys.empmgmt.entity.Address;
 import com.avisys.empmgmt.entity.Employee;
 import com.avisys.empmgmt.exception.AddressException;
-import com.avisys.empmgmt.exception.DepartmentException;
 import com.avisys.empmgmt.exception.EmployeeException;
 import com.avisys.empmgmt.repository.AddressRepo;
 import com.avisys.empmgmt.repository.EmployeeRepo;
@@ -37,15 +34,15 @@ public class AddressServiceImpl implements AddressService {
 		
 		Employee employee=this.employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()-> new EmployeeException("Employee not found"));
 		
-		List<Address> addressList = addressRepository.findByaddressType(addressDto.getAddressType());
+		List<Address> addressList = addressRepository.findByEmployee(employee);
+
 		for (Address address : addressList) {
-		    if (address.getEmployee().equals(employee)) {
+		    if (address.getAddressType().equals(addressDto.getAddressType())) {
 		        throw new AddressException("Address Type already filled");
 		    }
 		}
 		Address address = this.modelMapper.map(addressDto, Address.class);
 		address.setCreatedAt(LocalDateTime.now());
-//		address.setCreatedBy(addressDto.getCreatedBy());
 		address.setDeleted(false);
 		address.setEmployee(employee);
 		addressRepository.save(address);
@@ -70,20 +67,12 @@ public class AddressServiceImpl implements AddressService {
 	@Override
 	public String updateAddress( AddressDto addressDto,Long employeeId) {
 		Employee employee=employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
-		List<Address> addressList = addressRepository.findByaddressType(addressDto.getAddressType());
-		for (Address address : addressList) {
-		    if (address.getEmployee().equals(employee)) {
-		        throw new AddressException("Address Type already filled");
-		    }
-		}
-	    if (addressDto.getId() == null) {
-	        throw new AddressException("Id Should Not be null");
-	    }
+
 	    Address addressObj = addressRepository.findByIdAndIsDeletedFalse(addressDto.getId()).orElseThrow(()->new AddressException("Address not found"));
 	    if(employee==addressObj.getEmployee()) {
 	        modelMapper.map(addressDto, addressObj);
 
-	        // Set other fields that are not mapped automatically
+	      
 	        addressObj.setUpdatedAt(LocalDateTime.now());
 	        addressObj.setUpdatedBy(addressDto.getUpdatedBy());
 	        addressObj.setDeleted(false);

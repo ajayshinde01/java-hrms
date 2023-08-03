@@ -1,7 +1,6 @@
 package com.avisys.empmgmt.dto;
 
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -42,9 +41,8 @@ public class AddressDto {
 	@NotBlank(message="postcode must not be blank")
 	private String postcode;
 	
-	@Column(name="ownership_status")
+
 	private String ownershipStatus;
-	
 	
 	@NotBlank(message = "Organisation Code should not be blank")
 	@NotNull(message = "Organisation Code should not be null")
@@ -59,8 +57,6 @@ public class AddressDto {
 	protected AddressDto() {
 		super();
 	}
-
-	
 
 	protected AddressDto(Long id,
 			@NotNull(message = "Id must not be null") @NotBlank(message = "Id must not be blank") @Size(min = 2, max = 8, message = "Id should be in between 2 to 8 character") String addressType,
@@ -212,4 +208,4 @@ public class AddressDto {
 		this.updatedBy = updatedBy;
 	}
 	
-	}
+}

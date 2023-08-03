@@ -32,6 +32,8 @@ public class Employee extends Status{
 	@Column(name="ID")
 	private Long id;
 	
+	private String profile_image;
+	
 	@Column(name="employee_code", unique=true)
 	@NotNull(message="employee code must not be null")
 	@NotBlank(message="employee code must not be blank")
@@ -56,7 +58,6 @@ public class Employee extends Status{
 	
 	@Column(name="date_of_birth")
 	@NotNull(message="Date must not be null")
-//	@NotBlank(message="Name must not be blank")
 	private LocalDate dateOfBirth;
 	
 	@Column(name="gender")
@@ -66,7 +67,6 @@ public class Employee extends Status{
 	
 	@Column(name="date_of_joining")
 	@NotNull(message="Date must not be null")
-//	@NotBlank(message="Name must not be blank")
 	private LocalDate dateOfJoining;
 
 	@Column(name="age")
@@ -87,6 +87,15 @@ public class Employee extends Status{
 	@Column(name="user_id")
 	private String userId;
 	
+	@Column(name="mobile_no")
+	private String mobile;
+	
+	@Column(name="phone_no")
+	private String phone;
+	
+	@Column(name="email")
+	private String email;
+	
 	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Address> addressList=new ArrayList<>();
 	
@@ -95,189 +104,181 @@ public class Employee extends Status{
 
 	@OneToOne(mappedBy = "employee",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private PersonalDetails personalDetails;
-	
+
 	@OneToOne(mappedBy = "employee",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private JoiningDetail joiningDetail;
 
+	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<EmergencyContacts> emergencyContacts=new ArrayList<>();
+
 	protected Employee() {
 		super();
-	}
-
-	public Employee(
-			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
-			boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy,
-			Long id,
-			@NotNull(message = "employee code must not be null") @NotBlank(message = "employee code must not be blank") @Size(min = 2, max = 8, message = "Id should be in between 2 to 8 character") String employeeCode,
-			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String firstName,
-			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String middleName,
-			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String lastName,
-			@NotNull(message = "Date must not be null") LocalDate dateOfBirth,
-			@NotNull(message = "Gender must not be null") @NotBlank(message = "Gender must not be blank") String gender,
-			@NotNull(message = "Date must not be null") LocalDate dateOfJoining,
-			@NotNull(message = "Age must not be null") @NotBlank(message = "Age must not be blank") String age,
-			@NotNull(message = "Status must not be null") @NotBlank(message = "Status must not be blank") String status,
-			@NotNull(message = "Division must not be null") @NotBlank(message = "Division must not be blank") String division,
-			String userId, List<Address> addressList, CompanyDetail companyDetail, PersonalDetails personalDetails,
-			JoiningDetail joiningDetail) {
-		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
-		this.id = id;
-		this.employeeCode = employeeCode;
-		this.firstName = firstName;
-		this.middleName = middleName;
-		this.lastName = lastName;
-		this.dateOfBirth = dateOfBirth;
-		this.gender = gender;
-		this.dateOfJoining = dateOfJoining;
-		this.age = age;
-		this.status = status;
-		this.division = division;
-		this.userId = userId;
-		this.addressList = addressList;
-		this.companyDetail = companyDetail;
-		this.personalDetails = personalDetails;
-		this.joiningDetail = joiningDetail;
-	}
-
-	public Employee(
-			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
-			boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy,
-			@NotNull(message = "employee code must not be null") @NotBlank(message = "employee code must not be blank") @Size(min = 2, max = 8, message = "Id should be in between 2 to 8 character") String employeeCode,
-			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String firstName,
-			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String middleName,
-			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String lastName,
-			@NotNull(message = "Date must not be null") LocalDate dateOfBirth,
-			@NotNull(message = "Gender must not be null") @NotBlank(message = "Gender must not be blank") String gender,
-			@NotNull(message = "Date must not be null") LocalDate dateOfJoining,
-			@NotNull(message = "Age must not be null") @NotBlank(message = "Age must not be blank") String age,
-			@NotNull(message = "Status must not be null") @NotBlank(message = "Status must not be blank") String status,
-			@NotNull(message = "Division must not be null") @NotBlank(message = "Division must not be blank") String division,
-			String userId, List<Address> addressList, CompanyDetail companyDetail, PersonalDetails personalDetails,
-			JoiningDetail joiningDetail) {
-		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
-		this.employeeCode = employeeCode;
-		this.firstName = firstName;
-		this.middleName = middleName;
-		this.lastName = lastName;
-		this.dateOfBirth = dateOfBirth;
-		this.gender = gender;
-		this.dateOfJoining = dateOfJoining;
-		this.age = age;
-		this.status = status;
-		this.division = division;
-		this.userId = userId;
-		this.addressList = addressList;
-		this.companyDetail = companyDetail;
-		this.personalDetails = personalDetails;
-		this.joiningDetail = joiningDetail;
 	}
 
 	public Long getId() {
 		return id;
 	}
 
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 
 	public String getEmployeeCode() {
 		return employeeCode;
 	}
 
+
 	public void setEmployeeCode(String employeeCode) {
 		this.employeeCode = employeeCode;
 	}
+
 
 	public String getFirstName() {
 		return firstName;
 	}
 
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+
 
 	public String getMiddleName() {
 		return middleName;
 	}
 
+
 	public void setMiddleName(String middleName) {
 		this.middleName = middleName;
 	}
+
 
 	public String getLastName() {
 		return lastName;
 	}
 
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
 
 	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
+
 	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
+
 
 	public String getGender() {
 		return gender;
 	}
 
+
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+
 
 	public LocalDate getDateOfJoining() {
 		return dateOfJoining;
 	}
 
+
 	public void setDateOfJoining(LocalDate dateOfJoining) {
 		this.dateOfJoining = dateOfJoining;
 	}
+
 
 	public String getAge() {
 		return age;
 	}
 
+
 	public void setAge(String age) {
 		this.age = age;
 	}
+
 
 	public String getStatus() {
 		return status;
 	}
 
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
 
 	public String getDivision() {
 		return division;
 	}
 
+
 	public void setDivision(String division) {
 		this.division = division;
 	}
+
 
 	public String getUserId() {
 		return userId;
 	}
 
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
+
+	public String getMobile() {
+		return mobile;
+	}
+
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+
+	public String getPhone() {
+		return phone;
+	}
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 
 	public List<Address> getAddressList() {
 		return addressList;
 	}
 
+
 	public void setAddressList(List<Address> addressList) {
 		this.addressList = addressList;
 	}
 
+
 	public CompanyDetail getCompanyDetail() {
 		return companyDetail;
 	}
+
 
 	public void setCompanyDetail(CompanyDetail companyDetail) {
 		this.companyDetail = companyDetail;
@@ -299,4 +300,12 @@ public class Employee extends Status{
 		this.joiningDetail = joiningDetail;
 	}
 	
+	public String getProfile_image() {
+		return profile_image;
+	}
+
+	public void setProfile_image(String profile_image) {
+		this.profile_image = profile_image;
+	}
+
 }

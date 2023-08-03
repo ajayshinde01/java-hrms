@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,14 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.avisys.empmgmt.dto.AddressDto;
-import com.avisys.empmgmt.dto.EmployeeDto;
-import com.avisys.empmgmt.exception.AddressException;
-import com.avisys.empmgmt.exception.DepartmentException;
-import com.avisys.empmgmt.exception.EmployeeException;
 import com.avisys.empmgmt.service.AddressService;
 import com.avisys.empmgmt.util.ApiResponse;
+
+//import com.avisys.empmgmt.util.ApiResponse;
 import jakarta.validation.Valid;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("address")
 public class AddressController {
@@ -37,13 +37,13 @@ public class AddressController {
 		return new ResponseEntity<>(new ApiResponse(createAddress,LocalDateTime.now()), HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/{employee-id}/address")
+	@GetMapping("/{employee-id}/get-all")
 	public ResponseEntity<List<AddressDto>> getAddressByEmployeeId(@PathVariable("employee-id") Long employeeId){
 		List<AddressDto> getAddress = this.addressService.getAddressByEmployee(employeeId);
 		return new ResponseEntity<List<AddressDto>>(getAddress,HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/{employee-id}/address/{address-id}")
+	@DeleteMapping("/{employee-id}/{address-id}")
 	public ResponseEntity<?> deleteEmployeeAddress(@PathVariable("employee-id") Long employeeId, @PathVariable("address-id") Long addressId ){
 		String deletedAddress = this.addressService.deleteAddress(employeeId,addressId);
 		return new ResponseEntity<>(new ApiResponse(deletedAddress,LocalDateTime.now()), HttpStatus.OK);
@@ -54,6 +54,4 @@ public class AddressController {
 		String updateEmployeeAddress = this.addressService.updateAddress(addressDto,employeeId);
 		return new ResponseEntity<>(new ApiResponse(updateEmployeeAddress,LocalDateTime.now()), HttpStatus.OK);
 	}
-
-	
 }

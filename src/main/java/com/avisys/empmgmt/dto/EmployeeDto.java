@@ -14,6 +14,8 @@ public class EmployeeDto {
 	@Size(min=2, max=8, message="Id should be in between 2 to 8 character")
 	private String employeeCode;
 	
+	private String profile_image;
+	
 	@NotNull(message="Name must not be null")
 	@NotBlank(message="Name must not be blank")
 	private String firstName;
@@ -27,7 +29,6 @@ public class EmployeeDto {
 	private String lastName;
 	
 	@NotNull(message="Date must not be null")
-//	@NotBlank(message="Name must not be blank")
 	private LocalDate dateOfBirth;
 	
 	@NotNull(message="Gender must not be null")
@@ -35,7 +36,6 @@ public class EmployeeDto {
 	private String gender;
 	
 	@NotNull(message="Date must not be null")
-//	@NotBlank(message="Name must not be blank")
 	private LocalDate dateOfJoining;
 
 	@NotNull(message="Age must not be null")
@@ -52,18 +52,22 @@ public class EmployeeDto {
 	
 	private String userId;
 	
+	@NotNull(message="Mobile number must not be null")
+	@NotBlank(message="Mobile number must not be blank")
+	private String mobile;
+	
+	private String phone;
+	
+	@NotNull(message="Email Id must not be null")
+	@NotBlank(message="Email Id must not be blank")
+	private String email;
+	
 	@NotBlank(message = "Organisation Code should not be blank")
 	@NotNull(message = "Organisation Code should not be null")
 	private String orgCode;
 	
-//	@JsonIgnoreProperties(value="employee")
-//	private List<AddressDto> address = new ArrayList<>();
-	
 	private boolean isDeleted;
-//
-//	private LocalDateTime createdAt;
-//	
-//	private LocalDateTime updatedAt;
+
 	
 	private String createdBy;
 
@@ -75,8 +79,9 @@ public class EmployeeDto {
 	}
 
 
-	protected EmployeeDto(Long id,
+	public EmployeeDto(
 			@NotNull(message = "employee code must not be null") @NotBlank(message = "employee code must not be blank") @Size(min = 2, max = 8, message = "Id should be in between 2 to 8 character") String employeeCode,
+			String profile_image,
 			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String firstName,
 			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String middleName,
 			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String lastName,
@@ -87,11 +92,14 @@ public class EmployeeDto {
 			@NotNull(message = "Status must not be null") @NotBlank(message = "Status must not be blank") String status,
 			@NotNull(message = "Division must not be null") @NotBlank(message = "Division must not be blank") String division,
 			String userId,
+			@NotNull(message = "Mobile number must not be null") @NotBlank(message = "Mobile number must not be blank") String mobile,
+			String phone,
+			@NotNull(message = "Email Id must not be null") @NotBlank(message = "Email Id must not be blank") String email,
 			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
 			boolean isDeleted, String createdBy, String updatedBy) {
 		super();
-		Id = id;
 		this.employeeCode = employeeCode;
+		this.profile_image = profile_image;
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
@@ -102,12 +110,14 @@ public class EmployeeDto {
 		this.status = status;
 		this.division = division;
 		this.userId = userId;
+		this.mobile = mobile;
+		this.phone = phone;
+		this.email = email;
 		this.orgCode = orgCode;
 		this.isDeleted = isDeleted;
 		this.createdBy = createdBy;
 		this.updatedBy = updatedBy;
 	}
-
 
 	public Long getId() {
 		return Id;
@@ -229,43 +239,70 @@ public class EmployeeDto {
 	}
 
 
+	public String getMobile() {
+		return mobile;
+	}
+
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getOrgCode() {
 		return orgCode;
 	}
-
 
 	public void setOrgCode(String orgCode) {
 		this.orgCode = orgCode;
 	}
 
-
 	public boolean isDeleted() {
 		return isDeleted;
 	}
-
 
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 
-
 	public String getCreatedBy() {
 		return createdBy;
 	}
-
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
 
-
 	public String getUpdatedBy() {
 		return updatedBy;
 	}
 
-
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
 	}
-	
+
+	public String getProfile_image() {
+		return profile_image;
 	}
+
+	public void setProfile_image(String profile_image) {
+		this.profile_image = profile_image;
+	}
+
+}

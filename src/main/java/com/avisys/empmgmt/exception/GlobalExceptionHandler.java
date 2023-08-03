@@ -170,6 +170,35 @@ public class GlobalExceptionHandler {
 		response.setDateTime(LocalDateTime.now());
 		response.setMessage(exception.getMessage());
 		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+	@ExceptionHandler(EmergencyContactsException.class)
+	public ResponseEntity<ApiResponse> DataNotFoundException(EmergencyContactsException ex) {
+		String message = ex.getMessage();
+		ApiResponse apiResponse = new ApiResponse(message,LocalDateTime.now());
+		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(VisaException.class)
+	public ResponseEntity<ApiResponse> DataNotFoundException(VisaException ex) {
+		String message = ex.getMessage();
+		ApiResponse apiResponse = new ApiResponse(message,LocalDateTime.now());
+		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(EducationalQualificationException.class)
+	public ResponseEntity<ApiResponse> DataNotFoundException(EducationalQualificationException ex) {
+		String message = ex.getMessage();
+		ApiResponse apiResponse = new ApiResponse(message,LocalDateTime.now());
+		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
+	}
+	
+	
+	@ExceptionHandler(WorkExperienceException.class)
+	public ResponseEntity<ApiResponse> DataNotFoundException(WorkExperienceException ex) {
+		String message = ex.getMessage();
+		ApiResponse apiResponse = new ApiResponse(message,LocalDateTime.now());
+		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
 
 	}
 }

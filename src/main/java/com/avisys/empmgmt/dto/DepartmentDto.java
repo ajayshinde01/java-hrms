@@ -1,7 +1,5 @@
 package com.avisys.empmgmt.dto;
 
-import java.time.LocalDateTime;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -33,10 +31,6 @@ public class DepartmentDto {
 	private String orgCode;
 	
 	private boolean isDeleted;
-
-	private LocalDateTime createdAt;
-	
-	private LocalDateTime updatedAt;
 	
 	private String createdBy;
 
@@ -93,22 +87,6 @@ public class DepartmentDto {
 
 	public void setIsDeleted(Boolean isDeleted) {
 		this.isDeleted = isDeleted;
-	}
-
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
 	}
 
 	public String getCreatedBy() {
