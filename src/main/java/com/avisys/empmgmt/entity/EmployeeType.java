@@ -25,7 +25,7 @@ public class EmployeeType extends Status {
 	@NotNull(message="Employee Type Id should not be null")
 	@NotBlank(message="Employee Type Id should not be blank")
 	@Size(min = 3,message = "Division Id must be of 3 character")
-	@Pattern(regexp = "^(?!.*\s)[A-Za-z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers")
+	@Pattern(regexp = "^[a-zA-Z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers")
 	private String employeeTypeId;
 
 	@NotBlank(message = "Type Should not be blank")

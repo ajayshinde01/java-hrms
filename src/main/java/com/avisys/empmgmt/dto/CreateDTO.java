@@ -9,12 +9,12 @@ public class CreateDTO {
 
 	@NotNull(message = "")
 	@NotBlank(message = "Role Id field cant be blank")
-    @Pattern(regexp = "^(?!.*\s)[A-Za-z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers")
+    @Pattern(regexp = "^[a-zA-Z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers")
 	private String roleId;
 	
 	@NotNull
 	@NotBlank(message = "Role Name field cant be blank")
-    @Pattern(regexp = "^[a-zA-Z]+[a-zA-Z0-9 ]+$",message = "Name must starts with alphabets")
+    @Pattern(regexp = "^[a-zA-Z-_]{1,100}$",message = "Name must starts with alphabets")
 	private String name;
 	
 	@NotNull
