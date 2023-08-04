@@ -337,8 +337,4 @@ public class PersonalDetails extends Status{
 		this.employee = employee;
 	}
     
-	
-    
-    
-    
 }

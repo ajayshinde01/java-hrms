@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.avisys.empmgmt.dto.EmployeeTypeDTO;
-import com.avisys.empmgmt.entity.Division;
 import com.avisys.empmgmt.entity.EmployeeType;
 import com.avisys.empmgmt.exception.ResourceNotFoundException;
 import com.avisys.empmgmt.exception.DataAlreadyPresentException;

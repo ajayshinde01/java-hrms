@@ -5,8 +5,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.avisys.empmgmt.dto.PersonalDetailsDTO;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,13 +12,14 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -38,7 +37,6 @@ public class Employee extends Status{
 	@NotNull(message="employee code must not be null")
 	@NotBlank(message="employee code must not be blank")
 	@Size(min=2, max=8, message="Id should be in between 2 to 8 character")
-	@Pattern(regexp = "^(?!.*\s)[A-Za-z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers")
 	private String employeeCode;
 	
 	@Column(name="first_name")
@@ -79,10 +77,9 @@ public class Employee extends Status{
 	@NotBlank(message="Status must not be blank")
 	private String status;
 	
-	@Column(name="division")
-	@NotNull(message="Division must not be null")
-	@NotBlank(message="Division must not be blank")
-	private String division;
+	@ManyToOne
+	@JoinColumn(name="divion_id_fk")
+	private Division division;
 	
 	@Column(name="user_id")
 	private String userId;
@@ -109,11 +106,61 @@ public class Employee extends Status{
 	private JoiningDetail joiningDetail;
 
 	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<WorkExperience> workExperience=new ArrayList<>();
+	
+	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<EmergencyContacts> emergencyContacts=new ArrayList<>();
+	
+	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Visa> visa=new ArrayList<>();
 
-	protected Employee() {
+	public Employee() {
 		super();
 	}
+
+
+	public Employee(
+			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
+			boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy,
+			String profile_image,
+			@NotNull(message = "employee code must not be null") @NotBlank(message = "employee code must not be blank") @Size(min = 2, max = 8, message = "Id should be in between 2 to 8 character") String employeeCode,
+			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String firstName,
+			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String middleName,
+			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String lastName,
+			@NotNull(message = "Date must not be null") LocalDate dateOfBirth,
+			@NotNull(message = "Gender must not be null") @NotBlank(message = "Gender must not be blank") String gender,
+			@NotNull(message = "Date must not be null") LocalDate dateOfJoining,
+			@NotNull(message = "Age must not be null") @NotBlank(message = "Age must not be blank") String age,
+			@NotNull(message = "Status must not be null") @NotBlank(message = "Status must not be blank") String status,
+			Division division, String userId, String mobile, String phone, String email, List<Address> addressList,
+			CompanyDetail companyDetail, PersonalDetails personalDetails, JoiningDetail joiningDetail,
+			List<WorkExperience> workExperience, List<EmergencyContacts> emergencyContacts, List<Visa> visa) {
+		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
+		this.profile_image = profile_image;
+		this.employeeCode = employeeCode;
+		this.firstName = firstName;
+		this.middleName = middleName;
+		this.lastName = lastName;
+		this.dateOfBirth = dateOfBirth;
+		this.gender = gender;
+		this.dateOfJoining = dateOfJoining;
+		this.age = age;
+		this.status = status;
+		this.division = division;
+		this.userId = userId;
+		this.mobile = mobile;
+		this.phone = phone;
+		this.email = email;
+		this.addressList = addressList;
+		this.companyDetail = companyDetail;
+		this.personalDetails = personalDetails;
+		this.joiningDetail = joiningDetail;
+		this.workExperience = workExperience;
+		this.emergencyContacts = emergencyContacts;
+		this.visa = visa;
+	}
+
+
 
 	public Long getId() {
 		return id;
@@ -214,17 +261,6 @@ public class Employee extends Status{
 		this.status = status;
 	}
 
-
-	public String getDivision() {
-		return division;
-	}
-
-
-	public void setDivision(String division) {
-		this.division = division;
-	}
-
-
 	public String getUserId() {
 		return userId;
 	}
@@ -307,5 +343,43 @@ public class Employee extends Status{
 	public void setProfile_image(String profile_image) {
 		this.profile_image = profile_image;
 	}
+
+	public Division getDivision() {
+		return division;
+	}
+
+	public void setDivision(Division division) {
+		this.division = division;
+	}
+
+	public List<EmergencyContacts> getEmergencyContacts() {
+		return emergencyContacts;
+	}
+
+	public void setEmergencyContacts(List<EmergencyContacts> emergencyContacts) {
+		this.emergencyContacts = emergencyContacts;
+	}
+
+
+	public List<WorkExperience> getWorkExperience() {
+		return workExperience;
+	}
+
+
+	public void setWorkExperience(List<WorkExperience> workExperience) {
+		this.workExperience = workExperience;
+	}
+
+
+	public List<Visa> getVisa() {
+		return visa;
+	}
+
+
+	public void setVisa(List<Visa> visa) {
+		this.visa = visa;
+	}
+	
+	
 
 }

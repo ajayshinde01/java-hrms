@@ -7,8 +7,9 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import com.avisys.empmgmt.dto.VisaDto;
 import com.avisys.empmgmt.entity.Employee;
 import com.avisys.empmgmt.entity.Visa;
@@ -88,6 +89,28 @@ public class VisaService {
 				visaRepository.save(visa); 
 				return "Address deleted successfully";
 			}else throw new VisaException("employee doesn't match with VisaId");
+		}
+
+		public Page<VisaDto> searchVisa(Pageable pageable, String keyword, Long employeeId) {
+			Employee employee = this.employeeRepository.findByIdAndIsDeletedFalse(employeeId)
+	                .orElseThrow(() -> new EmployeeException("Employee not found"));
+
+	        List<Visa> visa = visaRepository.findByEmployeeAndIsDeletedFalse(employee);
+	        if (visa.isEmpty()) {
+	            throw new VisaException("Array is empty");
+	        }
+
+	        keyword = keyword.toLowerCase();
+	        Page<Visa> pageableVisa = visaRepository.searchByVisaAndEmployeeId(keyword, pageable, employeeId);
+
+	        Page<VisaDto> visaDto = pageableVisa.map(visaObj ->
+	                this.modelMapper.map(visaObj, VisaDto.class));
+
+	        if (visaDto.isEmpty()) {
+	            throw new VisaException("Array is empty");
+	        } else {
+	            return visaDto;
+	        }
 		}
 
 	}

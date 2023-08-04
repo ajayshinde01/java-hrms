@@ -1,11 +1,6 @@
 package com.avisys.empmgmt.entity;
 
 import java.time.LocalDateTime;
-
-import org.hibernate.annotations.GeneratorType;
-import org.hibernate.validator.constraints.UniqueElements;
-
-import jakarta.annotation.Generated;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,7 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -48,12 +42,6 @@ public class Role extends Status{
     @Pattern(regexp = "^[a-zA-Z]+[a-zA-Z0-9 ]+$",message = "Name must starts with alphabets")
 	@Column(name = "name")
 	private String roleName;
-
-
-	public Role() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	public Role(String roleId, String roleName, String orgCode, boolean isDeleted, LocalDateTime createdAt,
 			LocalDateTime updatedAt, String createdBy, String updatedBy) {

@@ -23,7 +23,7 @@ import com.avisys.empmgmt.util.ApiResponse;
 //import com.avisys.empmgmt.util.ApiResponse;
 import jakarta.validation.Valid;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("address")
 public class AddressController {

@@ -27,7 +27,7 @@ public class Address extends Status{
 	@Column(name = "address_type", length = 25)
 	@NotNull(message="Id must not be null")
 	@NotBlank(message="Id must not be blank")
-	@Size(min=2, max=8, message="Id should be in between 2 to 8 character")	
+	@Size(min=2, max=15, message="AddressType should be in between 2 to 15 character")	
 	private String addressType;
 
 	@Column(name = "address_1", length = 45)
@@ -70,26 +70,25 @@ public class Address extends Status{
 	@ManyToOne
 	@JoinColumn(name = "employee_id_fk")
 	private Employee employee;
+	
 
-
-	protected Address() {
+	public Address() {
 		super();
 	}
 
-	protected Address(
+	
+	public Address(
 			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
 			boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy,
-			Long id,
-			@NotNull(message = "Id must not be null") @NotBlank(message = "Id must not be blank") @Size(min = 2, max = 8, message = "Id should be in between 2 to 8 character") String addressType,
+			@NotNull(message = "Id must not be null") @NotBlank(message = "Id must not be blank") @Size(min = 2, max = 15, message = "AddressType should be in between 2 to 15 character") String addressType,
 			@NotNull(message = "address1 field must not be null") @NotBlank(message = "address1 field must not be blank") String address1,
 			String address2, String landmark, String addressTenure,
 			@NotNull(message = "city must not be null") @NotBlank(message = "city must not be blank") String city,
 			@NotNull(message = "state must not be null") @NotBlank(message = "state must not be blank") String state,
 			@NotNull(message = "country must not be null") @NotBlank(message = "country must not be blank") String country,
-			@NotNull(message = "postcode must not be null") @NotBlank(message = "postcode must not be blank") @NotNull(message = "postcode must not be null") @NotBlank(message = "postcode must not be blank") String postcode,
+			@NotNull(message = "postcode must not be null") @NotBlank(message = "postcode must not be blank") String postcode,
 			String ownershipStatus, Employee employee) {
 		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
-		this.id = id;
 		this.addressType = addressType;
 		this.address1 = address1;
 		this.address2 = address2;
@@ -102,6 +101,7 @@ public class Address extends Status{
 		this.ownershipStatus = ownershipStatus;
 		this.employee = employee;
 	}
+
 
 	public Long getId() {
 		return id;

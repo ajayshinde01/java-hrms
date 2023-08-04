@@ -6,10 +6,11 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.avisys.empmgmt.dto.EducationalQualificationDto;
-import com.avisys.empmgmt.entity.Address;
 import com.avisys.empmgmt.entity.EducationalQualification;
 import com.avisys.empmgmt.entity.Employee;
 import com.avisys.empmgmt.exception.AddressException;
@@ -93,5 +94,29 @@ public class EducationalQualificationService {
 			educationalRepository.save(education); 
 			return "Qualification deleted successfully";
 		}else throw new EducationalQualificationException("EmployeeId doesn't match with QualificationId");
+	}
+
+
+	public Page<EducationalQualificationDto> searchEducationalQualification(Pageable pageable, String keyword,
+			Long employeeId) {
+		  Employee employee = this.employeeRepository.findByIdAndIsDeletedFalse(employeeId)
+	                .orElseThrow(() -> new EmployeeException("Employee not found"));
+
+	        List<EducationalQualification> educationalQualification = educationalRepository.findByEmployeeAndIsDeletedFalse(employee);
+	        if (educationalQualification.isEmpty()) {
+	            throw new EducationalQualificationException("Array is empty");
+	        }
+
+	        keyword = keyword.toLowerCase();
+	        Page<EducationalQualification> qualification = educationalRepository.searchByEducationalQualificationAndEmployeeId(keyword, pageable, employeeId);
+
+	        Page<EducationalQualificationDto> educationalQualificationDto = qualification.map(education ->
+	                this.modelMapper.map(education, EducationalQualificationDto.class));
+
+	        if (educationalQualificationDto.isEmpty()) {
+	            throw new EducationalQualificationException("Array is empty");
+	        } else {
+	            return educationalQualificationDto;
+	        }
 	}
 }

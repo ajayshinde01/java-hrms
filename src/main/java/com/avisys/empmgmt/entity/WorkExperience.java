@@ -1,5 +1,6 @@
 package com.avisys.empmgmt.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -29,10 +30,10 @@ public class WorkExperience extends Status {
 	private String Designation;
 	
 	@Column(name="from_date")
-	private String fromDate;
+	private LocalDate fromDate;
 	
 	@Column(name="to_date")
-	private String toDate;
+	private LocalDate toDate;
 	
 	@Column(name="Address")
 	private String address;
@@ -48,7 +49,8 @@ public class WorkExperience extends Status {
 	public WorkExperience(
 			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
 			boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy,
-			String companyName, String designation, String fromDate, String toDate, String address, Employee employee) {
+			String companyName, String designation, LocalDate fromDate, LocalDate toDate, String address,
+			Employee employee) {
 		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
 		this.companyName = companyName;
 		Designation = designation;
@@ -82,19 +84,19 @@ public class WorkExperience extends Status {
 		Designation = designation;
 	}
 
-	public String getFromDate() {
+	public LocalDate getFromDate() {
 		return fromDate;
 	}
 
-	public void setFromDate(String fromDate) {
+	public void setFromDate(LocalDate fromDate) {
 		this.fromDate = fromDate;
 	}
 
-	public String getToDate() {
+	public LocalDate getToDate() {
 		return toDate;
 	}
 
-	public void setToDate(String toDate) {
+	public void setToDate(LocalDate toDate) {
 		this.toDate = toDate;
 	}
 

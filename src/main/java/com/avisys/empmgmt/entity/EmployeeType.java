@@ -58,6 +58,4 @@ public class EmployeeType extends Status {
 		this.type = type;
 	}
 
-
-
 }

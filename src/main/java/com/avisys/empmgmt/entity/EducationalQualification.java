@@ -1,7 +1,5 @@
 package com.avisys.empmgmt.entity;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,7 +37,7 @@ public class EducationalQualification extends Status{
 	
 	@Column(name="passing_year")
 	@NotNull(message="year must not be null")
-	private LocalDate passingYear;
+	private String passingYear;
 	
 	@ManyToOne
 	@JoinColumn(name = "employee_id_fk")
@@ -53,7 +51,7 @@ public class EducationalQualification extends Status{
 			@NotNull(message = "Qualification must not be null") @NotBlank(message = "Qualification must not be blank") String educationalQualification,
 			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String instituteName,
 			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String qualificationLevel,
-			@NotNull(message = "year must not be null") LocalDate passingYear, Employee employee) {
+			@NotNull(message = "year must not be null") String passingYear, Employee employee) {
 		super();
 		this.educationalQualification = educationalQualification;
 		this.instituteName = instituteName;
@@ -95,11 +93,11 @@ public class EducationalQualification extends Status{
 		this.qualificationLevel = qualificationLevel;
 	}
 
-	public LocalDate getPassingYear() {
+	public String getPassingYear() {
 		return passingYear;
 	}
 
-	public void setPassingYear(LocalDate passingYear) {
+	public void setPassingYear(String passingYear) {
 		this.passingYear = passingYear;
 	}
 

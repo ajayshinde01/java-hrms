@@ -6,10 +6,8 @@ import com.avisys.empmgmt.entity.EmployeeType;
 import com.avisys.empmgmt.entity.Grade;
 import com.avisys.empmgmt.entity.Role;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 
 public class CreateCompanyDetailDTO {
 

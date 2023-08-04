@@ -3,13 +3,25 @@ package com.avisys.empmgmt.exception;
 public class DepartmentException extends Exception {
 
 	private static final long serialVersionUID = 1L;
+	private String message;
+	
+	public DepartmentException() {
+		
+	}
+	
 
 	public DepartmentException(String message) {
-	        super(message);
-	    }
+		super();
+		this.message = message;
+	}
 
-//	    @Override
-//	    public String toString() {
-//	        return "Unable to find Data:" + getMessage();
-//	    }
+
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
 }

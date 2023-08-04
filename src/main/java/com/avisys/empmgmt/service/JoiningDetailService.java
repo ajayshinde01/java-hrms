@@ -5,15 +5,10 @@ import java.time.LocalDateTime;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.avisys.empmgmt.dto.CompanyDetailDTO;
 import com.avisys.empmgmt.dto.CreateJoiningDetailDTO;
 import com.avisys.empmgmt.dto.JoiningDetailDTO;
-import com.avisys.empmgmt.entity.CompanyDetail;
 import com.avisys.empmgmt.entity.Employee;
 import com.avisys.empmgmt.entity.JoiningDetail;
-import com.avisys.empmgmt.exception.CompanyDetailAlreadyPresent;
-import com.avisys.empmgmt.exception.CompanyDetailNotFound;
 import com.avisys.empmgmt.exception.EmployeeException;
 import com.avisys.empmgmt.exception.JoiningDetailAlreadyPresent;
 import com.avisys.empmgmt.exception.JoiningDetailNotFound;

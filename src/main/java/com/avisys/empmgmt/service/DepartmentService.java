@@ -11,11 +11,9 @@ import com.avisys.empmgmt.exception.DepartmentException;
 
 @Service
 public interface DepartmentService {
-//	List<DepartmentDto> getAllDepartment(Integer pageNumber, Integer pageSize, String sortBy, String sortDir ) throws DepartmentException;
 
 	String createDepartment(DepartmentDto department) throws DepartmentException;
 
-//	String updateDepartment(String deptId, DepartmentDto department) throws DataNotFoundException;
 
 
 	String updateDepartment(DepartmentDto departmentDto) throws DepartmentException;

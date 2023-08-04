@@ -12,7 +12,7 @@ public class AddressDto {
 	
 	@NotNull(message="Id must not be null")
 	@NotBlank(message="Id must not be blank")
-	@Size(min=2, max=15, message="Id should be in between 2 to 15 character")	
+	@Size(min=2, max=15, message="AddressType should be in between 2 to 15 character")	
 	private String addressType;
 
 	@NotNull(message="address1 field must not be null")
@@ -54,12 +54,13 @@ public class AddressDto {
 
 	private String updatedBy;
 
-	protected AddressDto() {
+	public AddressDto() {
 		super();
 	}
-
-	protected AddressDto(Long id,
-			@NotNull(message = "Id must not be null") @NotBlank(message = "Id must not be blank") @Size(min = 2, max = 8, message = "Id should be in between 2 to 8 character") String addressType,
+	
+	
+	public AddressDto(
+			@NotNull(message = "AddressType must not be null") @NotBlank(message = "AddressType must not be blank") @Size(min = 2, max = 15, message = "AddressType should be in between 2 to 15 character") String addressType,
 			@NotNull(message = "address1 field must not be null") @NotBlank(message = "address1 field must not be blank") String address1,
 			String address2, String landmark, String addressTenure,
 			@NotNull(message = "city must not be null") @NotBlank(message = "city must not be blank") String city,
@@ -70,7 +71,6 @@ public class AddressDto {
 			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
 			boolean isDeleted, String createdBy, String updatedBy) {
 		super();
-		this.id = id;
 		this.addressType = addressType;
 		this.address1 = address1;
 		this.address2 = address2;
@@ -86,7 +86,6 @@ public class AddressDto {
 		this.createdBy = createdBy;
 		this.updatedBy = updatedBy;
 	}
-
 
 
 	public Long getId() {

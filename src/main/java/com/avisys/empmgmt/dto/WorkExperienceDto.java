@@ -1,5 +1,7 @@
 package com.avisys.empmgmt.dto;
 
+import java.time.LocalDate;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -16,10 +18,10 @@ public class WorkExperienceDto {
 	private String Designation;
 	
 	@NotNull(message="StartDate must not be null")
-	private String fromDate;
+	private LocalDate fromDate;
 	
 	@NotNull(message="EndDate must not be null")
-	private String toDate;
+	private LocalDate toDate;
 	
 	@NotNull(message="address must not be null")
 	@NotBlank(message="address must not be blank")
@@ -39,11 +41,13 @@ public class WorkExperienceDto {
 		super();
 	}
 
+	
+
 	public WorkExperienceDto(
 			@NotNull(message = "companyName must not be null") @NotBlank(message = "companyName must not be blank") String companyName,
 			@NotNull(message = "Designation must not be null") @NotBlank(message = "Designation must not be blank") String designation,
-			@NotNull(message = "StartDate must not be null") String fromDate,
-			@NotNull(message = "EndDate must not be null") String toDate,
+			@NotNull(message = "StartDate must not be null") LocalDate fromDate,
+			@NotNull(message = "EndDate must not be null") LocalDate toDate,
 			@NotNull(message = "address must not be null") @NotBlank(message = "address must not be blank") String address,
 			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
 			boolean isDeleted, String createdBy, String updatedBy) {
@@ -58,6 +62,8 @@ public class WorkExperienceDto {
 		this.createdBy = createdBy;
 		this.updatedBy = updatedBy;
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -83,19 +89,19 @@ public class WorkExperienceDto {
 		Designation = designation;
 	}
 
-	public String getFromDate() {
+	public LocalDate getFromDate() {
 		return fromDate;
 	}
 
-	public void setFromDate(String fromDate) {
+	public void setFromDate(LocalDate fromDate) {
 		this.fromDate = fromDate;
 	}
 
-	public String getToDate() {
+	public LocalDate getToDate() {
 		return toDate;
 	}
 
-	public void setToDate(String toDate) {
+	public void setToDate(LocalDate toDate) {
 		this.toDate = toDate;
 	}
 

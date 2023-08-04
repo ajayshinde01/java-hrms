@@ -30,7 +30,7 @@ import com.avisys.empmgmt.util.Utils;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("role")
 public class RoleController {

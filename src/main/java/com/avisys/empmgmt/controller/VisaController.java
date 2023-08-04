@@ -3,6 +3,9 @@ package com.avisys.empmgmt.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.avisys.empmgmt.dto.VisaDto;
 import com.avisys.empmgmt.service.VisaService;
@@ -20,7 +24,7 @@ import com.avisys.empmgmt.util.ApiResponse;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("visa")
 public class VisaController {
@@ -50,5 +54,15 @@ public class VisaController {
 	public ResponseEntity<?> updateEmployeeVisa(@Valid @RequestBody VisaDto visaDto, @PathVariable("employee-id") Long employeeId ) {
 		String updateEmployeeVisa = this.visaService.updateVisa(visaDto,employeeId);
 		return new ResponseEntity<>(new ApiResponse(updateEmployeeVisa,LocalDateTime.now()), HttpStatus.OK);
+	}
+	
+	@GetMapping("/{employee-id}/search")
+	public ResponseEntity<Page<VisaDto>> searchVisa(
+	        @PageableDefault Pageable pageable,
+	        @PathVariable("employee-id") Long employeeId,
+	        @RequestParam(value = "keyword", defaultValue = "") String keyword
+	) {
+	    Page<VisaDto> result = this.visaService.searchVisa(pageable, keyword, employeeId);
+	    return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 }

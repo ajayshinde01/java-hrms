@@ -1,6 +1,6 @@
 package com.avisys.empmgmt.dto;
 
-import java.time.LocalDate;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -21,7 +21,7 @@ public class EducationalQualificationDto {
 	private String qualificationLevel;
 	
 	@NotNull(message="year must not be null")
-	private LocalDate passingYear;
+	private String passingYear;
 	
 	@NotBlank(message = "Organisation Code should not be blank")
 	@NotNull(message = "Organisation Code should not be null")
@@ -41,7 +41,7 @@ public class EducationalQualificationDto {
 			@NotNull(message = "Qualification must not be null") @NotBlank(message = "Qualification must not be blank") String educationalQualification,
 			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String instituteName,
 			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String qualificationLevel,
-			@NotNull(message = "year must not be null") LocalDate passingYear,
+			@NotNull(message = "year must not be null") String passingYear,
 			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
 			boolean isDeleted, String createdBy, String updatedBy) {
 		super();
@@ -87,11 +87,11 @@ public class EducationalQualificationDto {
 		this.qualificationLevel = qualificationLevel;
 	}
 
-	public LocalDate getPassingYear() {
+	public String getPassingYear() {
 		return passingYear;
 	}
 
-	public void setPassingYear(LocalDate passingYear) {
+	public void setPassingYear(String passingYear) {
 		this.passingYear = passingYear;
 	}
 

@@ -1,7 +1,6 @@
 package com.avisys.empmgmt.dto;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

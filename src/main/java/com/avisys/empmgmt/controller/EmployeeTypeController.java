@@ -23,7 +23,7 @@ import com.avisys.empmgmt.exception.ResourceNotFoundException;
 import com.avisys.empmgmt.service.EmployeeTypeService;
 import jakarta.validation.Valid;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("employee-type")
 public class EmployeeTypeController {
