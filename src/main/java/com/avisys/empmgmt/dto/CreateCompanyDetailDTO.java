@@ -8,6 +8,7 @@ import com.avisys.empmgmt.entity.Role;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 public class CreateCompanyDetailDTO {
 
@@ -42,6 +43,7 @@ public class CreateCompanyDetailDTO {
 	
 	protected String createdBy;
 	
+	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
 	protected String orgCode;
 	
 	private Designation designation;

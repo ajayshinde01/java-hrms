@@ -11,19 +11,18 @@ public class EmployeeTypeDTO {
 	private Long id;
 	@NotBlank(message = "Type Should not be blank")
 	@NotNull(message = "Type Should not be null")
-	@Size(min = 3, max = 15, message = "type size min = 3 & max = 15")
+	@Pattern(regexp = "^[A-Za-z _ \\-]{1,50}$",message = "Type should only contain _ & - as special character")
 	private String type;
 	
 	@Column(name = "employee_type_id")
 	@NotNull(message="Employee Type Id should not be null")
 	@NotBlank(message="Employee Type Id should not be blank")
-	@Size(min = 3,message = "Division Id must be of 3 character")
-    @Pattern(regexp = "^[a-zA-Z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers")
+    @Pattern(regexp = "^(?!.*s)[A-Za-z]{1,50}$",message = "ID must starts with alphabets followed numbers & cannot contain special character")
 	private String employeeTypeId;
 
 	@NotBlank(message = "Org code Should not be blank")
 	@NotNull(message = "Org code Should not be null")
-	@Size(min = 3, max = 15, message = "org code size min = 3 & max = 15")
+	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
 	private String orgCode;
 
 	private boolean deleted = Boolean.FALSE;

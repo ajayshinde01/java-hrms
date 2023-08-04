@@ -2,11 +2,15 @@ package com.avisys.empmgmt.dto;
 
 import java.time.LocalDateTime;
 
+import jakarta.validation.constraints.Pattern;
+
 public class GETResponse {
 
 	private long id;
 	private String roleName;
 	private String roleId;
+	
+	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
 	private String orgCode;
 	private String createdBy;
 	private LocalDateTime created_at;

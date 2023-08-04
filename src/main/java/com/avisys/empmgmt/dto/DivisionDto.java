@@ -13,37 +13,36 @@ public class DivisionDto {
     
     @NotBlank(message = "Division Id should not be blank")
     @NotNull(message = "Division Id should not be null")
-    @Size(min = 3,message = "Division Id must be of 3 character")
-    @Size(max = 6,message = "Division Id must be of 6 character")
-    @Pattern(regexp = "^[a-zA-Z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers")
+    @Pattern(regexp = "^[a-zA-Z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers & cannot contain special character")
 	private String divisionId;
     
     @NotBlank(message = "Division Name should not be blank" )
     @NotNull(message = "Division Id should not be null")
-    @Size(min = 3,message = "divisionName must be of 3 character")
-    @Size(max = 20,message = "divisionName must be of 20 character")
-    @Pattern(regexp = "^[a-zA-Z-_]{1,100}$",message = "Name must starts with alphabets")
+    @Pattern(regexp = "^[a-zA-Z-_ ]{1,100}$",message = "Name must starts with alphabets")
 	private String divisionName;
     
     @NotBlank(message = "Division Description should not be blank" )
-    @Size(max = 30,message = "Division Description must be of 30 character")
+	@Pattern(regexp = "^[a-zA-Z0-9 ]{1,250}$",message="Special character are not allowed")
 	private String divisionDescription;
-    
+	
+    @Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
     private String orgCode;
+    
     private boolean isDeleted;
+    
     private LocalDateTime createdAt;
+    
     private LocalDateTime updatedAt;
+    
     private String createdBy;
+    
     private String updatedBy;
     
     public DivisionDto() {
 		super();
 	}
 
-	public DivisionDto(Long id,
-			@NotBlank(message = "Division Id should not be blank") @NotNull(message = "Division Id should not be null") @Size(min = 3, message = "Division Id must be of 3 character") String divisionId,
-			@NotBlank(message = "Division Name should not be blank") @NotNull(message = "Division Id should not be null") @Size(min = 3, message = "divisionName must be of 3 character") String divisionName,
-			@NotBlank(message = "Division Description should not be blank") String divisionDescription, String orgCode,
+	public DivisionDto(Long id,String divisionId, String divisionName,String divisionDescription, String orgCode,
 			boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy) {
 		super();
 		this.id = id;
@@ -58,10 +57,7 @@ public class DivisionDto {
 		this.updatedBy = updatedBy;
 	}
 
-	public DivisionDto(
-			@NotBlank(message = "Division Id should not be blank") @NotNull(message = "Division Id should not be null") @Size(min = 3, message = "Division Id must be of 3 character") String divisionId,
-			@NotBlank(message = "Division Name should not be blank") @NotNull(message = "Division Id should not be null") @Size(min = 3, message = "divisionName must be of 3 character") String divisionName,
-			@NotBlank(message = "Division Description should not be blank") String divisionDescription, String orgCode,
+	public DivisionDto( String divisionId, String divisionName,String divisionDescription, String orgCode,
 			boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy) {
 		super();
 		this.divisionId = divisionId;

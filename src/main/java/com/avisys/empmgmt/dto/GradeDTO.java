@@ -13,15 +13,12 @@ public class GradeDTO {
 
 	@NotNull(message = "Grade Id is not null")
 	@NotBlank(message = "Grade Id is required")
-	@Size(min = 2, message = " Grade Id Min size 2")
-	@Size(max = 20, message = " Grade Id Mix size 20")
+    @Pattern(regexp = "^[a-zA-Z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers & cannot contain special character")
 	private String gradeId;
 
 	@NotNull(message = "Grade Name  is not null")
 	@NotBlank(message = "Grade Name is required")
-	@Size(min = 2, message = " Grade Id Min size 2")
-	@Size(max = 20, message = "Grade Id Mix size 20")
-    @Pattern(regexp = "^[a-zA-Z-_]{1,100}$",message = "Name must starts with alphabets")
+    @Pattern(regexp = "^[a-zA-Z-_ ]{1,100}$",message = "Name must starts with alphabets")
 	private String gradeName;
 
 	@NotNull(message = "Grade Name is not null")
@@ -29,6 +26,8 @@ public class GradeDTO {
 	@Size(min = 2, message = "Grade Id Min size 2")
 	@Size(max = 20, message = "Grade Id Mix size 20")
 	private String gradeType;
+	
+	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
 	private String orgCode;
 
 	public GradeDTO() {

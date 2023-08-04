@@ -24,19 +24,18 @@ public class Division extends Status{
 	@Column(name = "division_id")
 	@NotNull(message="Division Id should not be null")
 	@NotBlank(message="Division Id should not be blank")
-	@Size(min = 3,message = "Division Id must be of 3 character")
-	@Pattern(regexp = "^[a-zA-Z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers")
+	@Pattern(regexp = "^[a-zA-Z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers & cannot contain special character")
 	private String divisionId;
 	
 	@NotNull(message="Division Id should not be null")
 	@NotBlank(message="Division Id should not be blank")
-	@Size(min = 3,message = "Division Id must be of 3 character")
-    @Pattern(regexp = "^[a-zA-Z-_]{1,100}$",message = "Name must starts with alphabets")
+    @Pattern(regexp = "^[a-zA-Z-_ ]{1,100}$",message = "Name must starts with alphabets")
 	@Column(name = "name")
 	private String divisionName;
 	
 	@NotNull(message="Division Id should not be null")
 	@Column(name = "description")
+	@Pattern(regexp = "^[a-zA-Z0-9 ]{1,250}$",message="Special character are not allowed")
 	private String divisionDescription;
 	
     public Division() {

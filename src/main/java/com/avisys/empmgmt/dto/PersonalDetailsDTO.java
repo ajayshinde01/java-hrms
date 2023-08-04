@@ -101,6 +101,7 @@ public class PersonalDetailsDTO{
 	
 	private String updatedBy;
 	
+	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
 	private String orgCode;
 	
 	public PersonalDetailsDTO(String orgCode, boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt,

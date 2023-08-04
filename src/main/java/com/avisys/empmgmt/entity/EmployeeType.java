@@ -24,13 +24,12 @@ public class EmployeeType extends Status {
 	@Column(name = "employee_type_id")
 	@NotNull(message="Employee Type Id should not be null")
 	@NotBlank(message="Employee Type Id should not be blank")
-	@Size(min = 3,message = "Division Id must be of 3 character")
-	@Pattern(regexp = "^[a-zA-Z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers")
+	@Pattern(regexp = "^(?!.*s)[A-Za-z]{1,50}$",message = "ID must starts with alphabets followed numbers & cannot contain special character")
 	private String employeeTypeId;
 
 	@NotBlank(message = "Type Should not be blank")
 	@NotNull(message = "Type Should not be null")
-	@Size(min = 3, max = 15, message = "type size min = 3 & max = 15")
+	@Pattern(regexp = "^[A-Za-z _ \\-]{1,50}$",message = "Type should only contain _ & - as special character")
 	@Column(name = "Type", nullable = false)
 	private String type;
 

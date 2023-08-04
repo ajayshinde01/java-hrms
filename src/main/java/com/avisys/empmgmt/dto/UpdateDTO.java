@@ -17,22 +17,21 @@ public class UpdateDTO {
 
 	@NotNull(message = "Role Id field is required")
 	@NotBlank(message = "Role Id cant be blank")
-	@Pattern(regexp = "^[a-zA-Z0-9]{1,50}$", message = "Role Id cant contain special characters")
+	@Pattern(regexp = "^[a-zA-Z0-9]{1,50}$", message = "ID must starts with alphabets followed numbers & cannot contain special character")
 	private String roleId;
 
 	@NotNull
 	@NotBlank(message = "Role Name cant be blank")
-    @Pattern(regexp = "^[a-zA-Z-_]{1,100}$",message = "Name must starts with alphabets")
+    @Pattern(regexp = "^[a-zA-Z-_ ]{1,100}$",message = "Name must starts with alphabets")
 	private String name;
 
 	@NotNull
 	@NotBlank(message = "Organization Code  cant be blank")
-	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$", message = "Org code cant start with digit")
+	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
 	private String org_code;
 
 	@NotBlank(message = "Updaed  by field is required")
 	@NotNull(message = "Updaed  by cant be null")
-	@Pattern(regexp = "^[a-zA-Z ]*$", message = "Updated By name should not contain digit or special characters")
 	private String updated_by;
 
 	public long getId() {

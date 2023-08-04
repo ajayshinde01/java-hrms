@@ -80,6 +80,7 @@ public class CreatePersonalDetailsDTO {
 		
 		protected String createdBy;
 		
+		@Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
 		private String orgCode;
 
 	    private String passportFile;

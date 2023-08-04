@@ -13,21 +13,21 @@ public class DepartmentDto {
 	
 	@NotNull(message="Id must not be null")
 	@NotBlank(message="Id must not be blank")
-	@Size(min=2, max=8, message="Id should be in between 2 to 8 character")
-    @Pattern(regexp = "^[a-zA-Z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers")
+    @Pattern(regexp = "^[a-zA-Z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers & cannot contain special character")
 	private String departmentId;
 	
 	@NotNull(message="Name must not be null")
 	@NotBlank(message="Name must not be blank")
-	@Size(min=4, message="Name must be min of 4 character")
-    @Pattern(regexp = "^[a-zA-Z-_]{1,100}$",message = "Name must starts with alphabets")
+    @Pattern(regexp = "^[a-zA-Z-_ ]{1,100}$",message = "Name must starts with alphabets")
 	private String departmentName;
 	
 	@NotNull(message="Description should not be null")
+	@Pattern(regexp = "^[a-zA-Z0-9 ]{1,250}$",message="Special character are not allowed")
 	private String departmentDescription;
 	
 	@NotEmpty(message="OrgCode must not be null")
 	@NotBlank(message="OrgCode must not be blank")
+	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
 	private String orgCode;
 	
 	private boolean isDeleted;

@@ -27,12 +27,12 @@ public class Grade extends Status{
 	@NotBlank(message = "Grade Id is required")
 	@NotNull(message = "Grade Id is not null")
 	@Column(name = "grade_id", unique = true)
-	@Pattern(regexp = "^[a-zA-Z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers")
+	@Pattern(regexp = "^[a-zA-Z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers & cannot contain special character")
 	private String gradeId;
 
 	@NotBlank(message = "Grade Name is required")
 	@NotNull(message = "Grade Name  is not null")
-    @Pattern(regexp = "^[a-zA-Z-_]{1,100}$",message = "Name must starts with alphabets")
+    @Pattern(regexp = "^[a-zA-Z-_ ]{1,100}$",message = "Name must starts with alphabets")
 	@Column(name = "name")
 	private String gradeName;
 

@@ -6,6 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 @MappedSuperclass
 public class Status {
@@ -13,6 +14,7 @@ public class Status {
 	@Column(name = "org_code")
 	@NotBlank(message = "Organisation Code should not be blank")
 	@NotNull(message = "Organisation Code should not be null")
+	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
 	protected String orgCode;
 	
 	@Column(name = "is_deleted")

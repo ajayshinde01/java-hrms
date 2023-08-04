@@ -11,28 +11,24 @@ public class DesignationDto {
 	
 	@NotBlank(message = "Designation ID should not be blank")
 	@NotNull(message = "Designation ID should not be null")
-	@Size(min = 3,message = "Designation ID must be of 3 character" )
-	@Size(max = 10 ,message = "Designation ID must be of less than 10 character")
-    @Pattern(regexp = "^[a-zA-Z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers")
+    @Pattern(regexp = "^[a-zA-Z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers & cannot contain special character")
 	private String designationId;
 	
 	
 	@NotBlank(message = "Designation Name should not be blank")
 	@NotNull(message = "Designation Name should not be null")
-	@Size(min = 3,message = "Designation Name must be of 3 character")
-	@Size(max = 20 ,message = "Designation Name must be of less than 20 character")
-    @Pattern(regexp = "^[a-zA-Z-_]{1,100}$",message = "Name must starts with alphabets")
+    @Pattern(regexp = "^[a-zA-Z-_ ]{1,100}$",message = "Name must starts with alphabets")
 	private String designationName;
 
 	@NotBlank(message = "Designation Description should not be blank")
 	@NotNull(message = "Designation Description should not be null")
-	@Size(min = 3,message = "Designation Description must be of 3 character")
-	@Size(max = 20 ,message = "Designation Description must be of less than 20 character")
+	@Pattern(regexp = "^[a-zA-Z0-9 ]{1,250}$",message="Special character are not allowed")
 	private String designationDesc;
 	
 
 	@NotBlank(message = "Organisation Code should not be blank")
 	@NotNull(message = "Organisation Code should not be null")
+	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
 	private String orgCode;
 	
 	private boolean isDeleted ;

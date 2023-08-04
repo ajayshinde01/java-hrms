@@ -8,25 +8,21 @@ import jakarta.validation.constraints.Size;
 public class CreateDivisionDto {
 	@NotNull(message="Division Id should not be null")
 	@NotBlank(message="Division Id should not be blank")
-	@Size(min = 3,message = "Division Id must be of 3 character")
-	@Size(max = 6,message = "Division Id must be of 6 character")
     @Pattern(regexp = "^[a-zA-Z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers")
 	private String divisionId;
     
 	@NotNull(message="divisionName should not be null")
 	@NotBlank(message="divisionName should not be blank")
-	@Size(min = 3,message = "divisionName must be of 3 character")
-    @Size(max = 20,message = "divisionName must be of 20 character")
-    @Pattern(regexp = "^[a-zA-Z-_]{1,100}$",message = "Name must starts with alphabets")
+    @Pattern(regexp = "^[a-zA-Z-_ ]{1,100}$",message = "Name must starts with alphabets")
 	private String divisionName;
     
     @NotBlank(message = "Division Description should not be blank" )
-    @Size(max = 30,message = "Division Description must be of 30 character")
+	@Pattern(regexp = "^[a-zA-Z0-9 ]{1,250}$",message="Special character are not allowed")
 	private String divisionDescription;
     
     @NotNull(message="Orgcode should not be null")
 	@NotBlank(message="Orgcode should not be blank")
-	@Size(min = 3,message = "Orgcode must be of 3 character")
+	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
     private String orgCode;
     
     private String createdBy;
@@ -37,11 +33,7 @@ public class CreateDivisionDto {
          super();
 	}
 
-	public CreateDivisionDto(
-			@NotNull(message = "Division Id should not be null") @NotBlank(message = "Division Id should not be blank") @Size(min = 3, message = "Division Id must be of 3 character") String divisionId,
-			@NotNull(message = "divisionName should not be null") @NotBlank(message = "divisionNameshould not be blank") @Size(min = 3, message = "divisionName must be of 3 character") String divisionName,
-			@NotNull(message = "divisionDescription should not be null") String divisionDescription,
-			@NotNull(message = "Orgcode should not be null") @NotBlank(message = "Orgcode should not be blank") @Size(min = 3, message = "Orgcode must be of 3 character") String orgCode,
+	public CreateDivisionDto( String divisionId, String divisionName, String divisionDescription, String orgCode,
 			String createdBy, String updatedBy) {
 		super();
 		this.divisionId = divisionId;
