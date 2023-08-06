@@ -61,7 +61,7 @@ public class RoleController {
 //			throw new InvalidInputException();
 
 		GETResponse newlyCreatedRole = roleService.createRole(role);
-		return new ResponseEntity(newlyCreatedRole, HttpStatus.CREATED);
+		return new ResponseEntity(newlyCreatedRole, HttpStatus.OK);
 
 	}
 
@@ -88,7 +88,7 @@ public class RoleController {
 	public ResponseEntity<?> updateRole(@Valid @RequestBody UpdateDTO update) {
 		logger.warn(RoleController.class.getName() + ":PUT UPDATE ROLE Method called");
 		GETResponse updatedRole = this.roleService.updateRole(update);
-		return new ResponseEntity(updatedRole, HttpStatus.ACCEPTED);
+		return new ResponseEntity(updatedRole, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/delete/{id}")
@@ -98,7 +98,6 @@ public class RoleController {
 			return new ResponseEntity(new ApiResponse("Permission denied!"), HttpStatus.BAD_REQUEST);
 		} else {
 			return new ResponseEntity(new ApiResponse("Role Deleted!"), HttpStatus.OK);
-
 		}
 
 	}

@@ -39,7 +39,7 @@ public class DivisionService implements IDivisionService {
 	}
 
 	@Override
-	public String saveDivision(CreateDivisionDto divisionDto) {
+	public DivisionDto saveDivision(CreateDivisionDto divisionDto) {
 		if (divisonRepository.findByDivisionId(divisionDto.getDivisionId()).isPresent()) {
 			throw new DivisionNotFound("Division already exist");
 		} else {
@@ -47,7 +47,7 @@ public class DivisionService implements IDivisionService {
 					divisionDto.getDivisionDescription(), divisionDto.getOrgCode(), false, LocalDateTime.now(),
 					LocalDateTime.now(), divisionDto.getCreatedBy(), divisionDto.getUpdatedBy());
 			divisonRepository.save(division);
-			return "Division added successfully.";
+			return util.getDivisionDto(division);
 		}
 	}
 
@@ -71,7 +71,7 @@ public class DivisionService implements IDivisionService {
 	}
 
 	@Override
-	public String updateDivision(DivisionDto updatedDivisionDto) {
+	public DivisionDto updateDivision(DivisionDto updatedDivisionDto) {
 		Division division = divisonRepository.findById(updatedDivisionDto.getId())
 				.orElseThrow(() -> new DivisionNotFound("Division Not Found"));
 		if (division.isDeleted() == true) {
@@ -84,7 +84,7 @@ public class DivisionService implements IDivisionService {
 				updatedDivisionDto.setUpdatedAt(LocalDateTime.now());
 				Division updatedDivision = util.getDivision(updatedDivisionDto);
 				divisonRepository.save(updatedDivision);
-				return "Division is updated";
+				return util.getDivisionDto(updatedDivision);
 			} else {
 				throw new DivisionNotFound("DivisionId already Exist");
 			}

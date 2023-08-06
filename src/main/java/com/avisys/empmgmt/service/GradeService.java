@@ -25,21 +25,23 @@ public class GradeService {
 
 	@Autowired
 	private GradeRepository gradeRepository;
+	
+	@Autowired
+	private ModelMapper modelMapper;
 
-	public ResponseEntity<ApiResponse> saveGrade(GradeDTO gradeDtoObject) throws GradeException {
+	public ResponseEntity<GradeDTO> saveGrade(GradeDTO gradeDtoObject) throws GradeException {
 		Optional<Grade> objectPresent = gradeRepository.findByGradeId(gradeDtoObject.getGradeId());
 		if (objectPresent.isPresent()) {
 			String message = "GradeId already Present in the table";
 			throw new GradeException(message);
 		} else {
-			ModelMapper modelMapper = new ModelMapper();
 			@Valid
 			Grade gradeObject = modelMapper.map(gradeDtoObject, Grade.class);
 			gradeObject.setCreatedAt(LocalDateTime.now());
 			gradeObject.setDeleted(false);
 			gradeObject.setCreatedBy("Gaikwad");
 			gradeRepository.save(gradeObject);
-			return new ResponseEntity<>(new ApiResponse("New Grade created", LocalDateTime.now()), HttpStatus.OK);
+			return new ResponseEntity<GradeDTO>(this.modelMapper.map(gradeObject, GradeDTO.class), HttpStatus.OK);
 		}
 	}
 
@@ -85,7 +87,7 @@ public class GradeService {
 
 	}
 
-	public ResponseEntity<Object> updateGrade(GradeDTO gradeDTO) throws GradeException {
+	public ResponseEntity<GradeDTO> updateGrade(GradeDTO gradeDTO) throws GradeException {
 		if (gradeDTO.getId() == null) {
 			throw new GradeException("Id Should Not be null");
 		}
@@ -106,9 +108,8 @@ public class GradeService {
 			grade.setUpdatedBy("Shriprasad");
 			grade.setUpdatedAt(LocalDateTime.now());
 			gradeRepository.save(grade);
-		} else {
-			throw new GradeException("Invalid GradeId ");
-		}
-		return new ResponseEntity<>(new ApiResponse("Grade Id Updated", LocalDateTime.now()), HttpStatus.OK);
+			return new ResponseEntity<GradeDTO>(this.modelMapper.map(grade, GradeDTO.class), HttpStatus.OK);
+		} 
+		else throw new GradeException("Invalid GradeId ");
 	}
 }

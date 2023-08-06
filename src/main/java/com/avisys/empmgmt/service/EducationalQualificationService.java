@@ -33,7 +33,7 @@ public class EducationalQualificationService {
 	@Autowired
 	private EmployeeRepo employeeRepository;
 	
-	public String addEducationalQualification(@Valid EducationalQualificationDto educationalQualificationDto, Long employeeId) {
+	public EducationalQualificationDto addEducationalQualification(@Valid EducationalQualificationDto educationalQualificationDto, Long employeeId) {
 		
 		Employee employee=this.employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()-> new EmployeeException("Employee not found"));
 		
@@ -50,7 +50,7 @@ public class EducationalQualificationService {
 		education.setEmployee(employee);
 		educationalRepository.save(education);
 		
-		return "EducationalQualification Created Successfully";
+		return this.modelMapper.map(education, EducationalQualificationDto.class);
 	}
 
 
@@ -67,7 +67,7 @@ public class EducationalQualificationService {
 	}
 
 	
-	public String updateEducationalQualification(EducationalQualificationDto educationalQualificationDto, Long employeeId) {
+	public EducationalQualificationDto updateEducationalQualification(EducationalQualificationDto educationalQualificationDto, Long employeeId) {
 		Employee employee=employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
 		
 		EducationalQualification educationObj = educationalRepository.findByIdAndIsDeletedFalse(educationalQualificationDto.getId()).orElseThrow(()->new EducationalQualificationException("educational qualification not found"));
@@ -80,7 +80,8 @@ public class EducationalQualificationService {
 
 	        educationalRepository.save(educationObj);
 	 
-	    return "Qualification Updated Successfully";
+	    return this.modelMapper.map(educationObj, EducationalQualificationDto.class);
+	    
 	    } else throw new EducationalQualificationException("EmployeeId doesn't have this QualificationId");
 	}
 

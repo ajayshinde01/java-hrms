@@ -34,7 +34,7 @@ public class VisaService {
 		@Autowired
 		private EmployeeRepo employeeRepository;
 
-		public String createVisa(@Valid VisaDto visaDto, Long employeeId){
+		public VisaDto createVisa(@Valid VisaDto visaDto, Long employeeId){
 			
 			Employee employee=this.employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()-> new EmployeeException("Employee not found"));
 			
@@ -45,7 +45,7 @@ public class VisaService {
 			    	visa.setDeleted(false);
 			    	visa.setEmployee(employee);
 			    	visaRepository.save(visa);					
-			return "Visa Added Successfully";
+			return this.modelMapper.map(visa, VisaDto.class);
 			       
 			    } else
 			    	 throw new VisaException("Visa Number is already filled");
@@ -63,7 +63,7 @@ public class VisaService {
 			return visaDto;
 		}
 
-		public String updateVisa( VisaDto visaDto,Long employeeId) {
+		public VisaDto updateVisa( VisaDto visaDto,Long employeeId) {
 			Employee employee=employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
 			    
 		    Visa visaDetails = visaRepository.findByIdAndIsDeletedFalse(visaDto.getId()).orElseThrow(()->new VisaException("visa not found"));
@@ -75,7 +75,7 @@ public class VisaService {
 		        visaDetails.setDeleted(false);
 
 		        visaRepository.save(visaDetails);
-		    return "Visa Updated Successfully";
+		    return this.modelMapper.map(visaDetails, VisaDto.class);
 		    } else 
 		    	throw new VisaException("Employee doesn't have this VisaId");
 		}

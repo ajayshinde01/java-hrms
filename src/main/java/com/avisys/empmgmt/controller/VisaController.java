@@ -33,9 +33,9 @@ public class VisaController {
 	private VisaService visaService;
 	
 	@PostMapping("/{employee-id}/add")
-	public ResponseEntity<?> addVisa(@Valid @RequestBody VisaDto visa, @PathVariable("employee-id") Long employeeId) {
-		String createVisa= visaService.createVisa(visa,employeeId);
-		return new ResponseEntity<>(new ApiResponse(createVisa,LocalDateTime.now()), HttpStatus.CREATED);
+	public ResponseEntity<VisaDto> addVisa(@Valid @RequestBody VisaDto visa, @PathVariable("employee-id") Long employeeId) {
+		VisaDto createVisa= visaService.createVisa(visa,employeeId);
+		return new ResponseEntity<VisaDto>(createVisa, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{employee-id}/get-all")
@@ -51,9 +51,9 @@ public class VisaController {
 	}
 	
 	@PutMapping("/{employee-id}/update")
-	public ResponseEntity<?> updateEmployeeVisa(@Valid @RequestBody VisaDto visaDto, @PathVariable("employee-id") Long employeeId ) {
-		String updateEmployeeVisa = this.visaService.updateVisa(visaDto,employeeId);
-		return new ResponseEntity<>(new ApiResponse(updateEmployeeVisa,LocalDateTime.now()), HttpStatus.OK);
+	public ResponseEntity<VisaDto> updateEmployeeVisa(@Valid @RequestBody VisaDto visaDto, @PathVariable("employee-id") Long employeeId ) {
+		VisaDto updateEmployeeVisa = this.visaService.updateVisa(visaDto,employeeId);
+		return new ResponseEntity<>(updateEmployeeVisa, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{employee-id}/search")

@@ -33,7 +33,7 @@ public class EmergencyContactsServiceImpl implements EmergencyContactsService{
 	private EmployeeRepo employeeRepository;
 	
 	@Override
-	public String createEmergencyContact(@Valid EmergencyContactsDto emergencyContactsDto, Long employeeId) {
+	public EmergencyContactsDto createEmergencyContact(@Valid EmergencyContactsDto emergencyContactsDto, Long employeeId) {
 		
 		Employee employee=this.employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()-> new EmployeeException("Employee not found"));
 		
@@ -45,7 +45,7 @@ public class EmergencyContactsServiceImpl implements EmergencyContactsService{
 		contacts.setEmployee(employee);
 		emergencyContactsRepository.save(contacts);
 		
-		return "Emegency contact added Successfully";
+		return this.modelMapper.map(contacts, EmergencyContactsDto.class);
 	} else
    	 throw new EmergencyContactsException("Contact Number is already filled");
 }
@@ -65,7 +65,7 @@ public class EmergencyContactsServiceImpl implements EmergencyContactsService{
 	}
 
 	@Override
-	public String updateEmergencyContacts(EmergencyContactsDto emergencyContactsDto, Long employeeId) {
+	public EmergencyContactsDto updateEmergencyContacts(EmergencyContactsDto emergencyContactsDto, Long employeeId) {
 		Employee employee=employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
 
 	    EmergencyContacts contactObj = emergencyContactsRepository.findByIdAndIsDeletedFalse(emergencyContactsDto.getId()).orElseThrow(()->new EmergencyContactsException("Contact not found"));
@@ -78,7 +78,7 @@ public class EmergencyContactsServiceImpl implements EmergencyContactsService{
 
 	        emergencyContactsRepository.save(contactObj);
 	 
-	    return "contact Updated Successfully";
+	    return  this.modelMapper.map(contactObj, EmergencyContactsDto.class);
 	    } else throw new EmergencyContactsException("EmployeeId doesn't have this contactId");
 	}
 

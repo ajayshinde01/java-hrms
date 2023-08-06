@@ -57,18 +57,18 @@ private static final DataTableMetadata Division_TYPE_DEFINITION_METADATA;
                 .addColumnMetadata(new ColumnMetadata("", "id","id" ,ColumnType.RADIO, 10))
                 .addColumnMetadata(new ColumnMetadata("Department Id", "departmentId","departmentId", ColumnType.TEXT, 30))
                 .addColumnMetadata(new ColumnMetadata("Department Name", "departmentName","departmentName", ColumnType.TEXT, 30))
-                .addColumnMetadata(new ColumnMetadata("Department Description", "departmentDescription","departmentDescription", ColumnType.TEXT, 30));
+                .addColumnMetadata(new ColumnMetadata("Department Description", "departmentDescription","departmentDescription", ColumnType.TEXT, 30))
+                .addColumnMetadata(new ColumnMetadata("Org Code", "orgCode","orgCode", ColumnType.TEXT, 30));
 
         Division_TYPE_DEFINITION_METADATA = new DataTableMetadata()
                 .addColumnMetadata(new ColumnMetadata("", "id","id" ,ColumnType.RADIO, 10))
                 .addColumnMetadata(new ColumnMetadata("Division Id", "divisionId","divisionId", ColumnType.TEXT, 30))
                 .addColumnMetadata(new ColumnMetadata("Division Name", "divisionName","divisionName", ColumnType.TEXT, 30))
-                .addColumnMetadata(new ColumnMetadata("Division Description", "divisionDescription","divisionDescription", ColumnType.TEXT, 30));
+                .addColumnMetadata(new ColumnMetadata("Division Description", "divisionDescription","divisionDescription", ColumnType.TEXT, 30))
+                .addColumnMetadata(new ColumnMetadata("Org Code", "orgCode","orgCode", ColumnType.TEXT, 30));
     }
 
- 
 
-    
 
     @GetMapping("role")
     public DataTableMetadata getRoleDataTableMetadata() {
@@ -94,8 +94,6 @@ private static final DataTableMetadata Division_TYPE_DEFINITION_METADATA;
     public DataTableMetadata getDepartmentDataTableMetadata() {
         return Department_TYPE_DEFINITION_METADATA;
     }
-
-
  
 
     @GetMapping("division")

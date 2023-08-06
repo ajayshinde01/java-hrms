@@ -31,7 +31,7 @@ public class JoiningDetailService {
 	@Autowired
 	private ModelMapper modelMapper;
 
-	public String createJoiningDetail(CreateJoiningDetailDTO joiningDetailDto,Long employeeId) {
+	public JoiningDetailDTO createJoiningDetail(CreateJoiningDetailDTO joiningDetailDto,Long employeeId) {
 		Employee employee=employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee Not Found"));
 		if(joiningDetailRepo.findByEmployeeAndIsDeletedFalse(employee).isPresent()) {
 			throw new JoiningDetailAlreadyPresent("Joining detail already present");
@@ -47,7 +47,7 @@ public class JoiningDetailService {
 			joiningDetail.setDeleted(false);
 			joiningDetail.setEmployee(employee);			
 			joiningDetailRepo.save(joiningDetail);
-			return "Joining Detail created successfully";
+			return this.modelMapper.map(joiningDetail,JoiningDetailDTO.class);
 		}
 	}
 
@@ -61,7 +61,7 @@ public class JoiningDetailService {
 		return "Joining Detail Deleted";
 	}
 
-	public String updateJoiningDetail(@Valid JoiningDetailDTO joiningDetailDto, Long employeeId) {
+	public JoiningDetailDTO updateJoiningDetail(@Valid JoiningDetailDTO joiningDetailDto, Long employeeId) {
 		Employee employee=employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee Not Found"));
 		JoiningDetail joiningDetailToUpdate = joiningDetailRepo.findByIdAndIsDeletedFalse(joiningDetailDto.getId())
 				.orElseThrow(() -> new JoiningDetailNotFound("Joining Detail Not found to update"));
@@ -76,7 +76,7 @@ public class JoiningDetailService {
 			joiningDetail.setEmployee(employee);
 			joiningDetailRepo.save(joiningDetail);
 
-		return "Joining Detail for id "+joiningDetailDto.getId()+" updated successfully";
+		return this.modelMapper.map(joiningDetail,JoiningDetailDTO.class);
 	}
 
 	public JoiningDetailDTO getJoiningDetailByEmployeeId(Long employeeId) {

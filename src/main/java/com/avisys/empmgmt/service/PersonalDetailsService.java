@@ -33,7 +33,7 @@ public class PersonalDetailsService {
 	private EmployeeRepo employeeRepository;
 
 	
-	public String createPersonalDetails(CreatePersonalDetailsDTO personalDetails,Long employeeId) {	
+	public PersonalDetailsDTO createPersonalDetails(CreatePersonalDetailsDTO personalDetails,Long employeeId) {	
 		Employee employee=employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee Not Found"));
 		Optional<PersonalDetails> personalDetailsToValidate = personalDetailsRepo.findByAadhaarNumberOrPanCardNumberOrPassportNumberAndIsDeletedFalse(personalDetails.getAadhaarNumber(),personalDetails.getPanCardNumber(),personalDetails.getPassportNumber());
 		if(personalDetailsRepo.findByEmployeeAndIsDeletedFalse(employee).isPresent()) {
@@ -50,7 +50,7 @@ public class PersonalDetailsService {
 		personalDetail.setDeleted(false);
 		personalDetail.setEmployee(employee);
 		personalDetailsRepo.save(personalDetail);
-		return "personal details created successfully";	
+		return this.modelMapper.map(personalDetail,PersonalDetailsDTO.class);
 		}
 	}
 
@@ -73,7 +73,7 @@ public class PersonalDetailsService {
 		return "Personal Details Of Employee Deleted successfully";
 	}
 
-	public String updatePersonalDetails(@Valid PersonalDetailsDTO personalDetailsDto,Long employeeId) {
+	public PersonalDetailsDTO updatePersonalDetails(@Valid PersonalDetailsDTO personalDetailsDto,Long employeeId) {
 	    Employee employee=employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee Not Found"));
         PersonalDetails personalDetailToUpdate = personalDetailsRepo.findById(personalDetailsDto.getId()).orElseThrow(()->new NoPersonalDetailsFound("Personal Details Not Found To Update"));
         Optional<PersonalDetails> personalDetailsToValidate = personalDetailsRepo.findByAadhaarNumberOrPanCardNumberOrPassportNumberAndIsDeletedFalse(personalDetailsDto.getAadhaarNumber(),personalDetailsDto.getPanCardNumber(),personalDetailsDto.getPassportNumber());
@@ -91,7 +91,7 @@ public class PersonalDetailsService {
         updatedPersonalDetails.setEmployee(employee);
         personalDetailsRepo.save(updatedPersonalDetails);
         
-		return "Personal Details Updated Successfully";
+		return this.modelMapper.map(updatedPersonalDetails, PersonalDetailsDTO.class);
         }
 	}
 

@@ -69,8 +69,8 @@ public class DesignationController {
 	}
 
 	@GetMapping("/search")
-	public ResponseEntity<?> searchDesignationp(@PageableDefault Pageable pageable,@RequestParam(defaultValue = "") String designationKey){
+	public ResponseEntity<?> searchDesignationp(@RequestParam(defaultValue = "") String keyword, @PageableDefault Pageable pageable){
 		logger.info("/search-designation called");
-		return ResponseEntity.ok(designationService.searchDesignation(designationKey,pageable));
+		return ResponseEntity.ok(designationService.searchDesignation(keyword,pageable));
 	}
 }

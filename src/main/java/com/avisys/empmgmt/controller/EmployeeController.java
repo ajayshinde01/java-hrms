@@ -38,9 +38,9 @@ public class EmployeeController {
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<?> addEmployee(@Valid @RequestBody EmployeeDto employee){
-		String createEmployee = this.employeeService.createEmployee(employee);
-		return new ResponseEntity<>(new ApiResponse(createEmployee,LocalDateTime.now()), HttpStatus.CREATED);
+	public ResponseEntity<EmployeeDto> addEmployee(@Valid @RequestBody EmployeeDto employee){
+		EmployeeDto createEmployee = this.employeeService.createEmployee(employee);
+		return new ResponseEntity<EmployeeDto>(createEmployee, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{employee-id}")
@@ -56,9 +56,9 @@ public class EmployeeController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<?> updateEmployee(@Valid @RequestBody EmployeeDto employee) {
-		String updateEmployee = this.employeeService.updateEmployee(employee);
-		return new ResponseEntity<>(new ApiResponse(updateEmployee,LocalDateTime.now()), HttpStatus.OK);
+	public ResponseEntity<EmployeeDto> updateEmployee(@Valid @RequestBody EmployeeDto employee) {
+		EmployeeDto updateEmployee = this.employeeService.updateEmployee(employee);
+		return new ResponseEntity<>(updateEmployee, HttpStatus.OK);
 	}
 	
 	@GetMapping("/search")

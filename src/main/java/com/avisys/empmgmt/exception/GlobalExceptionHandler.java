@@ -1,5 +1,6 @@
 package com.avisys.empmgmt.exception;
 
+import java.net.http.HttpHeaders;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -90,7 +92,24 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
 
 	}
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+            HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String field = ((FieldError) error).getField();
+            String message = error.getDefaultMessage();
+            errors.put(field, message);
+        });
+        return new ResponseEntity<Object>(errors, HttpStatus.BAD_REQUEST);
+    
+    }
 
+ 
+
+    @ExceptionHandler(value = NoEmployeeFoundException.class)
+    public ResponseEntity<Object> exception(NoEmployeeFoundException exception) {
+        return new ResponseEntity(new ApiResponse("Employee not found"), HttpStatus.NOT_FOUND);
+    }
 	@ExceptionHandler(GradeException.class)
 	public ResponseEntity<?> gradeIdNotPresent(GradeException ex) {
 		String message = ex.getMessage();
@@ -201,4 +220,12 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
 
 	}
+	
+	@ExceptionHandler(value = EmployeeAlreadyPresentException.class)
+	    public ResponseEntity<Object> exception(EmployeeAlreadyPresentException exception) {
+	        return new ResponseEntity<>(
+	                new ApiResponse("Employee Type already present or Employee Type Id is already taken. Try for another Employee Type Id"),
+	                HttpStatus.BAD_REQUEST);
+
+	    }
 }

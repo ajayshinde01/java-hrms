@@ -31,7 +31,7 @@ public class CompanyDetailService {
 	@Autowired
 	private EmployeeRepo employeeRepository;
 
-	public String createCompanyDetail(CreateCompanyDetailDTO companyDetailDto,Long employeeId) {
+	public CompanyDetailDTO createCompanyDetail(CreateCompanyDetailDTO companyDetailDto,Long employeeId) {
 		
 		Employee employee=employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee Not Found"));
 		
@@ -45,7 +45,7 @@ public class CompanyDetailService {
 		companyDetail.setDeleted(false);
 		companyDetail.setEmployee(employee);
 		companyDetailRepository.save(companyDetail);	
-		return "Company Detail created successfully";
+		return this.modelMapper.map(companyDetail, CompanyDetailDTO.class);
 	   }
 	}
 
@@ -59,7 +59,7 @@ public class CompanyDetailService {
 		return "Company Detail Deleted";
 	}
 
-	public String updateCompanyDetail(CompanyDetailDTO companyDetailDto,Long employeeId) {
+	public CompanyDetailDTO updateCompanyDetail(CompanyDetailDTO companyDetailDto,Long employeeId) {
 		Employee employee=employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee Not Found"));
 		CompanyDetail companyDetailToUpdate = companyDetailRepository.findById(companyDetailDto.getId())
 				.orElseThrow(() -> new CompanyDetailNotFound("Company Detail Not found to update"));
@@ -75,8 +75,8 @@ public class CompanyDetailService {
 			companyDetail.setEmployee(employee);
 			companyDetailRepository.save(companyDetail);
 
-		return "Company Detail for id "+companyDetailDto.getId()+" updated successfully";
-      }
+		return this.modelMapper.map(companyDetail,CompanyDetailDTO.class);
+		}
 	}
 
 	public CompanyDetailDTO getCompanyDetailById(Long employeeId) {

@@ -48,9 +48,9 @@ public class DepartmentController {
 	}
 
 	@PostMapping("/add-department")
-	public ResponseEntity<?> addDepartment(@Valid @RequestBody DepartmentDto department) throws DepartmentException {
-		String createDepartment = this.departmentService.createDepartment(department);
-		return new ResponseEntity<>(new ApiResponse(createDepartment,LocalDateTime.now()), HttpStatus.CREATED);
+	public ResponseEntity<DepartmentDto> addDepartment(@Valid @RequestBody DepartmentDto department) throws DepartmentException {
+		DepartmentDto createDeDepartmentDtopartment = this.departmentService.createDepartment(department);
+		return new ResponseEntity<DepartmentDto>(createDeDepartmentDtopartment, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{department-Id}")
@@ -60,15 +60,14 @@ public class DepartmentController {
 		return new ResponseEntity<>(new ApiResponse(deletedDepartment,LocalDateTime.now()), HttpStatus.OK);
 	}
 
-	@PutMapping
-	public ResponseEntity<?> updateDepartment(@Valid @RequestBody DepartmentDto department) throws DepartmentException {
-		String updateDepartment = this.departmentService.updateDepartment(department);
-		return new ResponseEntity<>(new ApiResponse(updateDepartment,LocalDateTime.now()), HttpStatus.OK);
+	@PutMapping("/update")
+	public ResponseEntity<DepartmentDto> updateDepartment(@Valid @RequestBody DepartmentDto department) throws DepartmentException {
+		DepartmentDto updateDepartment = this.departmentService.updateDepartment(department);
+		return new ResponseEntity<DepartmentDto>(updateDepartment, HttpStatus.OK);
 	}
 
 	@GetMapping("/search")
-	public ResponseEntity<Page<DepartmentDto>> searchDepartment(@PageableDefault Pageable pageable,
-			@RequestParam(value = "keyword", defaultValue = "", required = false) String keyword)
+	public ResponseEntity<Page<DepartmentDto>> searchDepartment(@RequestParam(value = "keyword", defaultValue = "", required = false) String keyword, @PageableDefault Pageable pageable)
 			throws DepartmentException {
 		Page<DepartmentDto> result = this.departmentService.searchDepartment(pageable, keyword);
 		return new ResponseEntity<Page<DepartmentDto>>(result, HttpStatus.OK);

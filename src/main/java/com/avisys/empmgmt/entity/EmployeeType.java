@@ -1,5 +1,7 @@
 package com.avisys.empmgmt.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,7 +26,7 @@ public class EmployeeType extends Status {
 	@Column(name = "employee_type_id")
 	@NotNull(message="Employee Type Id should not be null")
 	@NotBlank(message="Employee Type Id should not be blank")
-	@Pattern(regexp = "^(?!.*s)[A-Za-z]{1,50}$",message = "ID must starts with alphabets followed numbers & cannot contain special character")
+	@Pattern(regexp = "^[A-Za-z]{1,50}$",message = "ID must starts with alphabets followed numbers & cannot contain special character")
 	private String employeeTypeId;
 
 	@NotBlank(message = "Type Should not be blank")
@@ -33,6 +35,26 @@ public class EmployeeType extends Status {
 	@Column(name = "Type", nullable = false)
 	private String type;
 
+	public EmployeeType() {
+        super();
+
+    }
+
+ 
+
+    public EmployeeType(Long id,String employeeTypeId,  String orgCode,
+            boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy) {
+        super();
+        this.id = id;
+        this.employeeTypeId = employeeTypeId;
+        this.orgCode = orgCode;
+        this.isDeleted = isDeleted;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.createdBy = createdBy;
+        this.updatedBy = updatedBy;
+    }
+    
 	public Long getId() {
 		return id;
 	}

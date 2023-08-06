@@ -8,9 +8,11 @@ import org.springframework.stereotype.Component;
 
 import com.avisys.empmgmt.dto.DesignationDto;
 import com.avisys.empmgmt.dto.DivisionDto;
+import com.avisys.empmgmt.dto.EmployeeTypeDTO;
 import com.avisys.empmgmt.dto.GETResponse;
 import com.avisys.empmgmt.entity.Designation;
 import com.avisys.empmgmt.entity.Division;
+import com.avisys.empmgmt.entity.EmployeeType;
 import com.avisys.empmgmt.entity.Role;
 
 @Component
@@ -60,5 +62,12 @@ public class Utils {
 				division.getdivisionDescription(), division.getOrgCode(), division.isDeleted(), division.getCreatedAt(),
 				division.getUpdatedAt(), division.getCreatedBy(), division.getUpdatedBy());
 	}
+	public EmployeeType getEmployeeType(EmployeeTypeDTO employeeTypeDTO) {
 
+		 
+
+        return new EmployeeType(employeeTypeDTO.getId(), employeeTypeDTO.getType(), employeeTypeDTO.getOrgCode(), false,
+                employeeTypeDTO.getCreatedAt(), employeeTypeDTO.getUpdatedAt(), employeeTypeDTO.getCreatedBy(),
+                employeeTypeDTO.getUpdatedBy());
+    }
 }

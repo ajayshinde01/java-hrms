@@ -30,9 +30,9 @@ public class EmergencyContactsController {
 	private EmergencyContactsService emergencyContactsService;
 	
 	@PostMapping("/{employee-id}/add")
-	public ResponseEntity<?> addEmergencyContact(@Valid @RequestBody EmergencyContactsDto emergencyContactsDto, @PathVariable("employee-id") Long employeeId) {
-		String createEmergencyContact = emergencyContactsService.createEmergencyContact(emergencyContactsDto,employeeId);
-		return new ResponseEntity<>(new ApiResponse(createEmergencyContact,LocalDateTime.now()), HttpStatus.CREATED);
+	public ResponseEntity<EmergencyContactsDto> addEmergencyContact(@Valid @RequestBody EmergencyContactsDto emergencyContactsDto, @PathVariable("employee-id") Long employeeId) {
+		EmergencyContactsDto createEmergencyContact = emergencyContactsService.createEmergencyContact(emergencyContactsDto,employeeId);
+		return new ResponseEntity<EmergencyContactsDto>(createEmergencyContact, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{employee-id}/get-all")
@@ -48,8 +48,8 @@ public class EmergencyContactsController {
 	}
 	
 	@PutMapping("/{employee-id}/update")
-	public ResponseEntity<?> updateEmergencyContact(@Valid @RequestBody EmergencyContactsDto emergencyContactsDto, @PathVariable("employee-id") Long employeeId ) {
-		String updateEmergencyContacts = this.emergencyContactsService.updateEmergencyContacts(emergencyContactsDto,employeeId);
-		return new ResponseEntity<>(new ApiResponse(updateEmergencyContacts,LocalDateTime.now()), HttpStatus.OK);
+	public ResponseEntity<EmergencyContactsDto> updateEmergencyContact(@Valid @RequestBody EmergencyContactsDto emergencyContactsDto, @PathVariable("employee-id") Long employeeId ) {
+		EmergencyContactsDto updateEmergencyContacts = this.emergencyContactsService.updateEmergencyContacts(emergencyContactsDto,employeeId);
+		return new ResponseEntity<EmergencyContactsDto>(updateEmergencyContacts, HttpStatus.OK);
 	}
 }

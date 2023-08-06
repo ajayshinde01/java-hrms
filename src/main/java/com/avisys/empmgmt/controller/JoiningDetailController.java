@@ -34,9 +34,9 @@ public class JoiningDetailController {
 	}
 	
 	@PostMapping("/create/{employee-id}")
-    public ResponseEntity<?> createJoiningDetail(@Valid @RequestBody CreateJoiningDetailDTO joiningDetailDto,@PathVariable("employee-id") Long employeeId){
-		String message = joiningDetailService.createJoiningDetail(joiningDetailDto,employeeId);
-    	return new ResponseEntity<>(new ApiResponse(message,LocalDateTime.now()),HttpStatus.OK);	
+    public ResponseEntity<JoiningDetailDTO> createJoiningDetail(@Valid @RequestBody CreateJoiningDetailDTO joiningDetailDto,@PathVariable("employee-id") Long employeeId){
+		JoiningDetailDTO joiningDetails = joiningDetailService.createJoiningDetail(joiningDetailDto,employeeId);
+    	return new ResponseEntity<JoiningDetailDTO>(joiningDetails,HttpStatus.OK);	
     }
 	
 	@DeleteMapping("/{employee-id}")
@@ -46,9 +46,9 @@ public class JoiningDetailController {
 	}
 	
 	@PutMapping("/update/{employee-id}")
-	public ResponseEntity<?> updateJoiningDetail(@Valid @RequestBody JoiningDetailDTO joiningDetailDto,@PathVariable("employee-id") Long employeeId){
-		String message = joiningDetailService.updateJoiningDetail(joiningDetailDto,employeeId);
-		return new ResponseEntity<>(new ApiResponse(message, LocalDateTime.now()),HttpStatus.OK);
+	public ResponseEntity<JoiningDetailDTO> updateJoiningDetail(@Valid @RequestBody JoiningDetailDTO joiningDetailDto,@PathVariable("employee-id") Long employeeId){
+		JoiningDetailDTO JoiningDetails = joiningDetailService.updateJoiningDetail(joiningDetailDto,employeeId);
+		return new ResponseEntity<JoiningDetailDTO>(JoiningDetails,HttpStatus.OK);
 	}
 	
 	@GetMapping("/{employee-id}")

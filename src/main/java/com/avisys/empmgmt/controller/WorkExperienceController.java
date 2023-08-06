@@ -35,9 +35,9 @@ public class WorkExperienceController {
 	private WorkExperienceService workExperienceService;
 	
 	@PostMapping("/{employee-id}/add")
-	public ResponseEntity<?> addWorkExperience(@Valid @RequestBody WorkExperienceDto workExperienceDto, @PathVariable("employee-id") Long employeeId) {
-		String experience = workExperienceService.addWorkExperience(workExperienceDto,employeeId);
-		return new ResponseEntity<>(new ApiResponse(experience,LocalDateTime.now()), HttpStatus.CREATED);
+	public ResponseEntity<WorkExperienceDto> addWorkExperience(@Valid @RequestBody WorkExperienceDto workExperienceDto, @PathVariable("employee-id") Long employeeId) {
+		WorkExperienceDto experience = workExperienceService.addWorkExperience(workExperienceDto,employeeId);
+		return new ResponseEntity<WorkExperienceDto>(experience, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{employee-id}/get-all")
@@ -53,9 +53,9 @@ public class WorkExperienceController {
 	}
 	
 	@PutMapping("/{employee-id}/update")
-	public ResponseEntity<?> updateEmployeeWorkExperience(@Valid @RequestBody WorkExperienceDto workExperienceDto, @PathVariable("employee-id") Long employeeId ) {
-		String updateWorkExperienceDto = this.workExperienceService.updateWorkExperience(workExperienceDto,employeeId);
-		return new ResponseEntity<>(new ApiResponse(updateWorkExperienceDto,LocalDateTime.now()), HttpStatus.OK);
+	public ResponseEntity<WorkExperienceDto> updateEmployeeWorkExperience(@Valid @RequestBody WorkExperienceDto workExperienceDto, @PathVariable("employee-id") Long employeeId ) {
+		WorkExperienceDto updateWorkExperienceDto = this.workExperienceService.updateWorkExperience(workExperienceDto,employeeId);
+		return new ResponseEntity<WorkExperienceDto>(updateWorkExperienceDto, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{employee-id}/search")

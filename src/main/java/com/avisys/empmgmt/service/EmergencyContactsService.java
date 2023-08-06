@@ -9,11 +9,11 @@ import jakarta.validation.Valid;
 
 @Service
 public interface EmergencyContactsService {
-	String createEmergencyContact(@Valid EmergencyContactsDto emergencyContactsDto, Long employeeId);
+	EmergencyContactsDto createEmergencyContact(@Valid EmergencyContactsDto emergencyContactsDto, Long employeeId);
 
 	List<EmergencyContactsDto> getEmergencyContactsByEmployee(Long employeeId);
 
-	String updateEmergencyContacts(EmergencyContactsDto emergencyContactsDto, Long employeeId);
+	EmergencyContactsDto updateEmergencyContacts(EmergencyContactsDto emergencyContactsDto, Long employeeId);
 
 	String deleteEmergencyContacts(Long employeeId, Long emergencyContactsId);
 	

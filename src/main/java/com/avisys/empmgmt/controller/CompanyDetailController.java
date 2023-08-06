@@ -34,9 +34,9 @@ public class CompanyDetailController {
 	}
 	
 	@PostMapping("/create/{employee-id}")
-	public ResponseEntity<?> createCompanyDetail(@Valid @RequestBody CreateCompanyDetailDTO companyDetailDto,@PathVariable("employee-id") Long employeeId){
-        String message = companyDetailService.createCompanyDetail(companyDetailDto,employeeId);
-		return new ResponseEntity<>(new ApiResponse(message, LocalDateTime.now()),HttpStatus.CREATED);	
+	public ResponseEntity<CompanyDetailDTO> createCompanyDetail(@Valid @RequestBody CreateCompanyDetailDTO companyDetailDto,@PathVariable("employee-id") Long employeeId){
+		CompanyDetailDTO message = companyDetailService.createCompanyDetail(companyDetailDto,employeeId);
+		return new ResponseEntity<CompanyDetailDTO>(message,HttpStatus.OK);	
 	}
 	
 	@DeleteMapping("/{employee-id}")
@@ -46,9 +46,9 @@ public class CompanyDetailController {
 	}
 
 	@PutMapping("/update/{employee-id}")
-	public ResponseEntity<?> updateCompanyDetail(@Valid @RequestBody CompanyDetailDTO companyDetailDto,@PathVariable("employee-id") Long employeeId){
-		String message = companyDetailService.updateCompanyDetail(companyDetailDto,employeeId);
-		return new ResponseEntity<>(new ApiResponse(message, LocalDateTime.now()),HttpStatus.OK);
+	public ResponseEntity<CompanyDetailDTO> updateCompanyDetail(@Valid @RequestBody CompanyDetailDTO companyDetailDto,@PathVariable("employee-id") Long employeeId){
+		CompanyDetailDTO detailsUpdated = companyDetailService.updateCompanyDetail(companyDetailDto,employeeId);
+		return new ResponseEntity<>(detailsUpdated,HttpStatus.OK);
 	}
 	
 	@GetMapping("/{employee-id}")

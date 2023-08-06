@@ -15,11 +15,11 @@ public interface EmployeeService {
 
 	public List<EmployeeDto> getAllEmployee();
 
-	public String createEmployee(@Valid EmployeeDto employee);
+	public EmployeeDto createEmployee(@Valid EmployeeDto employee);
 
 	Page<EmployeeDto> searchEmployee(Pageable pageable, String keyword);
 
-	public String updateEmployee(@Valid EmployeeDto employee);
+	public EmployeeDto updateEmployee(@Valid EmployeeDto employee);
 
 	public EmployeeDto getByEmployee(Long employeeId);
 

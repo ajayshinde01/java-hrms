@@ -15,26 +15,34 @@ public class CreateDTO {
 	@NotNull
 	@NotBlank(message = "Role Name field cant be blank")
     @Pattern(regexp = "^[a-zA-Z-_ ]{1,100}$",message = "Name must starts with alphabets")
-	private String name;
+	private String roleName;
 	
 	@NotNull
 	@NotBlank(message = "Organization Code field cant be blank")
 	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
-	private String org_code;
+	private String orgCode;
 	
 	@NotNull
 	@NotBlank(message = "Created by field  cant be null")
-	private String created_by;
-	
-	
-	public CreateDTO(String roleId, String rname, String org_code, String created_by) {
+	private String createdBy;
+
+	public CreateDTO() {
 		super();
-		this.roleId=roleId;
-		this.name = rname;
-		this.org_code = org_code;
-		this.created_by = created_by;
+		// TODO Auto-generated constructor stub
 	}
-	
+
+	public CreateDTO(
+			@NotNull(message = "") @NotBlank(message = "Role Id field cant be blank") @Pattern(regexp = "^[a-zA-Z0-9]{1,50}$", message = "ID must starts with alphabets followed numbers & cannot contain special character") String roleId,
+			@NotNull @NotBlank(message = "Role Name field cant be blank") @Pattern(regexp = "^[a-zA-Z-_ ]{1,100}$", message = "Name must starts with alphabets") String roleName,
+			@NotNull @NotBlank(message = "Organization Code field cant be blank") @Pattern(regexp = "^[a-zA-Z-_]{1,10}$", message = "Organization code can't contain white spaces & special characters") String orgCode,
+			@NotNull @NotBlank(message = "Created by field  cant be null") String createdBy) {
+		super();
+		this.roleId = roleId;
+		this.roleName = roleName;
+		this.orgCode = orgCode;
+		this.createdBy = createdBy;
+	}
+
 	public String getRoleId() {
 		return roleId;
 	}
@@ -43,27 +51,29 @@ public class CreateDTO {
 		this.roleId = roleId;
 	}
 
-	public String getName() {
-		return name;
+	public String getRoleName() {
+		return roleName;
 	}
-	public void setName(String rname) {
-		this.name = rname;
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
-	public String getOrg_code() {
-		return org_code;
+
+	public String getOrgCode() {
+		return orgCode;
 	}
-	public void setOrg_code(String org_code) {
-		this.org_code = org_code;
+
+	public void setOrgCode(String orgCode) {
+		this.orgCode = orgCode;
 	}
-	public String getCreated_by() {
-		return created_by;
+
+	public String getCreatedBy() {
+		return createdBy;
 	}
-	public void setCreated_by(String created_by) {
-		this.created_by = created_by;
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
 	}
-	
-	
-	
 	
 	
 }

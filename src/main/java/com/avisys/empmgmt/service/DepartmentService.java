@@ -12,11 +12,9 @@ import com.avisys.empmgmt.exception.DepartmentException;
 @Service
 public interface DepartmentService {
 
-	String createDepartment(DepartmentDto department) throws DepartmentException;
+	DepartmentDto createDepartment(DepartmentDto department) throws DepartmentException;
 
-
-
-	String updateDepartment(DepartmentDto departmentDto) throws DepartmentException;
+	DepartmentDto updateDepartment(DepartmentDto departmentDto) throws DepartmentException;
 
 	List<DepartmentDto> getAllDepartments() throws DepartmentException;
 

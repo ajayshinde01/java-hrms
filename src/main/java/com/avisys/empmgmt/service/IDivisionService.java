@@ -11,13 +11,13 @@ import com.avisys.empmgmt.entity.Division;
 public interface IDivisionService {
    List<DivisionDto> getAllDivision();
 
-   String saveDivision(CreateDivisionDto division);
+   DivisionDto saveDivision(CreateDivisionDto division);
 
    String deleteDivisionById(String divisionId);
 
    DivisionDto getDivisionById(String divisionId);
 
-   String updateDivision(DivisionDto division);
+   DivisionDto updateDivision(DivisionDto division);
 
    Page<Division> searchDivision(String searchValue,Pageable pageable);
    

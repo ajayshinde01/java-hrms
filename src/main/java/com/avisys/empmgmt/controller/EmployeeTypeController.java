@@ -1,6 +1,9 @@
 package com.avisys.empmgmt.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +21,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.avisys.empmgmt.dto.EmployeeTypeDTO;
+import com.avisys.empmgmt.entity.EmployeeType;
 import com.avisys.empmgmt.exception.ResourceNotFoundException;
 import com.avisys.empmgmt.service.EmployeeTypeService;
+import com.avisys.empmgmt.util.ApiResponse;
+
 import jakarta.validation.Valid;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -38,7 +45,7 @@ public class EmployeeTypeController {
 	public ResponseEntity<EmployeeTypeDTO> save(@Valid @RequestBody EmployeeTypeDTO employeeTypeDTO) {
 		logger.info("Save Information Successfully...");
 		EmployeeTypeDTO createorSaveEmployeeType = employeeTypeService.CreateorSaveEmployeeType(employeeTypeDTO);
-		return new ResponseEntity<EmployeeTypeDTO>(createorSaveEmployeeType, HttpStatus.CREATED);
+		return new ResponseEntity<EmployeeTypeDTO>(createorSaveEmployeeType, HttpStatus.OK);
 	}
 
 	/************** Show-All *******************/
@@ -68,21 +75,23 @@ public class EmployeeTypeController {
 	}
 
 	/************** Update-ById *******************/
-	@PutMapping("/update/{id}")
-	public ResponseEntity<EmployeeTypeDTO> update(@Valid @RequestBody EmployeeTypeDTO employeeTypeDTO,
-			@PathVariable Long id) {
-		logger.info("Update Information By Id Successfully...");
-		EmployeeTypeDTO empDTO = employeeTypeService.update(employeeTypeDTO, id);
-		return new ResponseEntity<EmployeeTypeDTO>(empDTO, HttpStatus.OK);
-	}
+	@PutMapping("/update")
+    public ResponseEntity<EmployeeTypeDTO> updateEmployee(@Valid @RequestBody EmployeeTypeDTO employeeTypeDTO) {
+        logger.info("updateEmployeeType method called");
+        EmployeeTypeDTO employeeType = employeeTypeService.updateEmployeeType(employeeTypeDTO);
+        return new ResponseEntity<EmployeeTypeDTO>(employeeType, HttpStatus.OK);
+    }
 
 	/************** Pagination *******************/
 
 	@GetMapping("/search")
-	public ResponseEntity<Page<EmployeeTypeDTO>> search(@RequestParam(defaultValue = "") String searchValue,
-			Pageable pageable) {
-		Page<EmployeeTypeDTO> page = employeeTypeService.search(searchValue, pageable);
-		return ResponseEntity.ok(page);
-	}
+    public ResponseEntity<?> searchingSortingPagination(@RequestParam(defaultValue = "") String keyword,
+            Pageable pageable) {
+        logger.warn(EmployeeTypeController.class.getName() + ":GET SEARCH+SORT+PAGINATION  Method called");
+        Optional<Page<EmployeeType>> pages = this.employeeTypeService.searchingSortingPagination(keyword, pageable);
+        if (pages.get().getContent().isEmpty())
+            return new ResponseEntity(new ApiResponse("No such Record found!"), HttpStatus.NOT_FOUND);
+        return new ResponseEntity(pages, HttpStatus.OK);
+    }
 
 }

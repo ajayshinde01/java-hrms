@@ -53,7 +53,7 @@ public class RoleServiceImpl implements RoleService {
 			if(alreadyExistedRole.isDeleted())
 			{
 				alreadyExistedRole.setUpdatedAt(now);
-				alreadyExistedRole.setCreatedBy(role.getCreated_by());alreadyExistedRole.setDeleted(false);alreadyExistedRole.setCreatedAt(now);alreadyExistedRole.setOrgCode(role.getOrg_code().toUpperCase());alreadyExistedRole.setRoleName(role.getName().toUpperCase());
+				alreadyExistedRole.setCreatedBy(role.getCreatedBy());alreadyExistedRole.setDeleted(false);alreadyExistedRole.setCreatedAt(now);alreadyExistedRole.setOrgCode(role.getOrgCode().toUpperCase());alreadyExistedRole.setRoleName(role.getRoleName().toUpperCase());
 				 Role roleToBeReturned=this.roleRepo.save(alreadyExistedRole);
 				 return util.roleToDTO(roleToBeReturned);
 			}
@@ -62,7 +62,7 @@ public class RoleServiceImpl implements RoleService {
 			}
 			
 		else {
-			Role newRole=new Role(role.getRoleId().toUpperCase(),role.getName(),role.getOrg_code().toUpperCase(),false,now,now,role.getCreated_by(),null);
+			Role newRole=new Role(role.getRoleId().toUpperCase(),role.getRoleName(),role.getOrgCode().toUpperCase(),false,now,now,role.getCreatedBy(),null);
 			Role roleToBeReturned= this.roleRepo.save(newRole);
 			return util.roleToDTO(roleToBeReturned);
 			 }
@@ -94,11 +94,11 @@ public class RoleServiceImpl implements RoleService {
 		if(isRoleIdAlreadyPresent==null || (isRoleIdAlreadyPresent.getRoleId().equals(updateDto.getRoleId()) && isRoleIdAlreadyPresent.getId()==updateDto.getId()) )
 		{
 			roleToBeUpdated.setRoleId(updateDto.getRoleId().toUpperCase());
-			roleToBeUpdated.setRoleName(updateDto.getName());
-			roleToBeUpdated.setOrgCode(updateDto.getOrg_code().toUpperCase());
+			roleToBeUpdated.setRoleName(updateDto.getRoleName());
+			roleToBeUpdated.setOrgCode(updateDto.getOrgCode().toUpperCase());
 			LocalDateTime now = LocalDateTime.now();
 			roleToBeUpdated.setUpdatedAt(now);
-			roleToBeUpdated.setUpdatedBy(updateDto.getUpdated_by());
+			roleToBeUpdated.setUpdatedBy(updateDto.getUpdatedBy());
 			Role roleUpdated= this.roleRepo.save(roleToBeUpdated); 
 			return this.util.roleToDTO(roleUpdated);
 			

@@ -42,7 +42,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public String createDepartment(DepartmentDto departmentDto) throws DepartmentException {
+	public DepartmentDto createDepartment(DepartmentDto departmentDto) throws DepartmentException {
 		Optional<Department> optionalDepartment = departmentRepository.findByDepartmentId(departmentDto.getDepartmentId());
 		if (optionalDepartment.isPresent()) {
 			throw new DepartmentException("Department Id should not be duplicate");
@@ -52,7 +52,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 		department.setCreatedBy(departmentDto.getCreatedBy());
 		department.setDeleted(false);
 		departmentRepository.save(department);
-		return "Department created successfully";
+		return this.modelMapper.map(department, DepartmentDto.class);
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public String updateDepartment(DepartmentDto departmentDto) throws DepartmentException {
+	public DepartmentDto updateDepartment(DepartmentDto departmentDto) throws DepartmentException {
         if (departmentDto.getId() == null) {
             throw new DepartmentException("Id Should Not be null");
         }
@@ -102,10 +102,10 @@ public class DepartmentServiceImpl implements DepartmentService {
             department.setUpdatedAt(LocalDateTime.now());
             department.setDeleted(false);
             departmentRepository.save(department);
+            return  this.modelMapper.map(department, DepartmentDto.class);
         } else {
             throw new DepartmentException("Invalid DepartmentId ");
         }
-        return "Department Updated Successfully";
     }
 
 	@Override

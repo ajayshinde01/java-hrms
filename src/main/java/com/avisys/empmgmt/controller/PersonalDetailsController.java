@@ -35,9 +35,9 @@ public class PersonalDetailsController {
 	}
 
 	@PostMapping("/create/{employee-id}")
-	public ResponseEntity<?> createPersonalDetails(@Valid @RequestBody CreatePersonalDetailsDTO personalDetailsDto,@PathVariable("employee-id") Long employeeId) {
-		String message = personalDetailsService.createPersonalDetails(personalDetailsDto,employeeId);
-		return new ResponseEntity<>(new ApiResponse(message,LocalDateTime.now()),HttpStatus.OK);
+	public ResponseEntity<PersonalDetailsDTO> createPersonalDetails(@Valid @RequestBody CreatePersonalDetailsDTO personalDetailsDto,@PathVariable("employee-id") Long employeeId) {
+		PersonalDetailsDTO personalDetails = personalDetailsService.createPersonalDetails(personalDetailsDto,employeeId);
+		return new ResponseEntity<PersonalDetailsDTO>(personalDetails,HttpStatus.OK);
 
 	}
 	
@@ -53,9 +53,9 @@ public class PersonalDetailsController {
 	}
     
 	@PutMapping("/update/{employee-id}")
-	public ResponseEntity<?> updatePersonalDetails(@Valid @RequestBody PersonalDetailsDTO personalDetailsDto,@PathVariable("employee-id") Long employeeId){
-		 String message = personalDetailsService.updatePersonalDetails(personalDetailsDto,employeeId);
-		return new ResponseEntity<>(new ApiResponse(message, LocalDateTime.now()),HttpStatus.OK);
+	public ResponseEntity<PersonalDetailsDTO> updatePersonalDetails(@Valid @RequestBody PersonalDetailsDTO personalDetailsDto,@PathVariable("employee-id") Long employeeId){
+		PersonalDetailsDTO personalDetails = personalDetailsService.updatePersonalDetails(personalDetailsDto,employeeId);
+		return new ResponseEntity<PersonalDetailsDTO>(personalDetails,HttpStatus.OK);
 	}
 	
 	@GetMapping("/{employee-id}")

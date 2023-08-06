@@ -40,7 +40,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public String createEmployee(@Valid EmployeeDto employeeDto){
+	public EmployeeDto createEmployee(@Valid EmployeeDto employeeDto){
 		Optional<Employee> optionalEmployee = employeeRepository.findByEmployeeCode(employeeDto.getEmployeeCode());
         if (optionalEmployee.isPresent()) {
             throw new EmployeeException("Employee code should not be duplicate");
@@ -50,7 +50,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employee.setCreatedBy(employeeDto.getCreatedBy());
 		employee.setDeleted(false);
 		employeeRepository.save(employee);
-		return "Employee Created Successfully";
+		return this.modelMapper.map(employee, EmployeeDto.class);
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 	
 	@Override
-	public String updateEmployee(@Valid EmployeeDto employeeDto){
+	public EmployeeDto updateEmployee(@Valid EmployeeDto employeeDto){
 		Optional<Employee> optionalEmployee = employeeRepository.findByEmployeeCode(employeeDto.getEmployeeCode());
         if (optionalEmployee.isPresent()) {
             throw new EmployeeException("Employee code should not be duplicate");
@@ -100,7 +100,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	        employeeRepository.save(employeeObj);
 	
-	    return "Employee Updated Successfully";
+	    return this.modelMapper.map(employeeObj, EmployeeDto.class);
 	}
 	
 }

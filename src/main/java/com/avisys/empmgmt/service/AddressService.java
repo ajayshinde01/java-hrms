@@ -11,11 +11,11 @@ import jakarta.validation.Valid;
 @Service
 public interface AddressService {
 
-	String createAddress(@Valid AddressDto addressDto, Long employeeId);
+	AddressDto createAddress(@Valid AddressDto addressDto, Long employeeId);
 
 	List<AddressDto> getAddressByEmployee(Long employeeId);
 
-	String updateAddress(AddressDto addressDto, Long employeeId);
+	AddressDto updateAddress(AddressDto addressDto, Long employeeId);
 
 	String deleteAddress(Long employeeId, Long addressId);
 

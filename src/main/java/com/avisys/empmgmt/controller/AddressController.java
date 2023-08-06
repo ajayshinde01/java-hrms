@@ -32,9 +32,9 @@ public class AddressController {
 	private AddressService addressService;
 	
 	@PostMapping("/{employee-id}/create")
-	public ResponseEntity<?> addAddress(@Valid @RequestBody AddressDto address, @PathVariable("employee-id") Long employeeId) {
-		String createAddress = addressService.createAddress(address,employeeId);
-		return new ResponseEntity<>(new ApiResponse(createAddress,LocalDateTime.now()), HttpStatus.CREATED);
+	public ResponseEntity<AddressDto> addAddress(@Valid @RequestBody AddressDto address, @PathVariable("employee-id") Long employeeId) {
+		AddressDto createAddress = addressService.createAddress(address,employeeId);
+		return new ResponseEntity<>(createAddress, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{employee-id}/get-all")
@@ -50,8 +50,8 @@ public class AddressController {
 	}
 	
 	@PutMapping("/{employee-id}/update")
-	public ResponseEntity<?> updateEmployeeAddress(@Valid @RequestBody AddressDto addressDto, @PathVariable("employee-id") Long employeeId ) {
-		String updateEmployeeAddress = this.addressService.updateAddress(addressDto,employeeId);
-		return new ResponseEntity<>(new ApiResponse(updateEmployeeAddress,LocalDateTime.now()), HttpStatus.OK);
+	public ResponseEntity<AddressDto> updateEmployeeAddress(@Valid @RequestBody AddressDto addressDto, @PathVariable("employee-id") Long employeeId ) {
+		AddressDto updateEmployeeAddress = this.addressService.updateAddress(addressDto,employeeId);
+		return new ResponseEntity<>(updateEmployeeAddress, HttpStatus.OK);
 	}
 }

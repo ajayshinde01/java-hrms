@@ -30,7 +30,7 @@ public class AddressServiceImpl implements AddressService {
 	private EmployeeRepo employeeRepository;
 
 	@Override
-	public String createAddress(@Valid AddressDto addressDto, Long employeeId){
+	public AddressDto createAddress(@Valid AddressDto addressDto, Long employeeId){
 		
 		Employee employee=this.employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()-> new EmployeeException("Employee not found"));
 		
@@ -47,13 +47,12 @@ public class AddressServiceImpl implements AddressService {
 		address.setEmployee(employee);
 		addressRepository.save(address);
 		
-		return "Address Created Successfully";
+		return this.modelMapper.map(address, AddressDto.class);
 	}
 	
 	@Override
 	public List<AddressDto> getAddressByEmployee(Long employeeId){
 		Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
-		
 		
 		List<Address> addresses=this.addressRepository.findByEmployeeAndIsDeletedFalse(employee);
 		if (addresses.isEmpty()) {
@@ -65,7 +64,7 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public String updateAddress( AddressDto addressDto,Long employeeId) {
+	public AddressDto updateAddress( AddressDto addressDto,Long employeeId) {
 		Employee employee=employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
 
 	    Address addressObj = addressRepository.findByIdAndIsDeletedFalse(addressDto.getId()).orElseThrow(()->new AddressException("Address not found"));
@@ -79,7 +78,7 @@ public class AddressServiceImpl implements AddressService {
 
 	        addressRepository.save(addressObj);
 	 
-	    return "Address Updated Successfully";
+	    return  this.modelMapper.map(addressObj, AddressDto.class);
 	    } else throw new AddressException("EmployeeId doesn't have this addressId");
 	}
 

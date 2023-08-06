@@ -33,7 +33,7 @@ public class WorkExperienceService {
 	@Autowired
 	private EmployeeRepo employeeRepository;
 
-	public String addWorkExperience(@Valid WorkExperienceDto workExperienceDto, Long employeeId) {
+	public WorkExperienceDto addWorkExperience(@Valid WorkExperienceDto workExperienceDto, Long employeeId) {
 		
 		Employee employee=this.employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()-> new EmployeeException("Employee not found"));
 		
@@ -43,7 +43,7 @@ public class WorkExperienceService {
 		workExperience.setEmployee(employee);
 		workExperienceRepository.save(workExperience);
 		
-		return "Work Experience added Successfully";
+		return  this.modelMapper.map(workExperience, WorkExperienceDto.class);
 
 }
 
@@ -61,7 +61,7 @@ public class WorkExperienceService {
 	}
 
 
-	public String updateWorkExperience(WorkExperienceDto workExperienceDto, Long employeeId) {
+	public WorkExperienceDto updateWorkExperience(WorkExperienceDto workExperienceDto, Long employeeId) {
 		Employee employee=employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
 
 		WorkExperience workExperience = workExperienceRepository.findByIdAndIsDeletedFalse(workExperienceDto.getId()).orElseThrow(()->new WorkExperienceException("WorkExperience not found"));
@@ -74,7 +74,7 @@ public class WorkExperienceService {
 
 	        workExperienceRepository.save(workExperience);
 	 
-	    return "WorkExperience Updated Successfully";
+	    return  this.modelMapper.map(workExperience, WorkExperienceDto.class);
 	    } else throw new WorkExperienceException("EmployeeId doesn't have this WorkExperience Id");
 	}
 

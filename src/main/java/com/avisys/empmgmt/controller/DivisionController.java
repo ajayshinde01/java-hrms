@@ -53,7 +53,7 @@ public class DivisionController {
 	@PostMapping("/create")
 	public ResponseEntity<?> createDivision(@Valid @RequestBody CreateDivisionDto division) {
 		logger.info("createDivision method called");
-		return new ResponseEntity<>(new ApiResponse(divisionService.saveDivision(division),LocalDateTime.now()), HttpStatus.CREATED);
+		return new ResponseEntity<>(divisionService.saveDivision(division), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{divisionId}")
@@ -70,15 +70,15 @@ public class DivisionController {
 	}
 	
 	@GetMapping("/search")
-	public ResponseEntity<?> searchDivision(@RequestParam(defaultValue = "") String searchValue,@PageableDefault(direction = Direction.ASC) Pageable pageable){
+	public ResponseEntity<?> searchDivision(@RequestParam(defaultValue = "") String keyword,@PageableDefault(direction = Direction.ASC) Pageable pageable){
 		logger.info("pagination method called");
-		return new ResponseEntity<>(divisionService.searchDivision(searchValue.toLowerCase(),pageable),HttpStatus.OK);	
+		return new ResponseEntity<>(divisionService.searchDivision(keyword.toLowerCase(),pageable),HttpStatus.OK);	
 	}
 	
 	@PutMapping("/update")
 	public ResponseEntity<?> updateDivision(@Valid @RequestBody DivisionDto divisionDto){
 		logger.info("updateDivision method called");	
-		return new ResponseEntity<>(new ApiResponse(divisionService.updateDivision(divisionDto),LocalDateTime.now()),HttpStatus.OK);
+		return new ResponseEntity<>(divisionService.updateDivision(divisionDto),HttpStatus.OK);
 	}
 
 }

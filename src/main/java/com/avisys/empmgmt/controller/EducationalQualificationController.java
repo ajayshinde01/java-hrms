@@ -34,9 +34,9 @@ public class EducationalQualificationController {
 	private EducationalQualificationService educationalQualificationService;
 	
 	@PostMapping("/{employee-id}/add")
-	public ResponseEntity<?> addEducationalQualification(@Valid @RequestBody EducationalQualificationDto educationalQualificationDto, @PathVariable("employee-id") Long employeeId) {
-		String createEducationalQualification = educationalQualificationService.addEducationalQualification(educationalQualificationDto,employeeId);
-		return new ResponseEntity<>(new ApiResponse(createEducationalQualification,LocalDateTime.now()), HttpStatus.CREATED);
+	public ResponseEntity<EducationalQualificationDto> addEducationalQualification(@Valid @RequestBody EducationalQualificationDto educationalQualificationDto, @PathVariable("employee-id") Long employeeId) {
+		EducationalQualificationDto createEducationalQualification = educationalQualificationService.addEducationalQualification(educationalQualificationDto,employeeId);
+		return new ResponseEntity<EducationalQualificationDto>(createEducationalQualification, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{employee-id}/get-all")
@@ -52,9 +52,9 @@ public class EducationalQualificationController {
 	}
 	
 	@PutMapping("/{employee-id}/update")
-	public ResponseEntity<?> updateEducationalQualification(@Valid @RequestBody EducationalQualificationDto educationalQualificationDto, @PathVariable("employee-id") Long employeeId ) {
-		String updateEducationalQualification = this.educationalQualificationService.updateEducationalQualification(educationalQualificationDto,employeeId);
-		return new ResponseEntity<>(new ApiResponse(updateEducationalQualification,LocalDateTime.now()), HttpStatus.OK);
+	public ResponseEntity<EducationalQualificationDto> updateEducationalQualification(@Valid @RequestBody EducationalQualificationDto educationalQualificationDto, @PathVariable("employee-id") Long employeeId ) {
+		EducationalQualificationDto updateEducationalQualification = this.educationalQualificationService.updateEducationalQualification(educationalQualificationDto,employeeId);
+		return new ResponseEntity<EducationalQualificationDto>(updateEducationalQualification, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{employee-id}/search")

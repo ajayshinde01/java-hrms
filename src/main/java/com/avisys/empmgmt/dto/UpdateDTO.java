@@ -8,8 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class UpdateDTO {
 
 	@NotNull(message = "Id cant be NULL")
@@ -23,16 +21,15 @@ public class UpdateDTO {
 	@NotNull
 	@NotBlank(message = "Role Name cant be blank")
     @Pattern(regexp = "^[a-zA-Z-_ ]{1,100}$",message = "Name must starts with alphabets")
-	private String name;
+	private String roleName;
 
 	@NotNull
 	@NotBlank(message = "Organization Code  cant be blank")
 	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
-	private String org_code;
+	private String orgCode;
 
-	@NotBlank(message = "Updaed  by field is required")
-	@NotNull(message = "Updaed  by cant be null")
-	private String updated_by;
+	
+	private String updatedBy;
 
 	public long getId() {
 		return id;
@@ -42,13 +39,6 @@ public class UpdateDTO {
 		this.id = id;
 	}
 
-	public String getUpdated_by() {
-		return updated_by;
-	}
-
-	public void setUpdated_by(String updated_by) {
-		this.updated_by = updated_by;
-	}
 
 	public String getRoleId() {
 		return roleId;
@@ -58,20 +48,45 @@ public class UpdateDTO {
 		this.roleId = roleId;
 	}
 
-	public String getName() {
-		return name;
+	public String getRoleName() {
+		return roleName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
 
-	public String getOrg_code() {
-		return org_code;
+	public String getOrgCode() {
+		return orgCode;
 	}
 
-	public void setOrg_code(String org_code) {
-		this.org_code = org_code;
+	public void setOrgCode(String orgCode) {
+		this.orgCode = orgCode;
 	}
+
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+
+	public UpdateDTO(
+			@NotNull(message = "Role Id field is required") @NotBlank(message = "Role Id cant be blank") @Pattern(regexp = "^[a-zA-Z0-9]{1,50}$", message = "ID must starts with alphabets followed numbers & cannot contain special character") String roleId,
+			@NotNull @NotBlank(message = "Role Name cant be blank") @Pattern(regexp = "^[a-zA-Z-_ ]{1,100}$", message = "Name must starts with alphabets") String roleName,
+			@NotNull @NotBlank(message = "Organization Code  cant be blank") @Pattern(regexp = "^[a-zA-Z-_]{1,10}$", message = "Organization code can't contain white spaces & special characters") String orgCode,
+			@NotBlank(message = "Updaed  by field is required") @NotNull(message = "Updaed  by cant be null") String updatedBy) {
+		super();
+		this.roleId = roleId;
+		this.roleName = roleName;
+		this.orgCode = orgCode;
+		this.updatedBy = updatedBy;
+	}
+
+	public UpdateDTO() {
+		super();
+	}
+
 
 }

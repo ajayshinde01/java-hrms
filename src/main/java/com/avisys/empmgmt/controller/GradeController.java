@@ -35,15 +35,15 @@ public class GradeController {
 	Logger logger = Logger.getLogger(GradeController.class);
 
 	@PostMapping("/create")
-	public ResponseEntity<ApiResponse> createGrade(@Valid @RequestBody GradeDTO gradeDtoObject)
+	public ResponseEntity<GradeDTO> createGrade(@Valid @RequestBody GradeDTO gradeDtoObject)
 			throws MethodArgumentNotValidException, GradeException {
 		logger.info("Create Grade Called");
 		return gradeService.saveGrade(gradeDtoObject);
 	}
 
 	@GetMapping("/get")
-	public ResponseEntity<?> gradePagingRequest(@PageableDefault(page = 0, size = 2) Pageable pageable,
-			@RequestParam(value = "keyword", defaultValue = "", required = false) String keyword)
+	public ResponseEntity<?> gradePagingRequest(@RequestParam(value = "keyword", defaultValue = "", required = false) String keyword, @PageableDefault(page = 0, size = 2) Pageable pageable
+			)
 			throws GradeException {
 		logger.info("Get All Grade with paging Called");
 		return gradeService.getGradesWithPaging(pageable, keyword);
@@ -63,7 +63,7 @@ public class GradeController {
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<Object> updateGrade(@Valid @RequestBody GradeDTO gradeDtoObject) throws GradeException {
+	public ResponseEntity<GradeDTO> updateGrade(@Valid @RequestBody GradeDTO gradeDtoObject) throws GradeException {
 		logger.info("Update Grade Id Called ");
 		return gradeService.updateGrade(gradeDtoObject);
 	}
