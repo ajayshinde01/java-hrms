@@ -66,7 +66,7 @@ public class EmployeeDto {
 	
 	@NotBlank(message = "Organisation Code should not be blank")
 	@NotNull(message = "Organisation Code should not be null")
-	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
+	@Pattern(regexp = "^[a-zA-Z0-9-_]{1,50}$",message = "Organization code should not contain any special characters except hypen,underscore")
 	private String orgCode;
 
 	private String createdBy;

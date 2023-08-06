@@ -39,7 +39,7 @@ public class GradeService {
 			Grade gradeObject = modelMapper.map(gradeDtoObject, Grade.class);
 			gradeObject.setCreatedAt(LocalDateTime.now());
 			gradeObject.setDeleted(false);
-			gradeObject.setCreatedBy("Gaikwad");
+			gradeObject.setCreatedBy(gradeDtoObject.getCreatedBy());
 			gradeRepository.save(gradeObject);
 			return new ResponseEntity<GradeDTO>(this.modelMapper.map(gradeObject, GradeDTO.class), HttpStatus.OK);
 		}
@@ -102,7 +102,7 @@ public class GradeService {
 			grade.setGradeName(gradeDTO.getGradeName());
 			grade.setGradeType(gradeDTO.getGradeType());
 			grade.setOrgCode(gradeDTO.getOrgCode());
-			grade.setUpdatedBy("Shriprasad");
+			grade.setUpdatedBy(gradeDTO.getUpdatedBy());
 			grade.setUpdatedAt(LocalDateTime.now());
 			gradeRepository.save(grade);
 			return new ResponseEntity<GradeDTO>(this.modelMapper.map(grade, GradeDTO.class), HttpStatus.OK);

@@ -19,8 +19,6 @@ public interface GradeRepository extends JpaRepository<Grade, Long> {
 
 	Optional<List<Grade>> findByIsDeletedFalse();
 
-	@Query("SELECT g FROM Grade g WHERE g.isDeleted = false AND"
-			+ "LOWER(g.gradeId) LIKE %:searchTerm% OR LOWER(g.gradeName) LIKE %:searchTerm% "
-			+ "OR LOWER(g.gradeType) LIKE %:searchTerm% OR LOWER(g.orgCode) LIKE %:searchTerm%)")
-	Page<Grade> getGradeWithPagingAndSearch(Pageable pageable, String searchTerm);
+	@Query("SELECT g FROM Grade g WHERE (LOWER(g.gradeId) LIKE %:key% OR LOWER(g.gradeName) LIKE %:key% OR LOWER(g.gradeType) LIKE %:key% OR LOWER(g.orgCode) LIKE %:key%) and g.isDeleted=false")
+	Page<Grade> getGradeWithPagingAndSearch(Pageable pageable, String key);
 }

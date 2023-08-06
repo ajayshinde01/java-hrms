@@ -21,8 +21,5 @@ public interface DepartmentRepo extends JpaRepository<Department, Long>{
 	
 	@Query("SELECT d FROM Department d WHERE (LOWER(d.departmentId) LIKE %:key% OR LOWER(d.departmentName) LIKE %:key% OR LOWER(d.departmentDescription) LIKE %:key% OR LOWER(d.orgCode) LIKE %:key%) and d.isDeleted=false")
 	Page<Department> searchByDepartment(Pageable pageable, String key);
-
-
-	
 	
 }

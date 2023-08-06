@@ -26,12 +26,12 @@ public class EmployeeType extends Status {
 	@Column(name = "employee_type_id")
 	@NotNull(message="Employee Type Id should not be null")
 	@NotBlank(message="Employee Type Id should not be blank")
-	@Pattern(regexp = "^[A-Za-z]{1,50}$",message = "ID must starts with alphabets followed numbers & cannot contain special character")
+	@Pattern(regexp="^[A-Za-z-0-9]{1,50}$",message="Employee Type Id should not contain any special character except from hyphen with size 50")
 	private String employeeTypeId;
 
 	@NotBlank(message = "Type Should not be blank")
 	@NotNull(message = "Type Should not be null")
-	@Pattern(regexp = "^[A-Za-z _ \\-]{1,50}$",message = "Type should only contain _ & - as special character")
+	@Pattern(regexp="^[A-Za-z _ -]{1,50}$",message="Employee Type should not contain any special character except from hyphen,underscore,space,digit with size 50")
 	@Column(name = "Type", nullable = false)
 	private String type;
 

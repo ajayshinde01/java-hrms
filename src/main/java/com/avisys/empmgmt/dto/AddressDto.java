@@ -3,6 +3,7 @@ package com.avisys.empmgmt.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 
@@ -46,6 +47,7 @@ public class AddressDto {
 	
 	@NotBlank(message = "Organisation Code should not be blank")
 	@NotNull(message = "Organisation Code should not be null")
+	@Pattern(regexp = "^[a-zA-Z0-9-_]{1,50}$",message = "Organization code should not contain any special characters except hypen,underscore")
 	private String orgCode;
 
 	private String createdBy;

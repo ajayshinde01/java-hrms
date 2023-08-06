@@ -9,22 +9,22 @@ public class CreateDesignationDto {
 
 	@NotNull(message = "Designation ID should not be null")
 	@NotBlank(message = "Designation ID should not be blank")
-    @Pattern(regexp = "^[a-zA-Z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers & cannot contain special character")
+	@Pattern(regexp="^[A-Za-z-0-9]{1,50}$",message="Designation Id should not contain any special character except from hyphen with size 50")
 	private String designationId;
 	
 	@NotNull(message = "Designation Name should not be null")
 	@NotBlank(message = "Designation Name should not be blank")
-    @Pattern(regexp = "^[a-zA-Z-_ ]{1,100}$",message = "Name must starts with alphabets")
+	@Pattern(regexp="^[A-Za-z _ -.]{1,100}$",message="Designation Name should not contain any special character except from hyphen,underscore,space,dot with size 100")
 	private String designationName;
 
 	@NotNull(message = "Designation Description should not be null")
 	@NotBlank(message = "Designation Description should not be blank")
-	@Pattern(regexp = "^[a-zA-Z0-9 ]{1,250}$",message="Special character are not allowed")
+	@Pattern(regexp="^[A-Za-z !@&()_{}[\\]|;:\",.?0-9]{1,250}$",message="Designation Description should not contain any special character except from letter,digit & !@&()_{}[]|;:\",.? with size 250")
 	private String designationDesc;
 
 	@NotNull(message = "Organisation Code should not be null")
 	@NotBlank(message = "Organisation Code should not be blank")
-	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
+	@Pattern(regexp = "^[a-zA-Z0-9-_]{1,50}$",message = "Organization code should not contain any special characters except hypen,underscore")
 	private String orgCode;
 
 	private String createdBy;

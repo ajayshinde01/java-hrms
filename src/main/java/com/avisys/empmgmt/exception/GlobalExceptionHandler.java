@@ -59,7 +59,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(value = NoRoleFoundException.class)
 
 	public ResponseEntity<Object> exception(NoRoleFoundException exception) {
-		return new ResponseEntity(new ApiResponse("Role not found"), HttpStatus.NOT_FOUND);
+		return new ResponseEntity(new ApiResponse("Role not found",LocalDateTime.now()), HttpStatus.NOT_FOUND);
 	}
 
 	@ExceptionHandler(value = EmptyListException.class)

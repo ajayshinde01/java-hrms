@@ -17,12 +17,12 @@ public class EmployeeTypeDTO {
 	@Column(name = "employee_type_id")
 	@NotNull(message = "Employee Type Id should not be null")
 	@NotBlank(message = "Employee Type Id should not be blank")
-	@Pattern(regexp = "^[A-Za-z]{1,50}$", message = "ID must starts with alphabets followed numbers & cannot contain special character")
+	@Pattern(regexp="^[A-Za-z _ -]{1,50}$",message="Employee Type should not contain any special character except from hyphen,underscore,space,digit with size 50")
 	private String employeeTypeId;
 
 	@NotBlank(message = "Org code Should not be blank")
 	@NotNull(message = "Org code Should not be null")
-	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$", message = "Organization code can't contain white spaces & special characters")
+	@Pattern(regexp = "^[a-zA-Z0-9-_]{1,50}$",message = "Organization code should not contain any special characters except hypen,underscore")
 	private String orgCode;
 
 	private LocalDateTime createdAt;

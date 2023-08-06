@@ -33,18 +33,18 @@ public class Designation extends Status{
 	@Column(name = "designation_id")
 	@NotBlank(message = "Designation ID should not be blank")
 	@NotNull(message = "Designation ID should not be null")
-	@Pattern(regexp = "^[a-zA-Z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers")
+	@Pattern(regexp="^[A-Za-z-0-9]{1,50}$",message="Designation Id should not contain any special character except from hyphen with size 50")
 	private String designationId;
 	
 	@Column(name = "name")
 	@NotBlank(message = "Designation Name should not be blank")
 	@NotNull(message = "Designation Name should not be null")
-    @Pattern(regexp = "^[a-zA-Z-_ ]{1,100}$",message = "Name must starts with alphabets")
+	@Pattern(regexp="^[A-Za-z _ -.]{1,100}$",message="Designation Name should not contain any special character except from hyphen,underscore,space,dot with size 100")
 	private String designationName;
 	
 	@Column(name = "description")
 	@NotNull(message = "Designation Description should not be null")
-	@Pattern(regexp = "^[a-zA-Z0-9 ]{1,250}$",message="Special character are not allowed")
+	@Pattern(regexp="^[A-Za-z !@&()_{}[\\]|;:\",.?0-9]{1,250}$",message="Designation Description should not contain any special character except from letter,digit & !@&()_{}[]|;:\",.? with size 250")
 	private String designationDesc;
 	
 	public Designation(Long id, String designationId, String designationName, String designationDesc, String orgCode,

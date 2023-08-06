@@ -13,12 +13,12 @@ public class GradeDTO {
 
 	@NotNull(message = "Grade Id is not null")
 	@NotBlank(message = "Grade Id is required")
-    @Pattern(regexp = "^[a-zA-Z0-9]{1,50}$",message = "ID must starts with alphabets followed numbers & cannot contain special character")
+	@Pattern(regexp="^[A-Za-z-0-9]{1,50}$",message="Grade Id should not contain any special character except from hyphen with size 50")
 	private String gradeId;
 
 	@NotNull(message = "Grade Name  is not null")
 	@NotBlank(message = "Grade Name is required")
-    @Pattern(regexp = "^[a-zA-Z-_ ]{1,100}$",message = "Name must starts with alphabets")
+	@Pattern(regexp="^[A-Za-z _ -.]{1,100}$",message="Grade Name should not contain any special character except from hyphen,underscore,space,dot with size 100")
 	private String gradeName;
 
 	@NotNull(message = "Grade Name is not null")
@@ -27,20 +27,26 @@ public class GradeDTO {
 	@Size(max = 20, message = "Grade Id Mix size 20")
 	private String gradeType;
 	
-	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
+	@Pattern(regexp = "^[a-zA-Z0-9-_]{1,50}$",message = "Organization code should not contain any special characters except hypen,underscore")
 	private String orgCode;
+	
+	private String createdBy;
+
+	private String updatedBy;
 
 	public GradeDTO() {
 		super();
 	}
 
-	public GradeDTO(Long id, String gradeId, String gradeName, String gradeType, String orgCode) {
+	public GradeDTO(Long id, String gradeId, String gradeName, String gradeType, String orgCode, String createdBy, String updatedBy) {
 		super();
 		this.id = id;
 		this.gradeId = gradeId;
 		this.gradeName = gradeName;
 		this.gradeType = gradeType;
 		this.orgCode = orgCode;
+		this.createdBy=createdBy;
+		this.updatedBy=updatedBy;
 	}
 
 	public GradeDTO(Grade gradeObject) {
@@ -49,6 +55,8 @@ public class GradeDTO {
 		this.gradeName = gradeObject.getGradeName();
 		this.gradeType = gradeObject.getGradeType();
 		this.orgCode = gradeObject.getOrgCode();
+		this.createdBy=gradeObject.getCreatedBy();
+		this.updatedBy=gradeObject.getUpdatedBy();
 	}
 
 	public Long getId() {
@@ -91,4 +99,20 @@ public class GradeDTO {
 		this.orgCode = orgCode;
 	}
 
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+	
 }
