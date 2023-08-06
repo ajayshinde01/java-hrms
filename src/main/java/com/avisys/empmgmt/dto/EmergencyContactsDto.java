@@ -24,9 +24,7 @@ public class EmergencyContactsDto {
 	@NotNull(message = "Organisation Code should not be null")
 	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
 	private String orgCode;
-	
-	private boolean isDeleted;
-	
+
 	private String createdBy;
 
 	private String updatedBy;
@@ -42,13 +40,12 @@ public class EmergencyContactsDto {
 			@NotBlank(message = "ContactNumber should not be blank") @NotNull(message = "ContactNumber should not be null") String emergencyContactNumber,
 			@NotBlank(message = "relation should not be blank") @NotNull(message = "relation should not be null") String relation,
 			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
-			boolean isDeleted, String createdBy, String updatedBy) {
+	        String createdBy, String updatedBy) {
 		super();
 		this.emergencyContactName = emergencyContactName;
 		this.emergencyContactNumber = emergencyContactNumber;
 		this.relation = relation;
 		this.orgCode = orgCode;
-		this.isDeleted = isDeleted;
 		this.createdBy = createdBy;
 		this.updatedBy = updatedBy;
 	}
@@ -103,21 +100,9 @@ public class EmergencyContactsDto {
 		this.orgCode = orgCode;
 	}
 
-
-	public boolean isDeleted() {
-		return isDeleted;
-	}
-
-
-	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
-	}
-
-
 	public String getCreatedBy() {
 		return createdBy;
 	}
-
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;

@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 
 public class DesignationDto {
 	private Long Id;
@@ -30,8 +29,7 @@ public class DesignationDto {
 	@NotNull(message = "Organisation Code should not be null")
 	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
 	private String orgCode;
-	
-	private boolean isDeleted ;
+
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 	private String createdBy;
@@ -42,7 +40,7 @@ public class DesignationDto {
 	}
 
 	public DesignationDto(Long id, String designationId, String designationName, String designationDesc,
-			String orgCode, boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy,
+			String orgCode, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy,
 			String updatedBy) {
 		super();
 		Id = id;
@@ -50,7 +48,6 @@ public class DesignationDto {
 		this.designationName = designationName;
 		this.designationDesc = designationDesc;
 		this.orgCode = orgCode;
-		this.isDeleted = isDeleted;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.createdBy = createdBy;
@@ -95,14 +92,6 @@ public class DesignationDto {
 
 	public void setOrgCode(String orgCode) {
 		this.orgCode = orgCode;
-	}
-
-	public boolean isDeleted() {
-		return isDeleted;
-	}
-
-	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
 	}
 
 	public LocalDateTime getCreatedAt() {

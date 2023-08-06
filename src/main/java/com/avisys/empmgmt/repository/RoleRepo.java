@@ -29,9 +29,7 @@ public interface RoleRepo extends JpaRepository<Role, Long> {
 	@Query(" SELECT r from Role r WHERE ( r.isDeleted=false) "
 			+ "AND		 ( 	  lower(r.roleId) LIKE  %:key% "
 						+ "OR lower(r.roleName) LIKE  %:key% "
-						+ "OR LOWER(r.orgCode) LIKE  %:key%  "
-						+" OR LOWER(r.createdBy) LIKE %:key%"
-						+ "OR LOWER(r.updatedBy) LIKE %:key% )"
+						+ "OR LOWER(r.orgCode) LIKE  %:key% )"
 
 )
 	public Optional<Page<Role>> searchRole(@Param("key") String key, Pageable pageable);

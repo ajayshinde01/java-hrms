@@ -45,9 +45,6 @@ public class GradeService {
 
 	public ResponseEntity<List<Grade>> getAllGrade() throws GradeException {
 		Optional<List<Grade>> allGrade = gradeRepository.findByIsDeletedFalse();
-		if (allGrade.isEmpty()) {
-			throw new GradeException("No Grade Present in the Database");
-		}
 		return new ResponseEntity<>(allGrade.get(), HttpStatus.OK);
 	}
 

@@ -14,6 +14,7 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name="company_details")
@@ -26,10 +27,12 @@ public class CompanyDetail extends Status{
 	@Column(name="company_email")
 	@NotBlank(message = "Company Email should not be blank")
 	@NotNull(message = "Company Email should not be null")
+	@Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$", message = "Please enter a valid email address.")
 	private String companyEmail;
 	
 	@Column(name="client_email")
 	@NotNull(message = "Client Email should not be null")
+	@Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$", message = "Please enter a valid email address.")
 	private String clientEmail;
 	
 	@Column(name="billable")

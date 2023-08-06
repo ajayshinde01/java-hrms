@@ -52,15 +52,9 @@ public class AddressServiceImpl implements AddressService {
 	
 	@Override
 	public List<AddressDto> getAddressByEmployee(Long employeeId){
-		Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
-		
-		
+		Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));	
 		List<Address> addresses=this.addressRepository.findByEmployeeAndIsDeletedFalse(employee);
-		if (addresses.isEmpty()) {
-			throw new AddressException("Array is empty");
-		}
 		List<AddressDto> addressDto= addresses.stream().map((address)-> this.modelMapper.map(address,AddressDto.class)).collect(Collectors.toList());
-		
 		return addressDto;
 	}
 

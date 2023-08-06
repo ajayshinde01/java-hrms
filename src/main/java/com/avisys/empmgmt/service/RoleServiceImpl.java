@@ -37,10 +37,8 @@ public class RoleServiceImpl implements RoleService {
 	{
 		LocalDateTime now = LocalDateTime.now();
 		System.out.println(now);
-		List<Role> allRoles=  this.roleRepo.findByIsDeletedFalse();
-		if(allRoles.isEmpty()) throw new EmptyListException();
-		
-		else return  allRoles.stream().map(role->util.roleToDTO(role)).collect(Collectors.toList());
+		List<Role> allRoles=  this.roleRepo.findByIsDeletedFalse();		
+		 return  allRoles.stream().map(role->util.roleToDTO(role)).collect(Collectors.toList());
 	}
 	
 	

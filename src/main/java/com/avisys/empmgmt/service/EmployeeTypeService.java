@@ -32,14 +32,9 @@ public class EmployeeTypeService {
 		List<EmployeeType> list = null;
 
 		list = employeeTypeRepository.findAllByIsDeleted(false);
-		if (list.isEmpty()) {
-			throw new ResourceNotFoundException("Sorry... No Record Found");
-		}
-		else {
 		List<EmployeeTypeDTO> empDTO = list.stream().map(e -> mapper.map(e, EmployeeTypeDTO.class))
 				.collect(Collectors.toList());
 		return empDTO;
-		}
 	}
 
 	/************* Create Record ******************/
@@ -109,9 +104,7 @@ public class EmployeeTypeService {
 				updateEmpType.setUpdatedBy(employeeTypeDTO.getUpdatedBy());
 				EmployeeType type = employeeTypeRepository.save(updateEmpType);
 				EmployeeTypeDTO empDTO = mapper.map(type, EmployeeTypeDTO.class);
-				System.out.println(empDTO.toString());
 				empDTO.setUpdatedAt(LocalDateTime.now());
-				System.out.println(type.getUpdatedAt());
 				return empDTO;
 			}
 			else {

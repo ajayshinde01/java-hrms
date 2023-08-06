@@ -31,11 +31,8 @@ public class DivisionService implements IDivisionService {
 	@Override
 	public List<DivisionDto> getAllDivision() {
 		List<Division> divisions = divisonRepository.findByIsDeletedFalse().get();
-		if (divisions.isEmpty()) {
-			throw new DivisionNotFound("Divisions Not Found");
-		} else {
 			return util.getAllDivisionsDto(divisions);
-		}
+
 	}
 
 	@Override
@@ -44,8 +41,7 @@ public class DivisionService implements IDivisionService {
 			throw new DivisionNotFound("Division already exist");
 		} else {
 			Division division = new Division(divisionDto.getDivisionId(), divisionDto.getDivisionName(),
-					divisionDto.getDivisionDescription(), divisionDto.getOrgCode(), false, LocalDateTime.now(),
-					LocalDateTime.now(), divisionDto.getCreatedBy(), divisionDto.getUpdatedBy());
+					divisionDto.getDivisionDescription(), divisionDto.getOrgCode(), false, LocalDateTime.now(),null, divisionDto.getCreatedBy(), null);
 			divisonRepository.save(division);
 			return "Division added successfully.";
 		}

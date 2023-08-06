@@ -19,7 +19,7 @@ public interface DivisonRepository extends JpaRepository<Division,Long>{
 	
 	 Optional<Division> findByDivisionIdAndIsDeletedFalse(String divisionId);
 
-	 @Query("Select d from Division d where (lower(d.divisionId) like %:searchValue% or lower(d.divisionName) like %:searchValue% or lower(d.divisionDescription) like %:searchValue% )and d.isDeleted = false")
+	 @Query("Select d from Division d where (lower(d.divisionId) like %:searchValue% or lower(d.divisionName) like %:searchValue% or lower(d.divisionDescription) like %:searchValue% or lower(d.orgCode) like %:searchValue%)and d.isDeleted = false")
 	 Optional<Page<Division>> searchDivision(@Param("searchValue")String searchValue, Pageable pageble);
 	 
 	 Optional<List<Division>> findByIsDeletedFalse();

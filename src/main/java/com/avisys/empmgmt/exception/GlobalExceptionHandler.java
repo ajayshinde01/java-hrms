@@ -95,7 +95,7 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<?> gradeIdNotPresent(GradeException ex) {
 		String message = ex.getMessage();
 		ApiResponse apiResponse = new ApiResponse(message,LocalDateTime.now());
-		return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
 
 	}
 

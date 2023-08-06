@@ -25,8 +25,6 @@ public class JoiningDetailDTO {
 	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
 	protected String orgCode;
 
-	protected boolean isDeleted ;
-
 	protected LocalDateTime createdAt;
 
 	protected LocalDateTime updatedAt;
@@ -40,7 +38,7 @@ public class JoiningDetailDTO {
 	}
 
 	public JoiningDetailDTO(LocalDate confirmationDate,int noticePeriod,LocalDate resignationDate, LocalDate relievingDate, String orgCode,
-			boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy) {
+		   LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy) {
 		super();
 		this.id = id;
 		this.confirmationDate = confirmationDate;
@@ -48,7 +46,6 @@ public class JoiningDetailDTO {
 		this.resignationDate = resignationDate;
 		this.relievingDate = relievingDate;
 		this.orgCode = orgCode;
-		this.isDeleted = isDeleted;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.createdBy = createdBy;
@@ -101,14 +98,6 @@ public class JoiningDetailDTO {
 
 	public void setOrgCode(String orgCode) {
 		this.orgCode = orgCode;
-	}
-
-	public boolean isDeleted() {
-		return isDeleted;
-	}
-
-	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
 	}
 
 	public LocalDateTime getCreatedAt() {

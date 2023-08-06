@@ -33,9 +33,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 				.collect(Collectors.toList()).stream()
 				.map((Employee) -> this.modelMapper.map(Employee, EmployeeDto.class))
 				.collect(Collectors.toList());
-		if (employeeDtos.isEmpty()) {
-			throw new EmployeeException("Array is empty");
-		} else
 			return employeeDtos;
 	}
 

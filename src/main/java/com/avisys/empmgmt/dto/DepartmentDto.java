@@ -30,8 +30,6 @@ public class DepartmentDto {
 	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
 	private String orgCode;
 	
-	private boolean isDeleted;
-	
 	private String createdBy;
 
 	private String updatedBy;
@@ -79,14 +77,6 @@ public class DepartmentDto {
 
 	public void setOrgCode(String orgCode) {
 		this.orgCode = orgCode;
-	}
-
-	public Boolean getIsDeleted() {
-		return isDeleted;
-	}
-
-	public void setIsDeleted(Boolean isDeleted) {
-		this.isDeleted = isDeleted;
 	}
 
 	public String getCreatedBy() {

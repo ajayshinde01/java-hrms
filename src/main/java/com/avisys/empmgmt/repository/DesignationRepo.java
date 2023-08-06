@@ -20,6 +20,6 @@ public interface DesignationRepo extends JpaRepository<Designation, Long> {
 	Optional<Designation> findByDesignationId(String designationId);
 	Optional<List<Designation>> findByIsDeletedFalse();
 	
-	@Query("select d from Designation d where (lower(d.designationId) like %:designationKey% or lower(d.designationName) like %:designationKey% or lower(d.designationDesc) like %:designationKey% or lower(d.orgCode) like %:designationKey% or lower(d.createdBy) like %:designationKey% or lower(d.updatedBy) like %:designationKey%) and d.isDeleted=FALSE")
+	@Query("select d from Designation d where (lower(d.designationId) like %:designationKey% or lower(d.designationName) like %:designationKey% or lower(d.designationDesc) like %:designationKey% or lower(d.orgCode) like %:designationKey%) and d.isDeleted=FALSE")
 	Optional<Page<Designation>> searchDesignation(@Param("designationKey") String designationKey,Pageable pageable);
 }

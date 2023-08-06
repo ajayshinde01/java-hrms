@@ -20,7 +20,7 @@ public interface EmployeeTypeRepository extends JpaRepository<EmployeeType, Long
 
 	Page<EmployeeType> findByTypeIsContainingAndIsDeleted(String type, Pageable pageable, boolean isDeleted);
     
-	@Query("Select e from EmployeeType e where (lower(e.employeeTypeId) like %:searchValue% or lower(e.type) like %:searchValue% )and e.isDeleted = false")
+	@Query("Select e from EmployeeType e where (lower(e.employeeTypeId) like %:searchValue% or lower(e.type) like %:searchValue% or lower(e.orgCode) like %:searchValue% )and e.isDeleted = false")
     Optional<Page<EmployeeType>> searchEmployeeType(@Param("searchValue")String searchValue, Pageable pageble);
 	
 	List<EmployeeType> findAllByIsDeleted(boolean isDeleted);

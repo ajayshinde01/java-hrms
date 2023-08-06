@@ -35,8 +35,6 @@ public class DesignationService implements IDesignationService {
 				.orElseThrow(() -> new DesignationNotFound("Designation List is Empty"));
 		List<DesignationDto> designationDtoList = designationList.stream()
 				.map(d -> designationUtils.designationToDesignationDto(d)).collect(Collectors.toList());
-		if (designationDtoList.isEmpty())
-			throw new DesignationNotFound();
 		return designationDtoList;
 	}
 
@@ -80,7 +78,7 @@ public class DesignationService implements IDesignationService {
 				LocalDateTime.now(), designationDto.getCreatedBy(), designationDto.getUpdatedBy()));
 		return new DesignationDto(designationUpdated.getId(), designationUpdated.getDesignationId(),
 				designationUpdated.getDesignationName(), designationUpdated.getDesignationDesc(),
-				designationUpdated.getOrgCode(), designationUpdated.isDeleted(), designationUpdated.getCreatedAt(),
+				designationUpdated.getOrgCode(),designationUpdated.getCreatedAt(),
 				designationUpdated.getUpdatedAt(), designationUpdated.getCreatedBy(),
 				designationUpdated.getUpdatedBy());
         }else {

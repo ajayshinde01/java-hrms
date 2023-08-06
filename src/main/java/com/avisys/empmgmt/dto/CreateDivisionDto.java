@@ -26,22 +26,19 @@ public class CreateDivisionDto {
     private String orgCode;
     
     private String createdBy;
-    
-    private String updatedBy;
-    
+        
 	public CreateDivisionDto() {
          super();
 	}
 
 	public CreateDivisionDto( String divisionId, String divisionName, String divisionDescription, String orgCode,
-			String createdBy, String updatedBy) {
+			String createdBy) {
 		super();
 		this.divisionId = divisionId;
 		this.divisionName = divisionName;
 		this.divisionDescription = divisionDescription;
 		this.orgCode = orgCode;
 		this.createdBy = createdBy;
-		this.updatedBy = updatedBy;
 	}
 
 
@@ -86,14 +83,4 @@ public class CreateDivisionDto {
 		this.createdBy = createdBy;
 	}
 
-	public String getUpdatedBy() {
-		return updatedBy;
-	}
-
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
-	}
-	
-	
-	
 }
