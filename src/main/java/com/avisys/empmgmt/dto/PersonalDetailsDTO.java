@@ -90,8 +90,6 @@ public class PersonalDetailsDTO{
 
 	@NotNull(message="pf number should not be null")
     private String pfNumber;
-	
-	private boolean isDeleted ;
 
 	private LocalDateTime createdAt;
 
@@ -104,12 +102,11 @@ public class PersonalDetailsDTO{
 	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
 	private String orgCode;
 	
-	public PersonalDetailsDTO(String orgCode, boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt,
+	public PersonalDetailsDTO(String orgCode, LocalDateTime createdAt, LocalDateTime updatedAt,
 			String createdBy, String updatedBy,String maritalStatus,String familyBackground,String healthDetails,String cprNumber,String gosi,String aadhaarNumber,String aadhaarName,
 			String aadhaarFile,String passportNumber, String passportName,LocalDate passportIssueDate, LocalDate passportValidity, String passportFile, String panCardNumber,String panCardName,
 			String panCardFile,String bankAccountNumber,String bankName,String ifscCode, String uanNumber,String pfNumber) {
 		this.orgCode = orgCode;
-		this.isDeleted = isDeleted;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.updatedBy = updatedBy;
@@ -315,14 +312,6 @@ public class PersonalDetailsDTO{
 
 	public void setPfNumber(String pfNumber) {
 		this.pfNumber = pfNumber;
-	}
-
-	public boolean isDeleted() {
-		return isDeleted;
-	}
-
-	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
 	}
 
 	public LocalDateTime getCreatedAt() {

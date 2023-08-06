@@ -36,14 +36,9 @@ public class EmployeeTypeService {
 		List<EmployeeType> list = null;
 
 		list = employeeTypeRepository.findAllByIsDeleted(false);
-		if (list.isEmpty()) {
-			throw new ResourceNotFoundException("Sorry... No Record Found");
-		}
-		else {
 		List<EmployeeTypeDTO> empDTO = list.stream().map(e -> mapper.map(e, EmployeeTypeDTO.class))
 				.collect(Collectors.toList());
 		return empDTO;
-		}
 	}
 
 	/************* Create Record ******************/

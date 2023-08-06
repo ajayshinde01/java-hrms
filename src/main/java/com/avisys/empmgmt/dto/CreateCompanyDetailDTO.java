@@ -14,10 +14,12 @@ public class CreateCompanyDetailDTO {
 
 	@NotBlank(message = "Company Email should not be blank")
 	@NotNull(message = "Company Email should not be null")
+	@Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$", message = "Please enter a valid email address.")
 	private String companyEmail;
 	
 
 	@NotNull(message = "Client Email should not be null")
+	@Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$", message = "Please enter a valid email address.")
 	private String clientEmail;
 	
 
@@ -80,202 +82,105 @@ public class CreateCompanyDetailDTO {
 		this.employeeType = employeeType;
 	}
 
-
-
 	public Department getDepartment() {
 		return department;
 	}
-
-
-
-
 
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
 
-
-
-
 	public String getCompanyEmail() {
 		return companyEmail;
 	}
-
-
-
-
 
 	public void setCompanyEmail(String companyEmail) {
 		this.companyEmail = companyEmail;
 	}
 
-
-
-
-
 	public String getClientEmail() {
 		return clientEmail;
 	}
-
-
-
-
 
 	public void setClientEmail(String clientEmail) {
 		this.clientEmail = clientEmail;
 	}
 
-
-
-
-
 	public String getBillable() {
 		return billable;
 	}
-
-
-
-
 
 	public void setBillable(String billable) {
 		this.billable = billable;
 	}
 
-
-
-
-
 	public String getShift() {
 		return shift;
 	}
-
-
-
-
 
 	public void setShift(String shift) {
 		this.shift = shift;
 	}
 
-
-
-
-
 	public String getReviewerManager() {
 		return reviewerManager;
 	}
-
-
-
-
 
 	public void setReviewerManager(String reviewerManager) {
 		this.reviewerManager = reviewerManager;
 	}
 
-
-
-
-
 	public String getReportingManager() {
 		return reportingManager;
 	}
-
-
-
-
 
 	public void setReportingManager(String reportingManager) {
 		this.reportingManager = reportingManager;
 	}
 
-
-
-
-
 	public int getProbation() {
 		return probation;
 	}
-
-
-
-
 
 	public void setProbation(int probation) {
 		this.probation = probation;
 	}
 
-
-
-
-
 	public String getCreatedBy() {
 		return createdBy;
 	}
-
-
-
-
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
 
-
-
-
-
 	public String getOrgCode() {
 		return orgCode;
 	}
-
-
-
-
 
 	public void setOrgCode(String orgCode) {
 		this.orgCode = orgCode;
 	}
 
-
-
-
-
 	public Designation getDesignation() {
 		return designation;
 	}
-
-
-
-
 
 	public void setDesignation(Designation designation) {
 		this.designation = designation;
 	}
 
-
-
-
-
 	public Grade getGrade() {
 		return grade;
 	}
-
-
-
-
 
 	public void setGrade(Grade grade) {
 		this.grade = grade;
 	}
 
-
-
-
 	public Role getRole() {
 		return role;
 	}
-
 
 	public void setRole(Role role) {
 		this.role = role;

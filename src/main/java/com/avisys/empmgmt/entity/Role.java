@@ -27,7 +27,7 @@ public class Role extends Status{
 	@Id
 	@Column(name = "ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_seq")
-	@SequenceGenerator(sequenceName = "role_seq", name = "role_seq", initialValue = 1000, allocationSize = 1)
+	@SequenceGenerator(sequenceName = "role_seq", name = "role_seq", initialValue = 1, allocationSize = 1)
 	private long id;
 
 	@NotBlank
@@ -54,6 +54,10 @@ public class Role extends Status{
 		this.updatedAt = updatedAt;
 		this.createdBy = createdBy;
 		this.updatedBy = updatedBy;
+	}
+	
+	public Role() {
+		super();
 	}
 
 	public long getId() {

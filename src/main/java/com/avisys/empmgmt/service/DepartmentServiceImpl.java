@@ -35,9 +35,6 @@ public class DepartmentServiceImpl implements DepartmentService {
 		List<DepartmentDto> departmentDtos = departmentData.stream()
 				.map((Department) -> this.modelMapper.map(Department, DepartmentDto.class))
 				.collect(Collectors.toList());
-		if (departmentDtos.isEmpty()) {
-			throw new DepartmentException("Array is empty");
-		} else
 			return departmentDtos;
 	}
 

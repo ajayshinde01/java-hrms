@@ -55,11 +55,7 @@ public class AddressServiceImpl implements AddressService {
 		Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
 		
 		List<Address> addresses=this.addressRepository.findByEmployeeAndIsDeletedFalse(employee);
-		if (addresses.isEmpty()) {
-			throw new AddressException("Array is empty");
-		}
 		List<AddressDto> addressDto= addresses.stream().map((address)-> this.modelMapper.map(address,AddressDto.class)).collect(Collectors.toList());
-		
 		return addressDto;
 	}
 

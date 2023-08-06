@@ -55,9 +55,6 @@ public class VisaService {
 			Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
 					
 			List<Visa> visaDetails=this.visaRepository.findByEmployeeAndIsDeletedFalse(employee);
-			if (visaDetails.isEmpty()) {
-				throw new VisaException("Array is empty");
-			}
 			List<VisaDto> visaDto= visaDetails.stream().map((visa)-> this.modelMapper.map(visa,VisaDto.class)).collect(Collectors.toList());
 			
 			return visaDto;

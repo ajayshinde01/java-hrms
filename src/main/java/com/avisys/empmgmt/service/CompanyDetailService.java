@@ -70,9 +70,9 @@ public class CompanyDetailService {
 			companyDetailDto.setUpdatedAt(LocalDateTime.now());
 			companyDetailDto.setCreatedBy(companyDetailToUpdate.getCreatedBy());
 			companyDetailDto.setCreatedAt(companyDetailToUpdate.getCreatedAt());
-			companyDetailDto.setDeleted(false);
 			CompanyDetail companyDetail = this.modelMapper.map(companyDetailDto,CompanyDetail.class);
 			companyDetail.setEmployee(employee);
+			companyDetail.setDeleted(false);
 			companyDetailRepository.save(companyDetail);
 
 		return this.modelMapper.map(companyDetail,CompanyDetailDTO.class);

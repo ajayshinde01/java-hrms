@@ -28,8 +28,6 @@ public class VisaDto {
 	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
 	private String orgCode;
 
-	private boolean isDeleted;
-	
 	private String createdBy;
 
 	private String updatedBy;
@@ -43,14 +41,13 @@ public class VisaDto {
 			@NotNull(message = "visaNumber field must not be null") @NotBlank(message = "visaNumber field must not be blank") String visaNumber,
 			@NotNull(message = "address1 field must not be null") LocalDate validDate, String visaFile,
 			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
-			boolean isDeleted, String createdBy, String updatedBy) {
+			String createdBy, String updatedBy) {
 		super();
 		this.countryCode = countryCode;
 		this.visaNumber = visaNumber;
 		this.validDate = validDate;
 		this.visaFile = visaFile;
 		this.orgCode = orgCode;
-		this.isDeleted = isDeleted;
 		this.createdBy = createdBy;
 		this.updatedBy = updatedBy;
 	}
@@ -95,14 +92,6 @@ public class VisaDto {
 
 	public void setOrgCode(String orgCode) {
 		this.orgCode = orgCode;
-	}
-
-	public boolean isDeleted() {
-		return isDeleted;
-	}
-
-	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
 	}
 
 	public String getCreatedBy() {

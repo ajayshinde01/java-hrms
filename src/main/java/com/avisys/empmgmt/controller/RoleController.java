@@ -1,5 +1,6 @@
 package com.avisys.empmgmt.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,7 +71,7 @@ public class RoleController {
 		logger.warn(RoleController.class.getName() + ":GET SEARCH BY ID Method called");
 		Role roleFounded = roleService.findById(id);
 		if (roleFounded == null)
-			return new ResponseEntity(new ApiResponse("No such role exist!"), HttpStatus.NOT_FOUND);
+			return new ResponseEntity(new ApiResponse("No such role exist!",LocalDateTime.now()), HttpStatus.NOT_FOUND);
 		return new ResponseEntity(roleFounded, HttpStatus.OK);
 	}
 
@@ -80,7 +81,7 @@ public class RoleController {
 		logger.warn(RoleController.class.getName() + ":GET SEARCH+SORT+PAGINATION  Method called");
 		Optional<Page<Role>> pages = this.roleService.searchingSortingPagination(keyword, pageable);
 		if (pages.get().getContent().isEmpty())
-			return new ResponseEntity(new ApiResponse("No such Record found!"), HttpStatus.NOT_FOUND);
+			return new ResponseEntity(new ApiResponse("No such Record found!",LocalDateTime.now()), HttpStatus.NOT_FOUND);
 		return new ResponseEntity(pages, HttpStatus.OK);
 	}
 
@@ -95,9 +96,11 @@ public class RoleController {
 	public ResponseEntity<ApiResponse> deleteRole(@PathVariable("id") String id) {
 		logger.warn(RoleController.class.getName() + ":DELETE DELETE ROLE Method called");
 		if (this.roleService.deleteRole(id) == false) {
-			return new ResponseEntity(new ApiResponse("Permission denied!"), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity(new ApiResponse("Permission denied!",LocalDateTime.now()), HttpStatus.BAD_REQUEST);
 		} else {
-			return new ResponseEntity(new ApiResponse("Role Deleted!"), HttpStatus.OK);
+
+			return new ResponseEntity(new ApiResponse("Role Deleted!",LocalDateTime.now()), HttpStatus.OK);
+
 		}
 
 	}

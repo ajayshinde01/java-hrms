@@ -47,9 +47,7 @@ public class AddressDto {
 	@NotBlank(message = "Organisation Code should not be blank")
 	@NotNull(message = "Organisation Code should not be null")
 	private String orgCode;
-	
-	private boolean isDeleted;
-	
+
 	private String createdBy;
 
 	private String updatedBy;
@@ -68,8 +66,7 @@ public class AddressDto {
 			@NotNull(message = "country must not be null") @NotBlank(message = "country must not be blank") String country,
 			@NotNull(message = "postcode must not be null") @NotBlank(message = "postcode must not be blank") String postcode,
 			String ownershipStatus,
-			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
-			boolean isDeleted, String createdBy, String updatedBy) {
+			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode, String createdBy, String updatedBy) {
 		super();
 		this.addressType = addressType;
 		this.address1 = address1;
@@ -82,7 +79,6 @@ public class AddressDto {
 		this.postcode = postcode;
 		this.ownershipStatus = ownershipStatus;
 		this.orgCode = orgCode;
-		this.isDeleted = isDeleted;
 		this.createdBy = createdBy;
 		this.updatedBy = updatedBy;
 	}
@@ -181,14 +177,6 @@ public class AddressDto {
 
 	public void setOrgCode(String orgCode) {
 		this.orgCode = orgCode;
-	}
-
-	public boolean isDeleted() {
-		return isDeleted;
-	}
-
-	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
 	}
 
 	public String getCreatedBy() {

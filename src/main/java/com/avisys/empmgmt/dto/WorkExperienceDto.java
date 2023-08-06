@@ -33,8 +33,6 @@ public class WorkExperienceDto {
 	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$",message = "Organization code can't contain white spaces & special characters")
 	private String orgCode;
 	
-	private boolean isDeleted;
-	
 	private String createdBy;
 
 	private String updatedBy;
@@ -52,7 +50,7 @@ public class WorkExperienceDto {
 			@NotNull(message = "EndDate must not be null") LocalDate toDate,
 			@NotNull(message = "address must not be null") @NotBlank(message = "address must not be blank") String address,
 			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
-			boolean isDeleted, String createdBy, String updatedBy) {
+			String createdBy, String updatedBy) {
 		super();
 		this.companyName = companyName;
 		Designation = designation;
@@ -60,7 +58,6 @@ public class WorkExperienceDto {
 		this.toDate = toDate;
 		this.address = address;
 		this.orgCode = orgCode;
-		this.isDeleted = isDeleted;
 		this.createdBy = createdBy;
 		this.updatedBy = updatedBy;
 	}
@@ -121,14 +118,6 @@ public class WorkExperienceDto {
 
 	public void setOrgCode(String orgCode) {
 		this.orgCode = orgCode;
-	}
-
-	public boolean isDeleted() {
-		return isDeleted;
-	}
-
-	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
 	}
 
 	public String getCreatedBy() {

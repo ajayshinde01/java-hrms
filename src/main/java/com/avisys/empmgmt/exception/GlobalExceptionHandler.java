@@ -100,13 +100,11 @@ public class GlobalExceptionHandler {
             String message = error.getDefaultMessage();
             errors.put(field, message);
         });
-        return new ResponseEntity<Object>(errors, HttpStatus.BAD_REQUEST);
-    
+        return new ResponseEntity<Object>(errors, HttpStatus.BAD_REQUEST);    
     }
 
- 
 
-    @ExceptionHandler(value = NoEmployeeFoundException.class)
+    @ExceptionHandler(NoEmployeeFoundException.class)
     public ResponseEntity<Object> exception(NoEmployeeFoundException exception) {
         return new ResponseEntity(new ApiResponse("Employee not found"), HttpStatus.NOT_FOUND);
     }
@@ -114,7 +112,7 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<?> gradeIdNotPresent(GradeException ex) {
 		String message = ex.getMessage();
 		ApiResponse apiResponse = new ApiResponse(message,LocalDateTime.now());
-		return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
 
 	}
 
@@ -221,7 +219,7 @@ public class GlobalExceptionHandler {
 
 	}
 	
-	@ExceptionHandler(value = EmployeeAlreadyPresentException.class)
+	@ExceptionHandler(EmployeeAlreadyPresentException.class)
 	    public ResponseEntity<Object> exception(EmployeeAlreadyPresentException exception) {
 	        return new ResponseEntity<>(
 	                new ApiResponse("Employee Type already present or Employee Type Id is already taken. Try for another Employee Type Id"),

@@ -25,8 +25,6 @@ public class EmployeeTypeDTO {
 	@Pattern(regexp = "^[a-zA-Z-_]{1,10}$", message = "Organization code can't contain white spaces & special characters")
 	private String orgCode;
 
-	private boolean deleted = Boolean.FALSE;
-
 	private LocalDateTime createdAt;
 
 	private LocalDateTime updatedAt;
@@ -44,14 +42,12 @@ public class EmployeeTypeDTO {
 		super();
 	}
 
-	public EmployeeTypeDTO(Long id, String type, String employeeTypeId, String orgCode, boolean deleted,
-			LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy) {
+	public EmployeeTypeDTO(Long id, String type, String employeeTypeId, String orgCode,LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy) {
 		super();
 		this.id = id;
 		this.type = type;
 		this.employeeTypeId = employeeTypeId;
 		this.orgCode = orgCode;
-		this.deleted = deleted;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.createdBy = createdBy;
@@ -90,14 +86,6 @@ public class EmployeeTypeDTO {
 		this.orgCode = orgCode;
 	}
 
-	public boolean isDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
-
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
@@ -132,9 +120,10 @@ public class EmployeeTypeDTO {
 
 	@Override
 	public String toString() {
-		return "EmployeeTypeDTO [id=" + id + ", type=" + type + ", orgCode=" + orgCode + ", deleted=" + deleted
-				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", createdBy=" + createdBy + ", updatedBy="
-				+ updatedBy + "]";
+		return "EmployeeTypeDTO [id=" + id + ", type=" + type + ", employeeTypeId=" + employeeTypeId + ", orgCode="
+				+ orgCode + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", createdBy=" + createdBy
+				+ ", updatedBy=" + updatedBy + "]";
 	}
+
 
 }

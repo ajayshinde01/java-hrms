@@ -68,12 +68,12 @@ public class JoiningDetailService {
 	     	joiningDetailDto.setUpdatedAt(LocalDateTime.now());
 	     	joiningDetailDto.setCreatedBy(joiningDetailToUpdate.getCreatedBy());
 	     	joiningDetailDto.setCreatedAt(joiningDetailToUpdate.getCreatedAt());
-	     	joiningDetailDto.setDeleted(false);
 			if(joiningDetailDto.getResignationDate()!= null) {
 			       joiningDetailDto.setRelievingDate(joiningDetailDto.getResignationDate().plusDays(joiningDetailDto.getNoticePeriod()));
 		     }	
 	     	JoiningDetail joiningDetail = this.modelMapper.map(joiningDetailDto,JoiningDetail.class);
 			joiningDetail.setEmployee(employee);
+			joiningDetail.setDeleted(false);
 			joiningDetailRepo.save(joiningDetail);
 
 		return this.modelMapper.map(joiningDetail,JoiningDetailDTO.class);

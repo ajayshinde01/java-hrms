@@ -26,14 +26,14 @@ public class Utils {
 
 	public DesignationDto designationToDesignationDto(Designation designation) {
 		return new DesignationDto(designation.getId(), designation.getDesignationId(), designation.getDesignationName(),
-				designation.getDesignationDesc(), designation.getOrgCode(), designation.isDeleted(),
+				designation.getDesignationDesc(), designation.getOrgCode(),
 				designation.getCreatedAt(), designation.getUpdatedAt(), designation.getCreatedBy(),
 				designation.getUpdatedBy());
 	}
 
 	public Designation designationDtoToDesignation(DesignationDto designationDto) {
 		return new Designation(designationDto.getDesignationId(), designationDto.getDesignationName(),
-				designationDto.getDesignationDesc(), designationDto.getOrgCode(), designationDto.isDeleted(),
+				designationDto.getDesignationDesc(), designationDto.getOrgCode(), false,
 				LocalDateTime.now(), LocalDateTime.now(), designationDto.getCreatedBy(), designationDto.getUpdatedBy());
 	}
 
@@ -42,7 +42,7 @@ public class Utils {
 		List<DivisionDto> divisionsDto = divisions.stream()
 				.map((division) -> new DivisionDto(division.getId(), division.getDivisionId(),
 						division.getdivisionName(), division.getdivisionDescription(), division.getOrgCode(),
-						division.isDeleted(), division.getCreatedAt(), division.getUpdatedAt(), division.getCreatedBy(),
+						division.getCreatedAt(), division.getUpdatedAt(), division.getCreatedBy(),
 						division.getUpdatedBy()))
 				.collect(Collectors.toList());
 		return divisionsDto;
@@ -59,7 +59,7 @@ public class Utils {
 
 	public DivisionDto getDivisionDto(Division division) {
 		return new DivisionDto(division.getId(), division.getDivisionId(), division.getdivisionName(),
-				division.getdivisionDescription(), division.getOrgCode(), division.isDeleted(), division.getCreatedAt(),
+				division.getdivisionDescription(), division.getOrgCode(), division.getCreatedAt(),
 				division.getUpdatedAt(), division.getCreatedBy(), division.getUpdatedBy());
 	}
 	public EmployeeType getEmployeeType(EmployeeTypeDTO employeeTypeDTO) {

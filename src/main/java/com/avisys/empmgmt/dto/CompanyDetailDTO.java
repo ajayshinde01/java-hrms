@@ -10,6 +10,7 @@ import com.avisys.empmgmt.entity.Role;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 public class CompanyDetailDTO {
 
@@ -17,9 +18,11 @@ public class CompanyDetailDTO {
 	
 	@NotBlank(message = "Company Email should not be blank")
 	@NotNull(message = "Company Email should not be null")
+	@Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$", message = "Please enter a valid email address.")
 	private String companyEmail;
 	
 	@NotNull(message = "Client Email should not be null")
+	@Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$", message = "Please enter a valid email address.")
 	private String clientEmail;
 	
 	@NotBlank(message = "billable should not be blank")
@@ -41,7 +44,6 @@ public class CompanyDetailDTO {
 	@NotNull(message = "probation should not be null")
 	private int probation;
 	
-	private boolean isDeleted ;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 	private String createdBy;
@@ -66,7 +68,7 @@ public class CompanyDetailDTO {
 	}
 	
 
-	public CompanyDetailDTO(Long id,String companyEmail,String clientEmail, String billable,String shift,String reviewerManager,String reportingManager,int probation, boolean isDeleted,
+	public CompanyDetailDTO(Long id,String companyEmail,String clientEmail, String billable,String shift,String reviewerManager,String reportingManager,int probation, 
 			LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy, String orgCode,
 			Designation designation, Department department, Grade grade, Role role, EmployeeType employeeType) {
 		super();
@@ -78,7 +80,6 @@ public class CompanyDetailDTO {
 		this.reviewerManager = reviewerManager;
 		this.reportingManager = reportingManager;
 		this.probation = probation;
-		this.isDeleted = isDeleted;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.createdBy = createdBy;
@@ -186,20 +187,6 @@ public class CompanyDetailDTO {
 		this.probation = probation;
 	}
 
-
-
-	public boolean isDeleted() {
-		return isDeleted;
-	}
-
-
-
-	public void setDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
-	}
-
-
-
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
@@ -210,107 +197,76 @@ public class CompanyDetailDTO {
 		this.createdAt = createdAt;
 	}
 
-
-
 	public LocalDateTime getUpdatedAt() {
 		return updatedAt;
 	}
-
-
 
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 
-
-
 	public String getCreatedBy() {
 		return createdBy;
 	}
-
-
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
 
-
-
 	public String getUpdatedBy() {
 		return updatedBy;
 	}
-
-
 
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 
-
-
 	public String getOrgCode() {
 		return orgCode;
 	}
-
-
 
 	public void setOrgCode(String orgCode) {
 		this.orgCode = orgCode;
 	}
 
-
-
 	public Designation getDesignation() {
 		return designation;
 	}
-
-
 
 	public void setDesignation(Designation designation) {
 		this.designation = designation;
 	}
 
-
-
 	public Department getDepartment() {
 		return department;
 	}
-
-
-
+	
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
 
-
 	public Grade getGrade() {
 		return grade;
 	}
-
-
+	
 	public void setGrade(Grade grade) {
 		this.grade = grade;
 	}
-
 
 	public Role getRole() {
 		return role;
 	}
 
-
 	public void setRole(Role role) {
 		this.role = role;
 	}
-
 
 	public EmployeeType getEmployeeType() {
 		return employeeType;
 	}
 
-
 	public void setEmployeeType(EmployeeType employeeType) {
 		this.employeeType = employeeType;
 	}
-
 
 }
