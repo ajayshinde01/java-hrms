@@ -17,6 +17,6 @@ public interface AddressService {
 
 	AddressDto updateAddress(AddressDto addressDto, Long employeeId);
 
-	String deleteAddress(Long employeeId, Long addressId);
+	String deleteAddress(Long employeeId, Long addressId,String updatedBy);
 
 }

@@ -53,11 +53,13 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public String deleteDepartment(String departmentId) throws DepartmentException {
+	public String deleteDepartment(String departmentId,String updatedBy) throws DepartmentException {
 		Optional<Department> optionalDepartment = this.departmentRepository.findByDepartmentId(departmentId);
 		if (optionalDepartment.isPresent() &&  !optionalDepartment.get().isDeleted()) {
 			Department department = optionalDepartment.get();
 			department.setDeleted(true); // Set isDeleted flag to true
+			department.setUpdatedBy(updatedBy);
+			department.setUpdatedAt(LocalDateTime.now());
 			departmentRepository.save(department); // Update the department entity
 			return "Department deleted successfully";
 		} else {
@@ -111,9 +113,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 		Page<Department> Department = departmentRepository.searchByDepartment(pageable,keyword);
 		Page<DepartmentDto> departmentDto = (Page<DepartmentDto>) Department
 				.map((department) -> this.modelMapper.map(department, DepartmentDto.class));
-		if (departmentDto.isEmpty()) {
-			throw new DepartmentException("Array is empty");
-		} else
+		
 			return departmentDto;
 	}
 }

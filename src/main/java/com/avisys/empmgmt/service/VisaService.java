@@ -77,12 +77,14 @@ public class VisaService {
 		    	throw new VisaException("Employee doesn't have this VisaId");
 		}
 
-		public String deleteVisa(Long employeeId, Long visaId) {
+		public String deleteVisa(Long employeeId, Long visaId,String updatedBy) {
 			Employee employee=this.employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
 			Visa visa = visaRepository.findByIdAndIsDeletedFalse(visaId).orElseThrow(()->new VisaException("Visa not found"));
 				
 			if(employee==visa.getEmployee()) {
 				visa.setDeleted(true);
+				visa.setUpdatedAt(LocalDateTime.now());
+				visa.setUpdatedBy(updatedBy);
 				visaRepository.save(visa); 
 				return "Address deleted successfully";
 			}else throw new VisaException("employee doesn't match with VisaId");
@@ -103,11 +105,8 @@ public class VisaService {
 	        Page<VisaDto> visaDto = pageableVisa.map(visaObj ->
 	                this.modelMapper.map(visaObj, VisaDto.class));
 
-	        if (visaDto.isEmpty()) {
-	            throw new VisaException("Array is empty");
-	        } else {
 	            return visaDto;
-	        }
+
 		}
 
 	}

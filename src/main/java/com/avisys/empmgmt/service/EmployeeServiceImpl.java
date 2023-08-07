@@ -57,9 +57,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public String deleteEmployee(Long employeeId) {
+	public String deleteEmployee(Long employeeId,String updatedBy) {
 		Employee employee = this.employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()-> new EmployeeException("Employee not found"));
 			employee.setDeleted(true); // Set isDeleted flag to true
+			employee.setUpdatedAt(LocalDateTime.now());
+			employee.setUpdatedBy(updatedBy);
 			employeeRepository.save(employee); // Update the department entity
 			return "Employee deleted successfully";
 	}
@@ -70,9 +72,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Page<Employee> Employee = employeeRepository.searchByEmployee(pageable,keyword);
 		Page<EmployeeDto> employeeDto = (Page<EmployeeDto>) Employee
 				.map((employee) -> this.modelMapper.map(employee, EmployeeDto.class));
-		if (employeeDto.isEmpty()) {
-			throw new EmployeeException("Array is empty");
-		} else
+		
 			return employeeDto;
 	}
 	

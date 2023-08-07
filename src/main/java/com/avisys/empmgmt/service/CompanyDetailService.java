@@ -49,12 +49,14 @@ public class CompanyDetailService {
 	   }
 	}
 
-	public String deleteCompanyDetailByEmployeeId(Long employeeId) {
+	public String deleteCompanyDetailByEmployeeId(Long employeeId,String updatedBy) {
 		Employee employee=employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee Not Found"));
 		CompanyDetail companyDetailToDelete = companyDetailRepository
 				.findByIdAndIsDeletedFalse(employee.getCompanyDetail().getId())
 				.orElseThrow(() -> new CompanyDetailNotFound("Company Detail Not found to delete for Employee Id " + employeeId));
 		companyDetailToDelete.setDeleted(true);
+		companyDetailToDelete.setUpdatedAt(LocalDateTime.now());
+		companyDetailToDelete.setUpdatedBy(updatedBy);
 		companyDetailRepository.save(companyDetailToDelete);
 		return "Company Detail Deleted";
 	}

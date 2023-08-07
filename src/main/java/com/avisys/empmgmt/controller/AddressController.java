@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.avisys.empmgmt.dto.AddressDto;
@@ -44,8 +45,8 @@ public class AddressController {
 	}
 	
 	@DeleteMapping("/{employee-id}/{address-id}")
-	public ResponseEntity<?> deleteEmployeeAddress(@PathVariable("employee-id") Long employeeId, @PathVariable("address-id") Long addressId ){
-		String deletedAddress = this.addressService.deleteAddress(employeeId,addressId);
+	public ResponseEntity<?> deleteEmployeeAddress(@PathVariable("employee-id") Long employeeId, @PathVariable("address-id") Long addressId,@RequestParam(value = "updatedBy") String updatedBy ){
+		String deletedAddress = this.addressService.deleteAddress(employeeId,addressId,updatedBy);
 		return new ResponseEntity<>(new ApiResponse(deletedAddress,LocalDateTime.now()), HttpStatus.OK);
 	}
 	

@@ -18,7 +18,7 @@ public interface DepartmentService {
 
 	List<DepartmentDto> getAllDepartments() throws DepartmentException;
 
-	String deleteDepartment(String Id) throws DepartmentException;
+	String deleteDepartment(String Id,String updatedBy) throws DepartmentException;
 
 	Page<DepartmentDto> searchDepartment(Pageable pageable, String keyword) throws DepartmentException;
 

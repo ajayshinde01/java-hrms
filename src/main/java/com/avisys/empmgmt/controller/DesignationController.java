@@ -62,9 +62,9 @@ public class DesignationController {
 	}
 	
 	@DeleteMapping("/{designationId}")
-	public ResponseEntity<?> deleteDesignationById(@PathVariable String designationId){
+	public ResponseEntity<?> deleteDesignationById(@PathVariable String designationId,@RequestParam(value = "updatedBy") String updatedBy){
 		logger.info("/delete-designation-by-id called");
-		return ResponseEntity.ok(new ApiResponse(designationService.deleteDesignationById(designationId.toUpperCase()),LocalDateTime.now()));
+		return ResponseEntity.ok(new ApiResponse(designationService.deleteDesignationById(designationId.toUpperCase(),updatedBy),LocalDateTime.now()));
 	
 	}
 

@@ -54,9 +54,9 @@ public class DepartmentController {
 	}
 
 	@DeleteMapping("/{department-Id}")
-	public ResponseEntity<?> deleteDepartment(@PathVariable("department-Id") String departmentId)
+	public ResponseEntity<?> deleteDepartment(@PathVariable("department-Id") String departmentId,@RequestParam(value = "updatedBy") String updatedBy)
 			throws DepartmentException {
-		String deletedDepartment = this.departmentService.deleteDepartment(departmentId);
+		String deletedDepartment = this.departmentService.deleteDepartment(departmentId,updatedBy);
 		return new ResponseEntity<>(new ApiResponse(deletedDepartment,LocalDateTime.now()), HttpStatus.OK);
 	}
 

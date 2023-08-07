@@ -69,8 +69,8 @@ public class GradeController {
 	}
 
 	@DeleteMapping("/delete/{gradeId}")
-	public ResponseEntity<Object> deleteGrade(@PathVariable("gradeId") String gradeId) throws GradeException {
+	public ResponseEntity<Object> deleteGrade(@PathVariable("gradeId") String gradeId,@RequestParam(value = "updatedBy") String updatedBy) throws GradeException {
 		logger.info("Delete Grade ID Called ");
-		return gradeService.deleteGrade(gradeId);
+		return gradeService.deleteGrade(gradeId,updatedBy);
 	}
 }

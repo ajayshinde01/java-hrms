@@ -51,12 +51,14 @@ public class JoiningDetailService {
 		}
 	}
 
-	public String deleteJoiningDetailByEmployeeId(Long employeeId) {
+	public String deleteJoiningDetailByEmployeeId(Long employeeId,String updatedBy) {
 		Employee employee=employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee Not Found"));
 		JoiningDetail joiningDetailToDelete = joiningDetailRepo
 				.findByIdAndIsDeletedFalse(employee.getJoiningDetail().getId())
 				.orElseThrow(() -> new JoiningDetailNotFound("Joining Detail Not found to delete for Employee Id " + employeeId));
 		joiningDetailToDelete.setDeleted(true);
+		joiningDetailToDelete.setUpdatedAt(LocalDateTime.now());
+		joiningDetailToDelete.setUpdatedBy(updatedBy);
 		joiningDetailRepo.save(joiningDetailToDelete);
 		return "Joining Detail Deleted";
 	}

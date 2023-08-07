@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.avisys.empmgmt.dto.CreateJoiningDetailDTO;
 import com.avisys.empmgmt.dto.JoiningDetailDTO;
@@ -40,8 +41,8 @@ public class JoiningDetailController {
     }
 	
 	@DeleteMapping("/{employee-id}")
-	public ResponseEntity<?> deleteJoiningDetailByEmployeeId(@PathVariable("employee-id") Long employeeId){
-		String message = joiningDetailService.deleteJoiningDetailByEmployeeId(employeeId);
+	public ResponseEntity<?> deleteJoiningDetailByEmployeeId(@PathVariable("employee-id") Long employeeId,@RequestParam(value = "updatedBy") String updatedBy){
+		String message = joiningDetailService.deleteJoiningDetailByEmployeeId(employeeId,updatedBy);
 		return new ResponseEntity<>(new ApiResponse(message, LocalDateTime.now()),HttpStatus.OK);
 	}
 	

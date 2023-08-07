@@ -57,9 +57,9 @@ public class DivisionController {
 	}
 
 	@DeleteMapping("/{divisionId}")
-	public ResponseEntity<?> deleteDivisionById(@PathVariable("divisionId") String divisionId) {
+	public ResponseEntity<?> deleteDivisionById(@PathVariable("divisionId") String divisionId,@RequestParam(value = "updatedBy") String updatedBy) {
 		logger.info("deleteDivisionById method called");
-		return new ResponseEntity<>(new ApiResponse(divisionService.deleteDivisionById(divisionId),LocalDateTime.now()), HttpStatus.OK);
+		return new ResponseEntity<>(new ApiResponse(divisionService.deleteDivisionById(divisionId,updatedBy),LocalDateTime.now()), HttpStatus.OK);
 	}
 
 	@GetMapping("/{divisionId}")

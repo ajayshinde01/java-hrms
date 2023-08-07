@@ -48,11 +48,13 @@ public class DivisionService implements IDivisionService {
 	}
 
 	@Override
-	public String deleteDivisionById(String divisionId) {
+	public String deleteDivisionById(String divisionId,String updatedBy) {
 
 		Division division = divisonRepository.findByDivisionIdAndIsDeletedFalse(divisionId)
 				.orElseThrow(() -> new DivisionNotFound("Division Does Not Exist"));
 		division.setDeleted(true);
+		division.setUpdatedAt(LocalDateTime.now());
+		division.setUpdatedBy(updatedBy);
 		divisonRepository.save(division);
 		return "Division deleted successfully";
 	}
@@ -91,11 +93,9 @@ public class DivisionService implements IDivisionService {
 	public Page<Division> searchDivision(String searchValue, Pageable pageable) {
 		Page<Division> divisions = divisonRepository.searchDivision(searchValue, pageable)
 				.orElseThrow(() -> new DivisionNotFound("Division Not Found"));
-		if (divisions.isEmpty()) {
-			throw new DivisionNotFound("No Entry Found");
-		} else {
+		
 			return divisions;
-		}
+		
 	}
 
 }

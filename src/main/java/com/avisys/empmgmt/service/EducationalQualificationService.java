@@ -86,12 +86,14 @@ public class EducationalQualificationService {
 	}
 
 
-	public String deleteEducationalQualification(Long employeeId, Long qualificationId) {
+	public String deleteEducationalQualification(Long employeeId, Long qualificationId,String updatedBy) {
 		Employee employee=this.employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
 		EducationalQualification education = this.educationalRepository.findByIdAndIsDeletedFalse(qualificationId).orElseThrow(()->new EducationalQualificationException("educational qualification not found"));
 			
 		if(employee==education.getEmployee()) {
 			education.setDeleted(true);
+			education.setUpdatedAt(LocalDateTime.now());
+			education.setUpdatedBy(updatedBy);
 			educationalRepository.save(education); 
 			return "Qualification deleted successfully";
 		}else throw new EducationalQualificationException("EmployeeId doesn't match with QualificationId");
@@ -114,10 +116,8 @@ public class EducationalQualificationService {
 	        Page<EducationalQualificationDto> educationalQualificationDto = qualification.map(education ->
 	                this.modelMapper.map(education, EducationalQualificationDto.class));
 
-	        if (educationalQualificationDto.isEmpty()) {
-	            throw new EducationalQualificationException("Array is empty");
-	        } else {
+	      
 	            return educationalQualificationDto;
-	        }
+	        
 	}
 }

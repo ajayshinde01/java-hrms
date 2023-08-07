@@ -74,11 +74,13 @@ public class RoleServiceImpl implements RoleService {
 	}
 	
 	@Override
-	public boolean deleteRole(String id) 
+	public boolean deleteRole(String id,String updatedBy) 
 	{
 		Role roleToBeDeleted=this.roleRepo.findByRoleIdAndIsDeletedFalse(id.toUpperCase());
 		if(roleToBeDeleted==null) throw new NoRoleFoundException();
 		roleToBeDeleted.setDeleted(true);
+		roleToBeDeleted.setUpdatedAt(LocalDateTime.now());
+		roleToBeDeleted.setUpdatedBy(updatedBy);
 		this.roleRepo.save(roleToBeDeleted);
 		return true;
 		
