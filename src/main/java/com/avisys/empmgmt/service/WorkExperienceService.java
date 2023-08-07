@@ -52,9 +52,6 @@ public class WorkExperienceService {
 		
 		
 		List<WorkExperience> workExperience=workExperienceRepository.findByEmployeeAndIsDeletedFalse(employee);
-		if (workExperience.isEmpty()) {
-			throw new WorkExperienceException("Array is empty");
-		}
 		List<WorkExperienceDto> workExperienceDto = workExperience.stream().map((experience)-> this.modelMapper.map(experience,WorkExperienceDto.class)).collect(Collectors.toList());
 		
 		return workExperienceDto;

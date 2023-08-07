@@ -18,8 +18,6 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "Role")
-@Getter
-@Setter
 public class Role extends Status{
 
 	@Id
