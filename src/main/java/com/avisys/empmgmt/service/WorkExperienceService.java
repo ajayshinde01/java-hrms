@@ -41,9 +41,10 @@ public class WorkExperienceService {
 		workExperience.setCreatedAt(LocalDateTime.now());
 		workExperience.setDeleted(false);
 		workExperience.setEmployee(employee);
-		workExperienceRepository.save(workExperience);
+		workExperience.setUpdatedBy(null);
+		WorkExperience workExperienceObject = workExperienceRepository.save(workExperience);
 		
-		return  this.modelMapper.map(workExperience, WorkExperienceDto.class);
+		return  this.modelMapper.map(workExperienceObject, WorkExperienceDto.class);
 
 }
 
@@ -72,9 +73,9 @@ public class WorkExperienceService {
 	        workExperience.setUpdatedBy(workExperienceDto.getUpdatedBy());
 	        workExperience.setDeleted(false);
 
-	        workExperienceRepository.save(workExperience);
+	        WorkExperience workExperienceObject = workExperienceRepository.save(workExperience);
 	 
-	    return  this.modelMapper.map(workExperience, WorkExperienceDto.class);
+	    return  this.modelMapper.map(workExperienceObject, WorkExperienceDto.class);
 	    } else throw new WorkExperienceException("EmployeeId doesn't have this WorkExperience Id");
 	}
 

@@ -30,7 +30,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	private ModelMapper modelMapper;
 
 	@Override
-	public List<DepartmentDto> getAllDepartments() throws DepartmentException {
+	public List<DepartmentDto> getAllDepartments() {
 		List<Department> departmentData = this.departmentRepository.findByIsDeletedFalse();
 		List<DepartmentDto> departmentDtos = departmentData.stream()
 				.map((Department) -> this.modelMapper.map(Department, DepartmentDto.class))
@@ -39,7 +39,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public DepartmentDto createDepartment(DepartmentDto departmentDto) throws DepartmentException {
+	public DepartmentDto createDepartment(DepartmentDto departmentDto){
 		Optional<Department> optionalDepartment = departmentRepository.findByDepartmentId(departmentDto.getDepartmentId());
 		if (optionalDepartment.isPresent()) {
 			throw new DepartmentException("Department Id should not be duplicate");
@@ -47,13 +47,14 @@ public class DepartmentServiceImpl implements DepartmentService {
 		Department department = this.modelMapper.map(departmentDto, Department.class);
 		department.setCreatedAt(LocalDateTime.now());
 		department.setCreatedBy(departmentDto.getCreatedBy());
+		department.setUpdatedBy(null);
 		department.setDeleted(false);
-		departmentRepository.save(department);
-		return this.modelMapper.map(department, DepartmentDto.class);
+		Department departmentObj=departmentRepository.save(department);
+		return this.modelMapper.map(departmentObj, DepartmentDto.class);
 	}
 
 	@Override
-	public String deleteDepartment(String departmentId) throws DepartmentException {
+	public String deleteDepartment(String departmentId){
 		Optional<Department> optionalDepartment = this.departmentRepository.findByDepartmentId(departmentId);
 		if (optionalDepartment.isPresent() &&  !optionalDepartment.get().isDeleted()) {
 			Department department = optionalDepartment.get();
@@ -66,7 +67,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public DepartmentDto getByIdDepartments(String departmentId) throws DepartmentException {
+	public DepartmentDto getByIdDepartments(String departmentId){
 		Optional<Department> department = departmentRepository.findByDepartmentId(departmentId);
 		if (department.isPresent() && !department.get().isDeleted()) {
 			return this.modelMapper.map(department, DepartmentDto.class);
@@ -76,7 +77,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	@Override
-	public DepartmentDto updateDepartment(DepartmentDto departmentDto) throws DepartmentException {
+	public DepartmentDto updateDepartment(DepartmentDto departmentDto){
         if (departmentDto.getId() == null) {
             throw new DepartmentException("Id Should Not be null");
         }
@@ -98,15 +99,15 @@ public class DepartmentServiceImpl implements DepartmentService {
             department.setUpdatedBy(departmentDto.getUpdatedBy());
             department.setUpdatedAt(LocalDateTime.now());
             department.setDeleted(false);
-            departmentRepository.save(department);
-            return  this.modelMapper.map(department, DepartmentDto.class);
+            Department deptObject= departmentRepository.save(department);
+            return  this.modelMapper.map(deptObject, DepartmentDto.class);
         } else {
             throw new DepartmentException("Invalid DepartmentId ");
         }
     }
 
 	@Override
-	public Page<DepartmentDto> searchDepartment(Pageable pageable, String keyword) throws DepartmentException {
+	public Page<DepartmentDto> searchDepartment(Pageable pageable, String keyword){
 			keyword = keyword.toLowerCase();
 		Page<Department> Department = departmentRepository.searchByDepartment(pageable,keyword);
 		Page<DepartmentDto> departmentDto = (Page<DepartmentDto>) Department

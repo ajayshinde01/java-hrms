@@ -41,11 +41,12 @@ public class AddressServiceImpl implements AddressService {
 		        throw new AddressException("Address Type already filled");
 		    }
 		}
-		Address address = this.modelMapper.map(addressDto, Address.class);
-		address.setCreatedAt(LocalDateTime.now());
-		address.setDeleted(false);
-		address.setEmployee(employee);
-		addressRepository.save(address);
+		Address addressObject = this.modelMapper.map(addressDto, Address.class);
+		addressObject.setCreatedAt(LocalDateTime.now());
+		addressObject.setUpdatedBy(null);
+		addressObject.setDeleted(false);
+		addressObject.setEmployee(employee);
+		Address address = addressRepository.save(addressObject);
 		
 		return this.modelMapper.map(address, AddressDto.class);
 	}
@@ -66,15 +67,14 @@ public class AddressServiceImpl implements AddressService {
 	    Address addressObj = addressRepository.findByIdAndIsDeletedFalse(addressDto.getId()).orElseThrow(()->new AddressException("Address not found"));
 	    if(employee==addressObj.getEmployee()) {
 	        modelMapper.map(addressDto, addressObj);
-
-	      
+      
 	        addressObj.setUpdatedAt(LocalDateTime.now());
 	        addressObj.setUpdatedBy(addressDto.getUpdatedBy());
 	        addressObj.setDeleted(false);
 
-	        addressRepository.save(addressObj);
+	        Address address = addressRepository.save(addressObj);
 	 
-	    return  this.modelMapper.map(addressObj, AddressDto.class);
+	    return  this.modelMapper.map(address, AddressDto.class);
 	    } else throw new AddressException("EmployeeId doesn't have this addressId");
 	}
 

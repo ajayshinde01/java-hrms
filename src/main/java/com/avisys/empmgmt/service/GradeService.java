@@ -39,9 +39,10 @@ public class GradeService {
 			Grade gradeObject = modelMapper.map(gradeDtoObject, Grade.class);
 			gradeObject.setCreatedAt(LocalDateTime.now());
 			gradeObject.setDeleted(false);
+			gradeObject.setUpdatedBy(null);
 			gradeObject.setCreatedBy(gradeDtoObject.getCreatedBy());
-			gradeRepository.save(gradeObject);
-			return new ResponseEntity<GradeDTO>(this.modelMapper.map(gradeObject, GradeDTO.class), HttpStatus.OK);
+			Grade grade=gradeRepository.save(gradeObject);
+			return new ResponseEntity<GradeDTO>(this.modelMapper.map(grade, GradeDTO.class), HttpStatus.OK);
 		}
 	}
 
@@ -104,8 +105,8 @@ public class GradeService {
 			grade.setOrgCode(gradeDTO.getOrgCode());
 			grade.setUpdatedBy(gradeDTO.getUpdatedBy());
 			grade.setUpdatedAt(LocalDateTime.now());
-			gradeRepository.save(grade);
-			return new ResponseEntity<GradeDTO>(this.modelMapper.map(grade, GradeDTO.class), HttpStatus.OK);
+			Grade gradeObject= gradeRepository.save(grade);
+			return new ResponseEntity<GradeDTO>(this.modelMapper.map(gradeObject, GradeDTO.class), HttpStatus.OK);
 		} 
 		else throw new GradeException("Invalid GradeId ");
 	}

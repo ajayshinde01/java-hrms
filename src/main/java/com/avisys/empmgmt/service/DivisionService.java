@@ -42,8 +42,8 @@ public class DivisionService implements IDivisionService {
 		} else {
 			Division division = new Division(divisionDto.getDivisionId(), divisionDto.getDivisionName(),
 					divisionDto.getDivisionDescription(), divisionDto.getOrgCode(), false, LocalDateTime.now(),null, divisionDto.getCreatedBy(), null);
-			divisonRepository.save(division);
-			return util.getDivisionDto(division);
+			Division divisionObject=divisonRepository.save(division);
+			return util.getDivisionDto(divisionObject);
 		}
 	}
 
@@ -79,8 +79,8 @@ public class DivisionService implements IDivisionService {
 					&& updatedDivisionDto.getDivisionId().equals(division.getDivisionId())) {
 				updatedDivisionDto.setUpdatedAt(LocalDateTime.now());
 				Division updatedDivision = util.getDivision(updatedDivisionDto);
-				divisonRepository.save(updatedDivision);
-				return util.getDivisionDto(updatedDivision);
+				Division divisionObject=divisonRepository.save(updatedDivision);
+				return util.getDivisionDto(divisionObject);
 			} else {
 				throw new DivisionNotFound("DivisionId already Exist");
 			}

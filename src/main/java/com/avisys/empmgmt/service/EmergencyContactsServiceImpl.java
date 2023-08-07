@@ -42,10 +42,10 @@ public class EmergencyContactsServiceImpl implements EmergencyContactsService{
 		EmergencyContacts contacts = this.modelMapper.map(emergencyContactsDto, EmergencyContacts.class);
 		contacts.setCreatedAt(LocalDateTime.now());
 		contacts.setDeleted(false);
+		contacts.setUpdatedBy(null);
 		contacts.setEmployee(employee);
-		emergencyContactsRepository.save(contacts);
-		
-		return this.modelMapper.map(contacts, EmergencyContactsDto.class);
+		EmergencyContacts contactsObject=emergencyContactsRepository.save(contacts);
+		return this.modelMapper.map(contactsObject, EmergencyContactsDto.class);
 	} else
    	 throw new EmergencyContactsException("Contact Number is already filled");
 }
@@ -76,9 +76,9 @@ public class EmergencyContactsServiceImpl implements EmergencyContactsService{
 	        contactObj.setUpdatedBy(emergencyContactsDto.getUpdatedBy());
 	        contactObj.setDeleted(false);
 
-	        emergencyContactsRepository.save(contactObj);
-	 
-	    return  this.modelMapper.map(contactObj, EmergencyContactsDto.class);
+	        EmergencyContacts contacts=emergencyContactsRepository.save(contactObj); 
+	    return  this.modelMapper.map(contacts, EmergencyContactsDto.class);
+	    
 	    } else throw new EmergencyContactsException("EmployeeId doesn't have this contactId");
 	}
 

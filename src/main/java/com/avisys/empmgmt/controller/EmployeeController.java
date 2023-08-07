@@ -55,7 +55,7 @@ public class EmployeeController {
 		return new ResponseEntity<>(new ApiResponse(deletedEmployee,LocalDateTime.now()), HttpStatus.OK);
 	}
 	
-	@PutMapping
+	@PutMapping("/update")
 	public ResponseEntity<EmployeeDto> updateEmployee(@Valid @RequestBody EmployeeDto employee) {
 		EmployeeDto updateEmployee = this.employeeService.updateEmployee(employee);
 		return new ResponseEntity<>(updateEmployee, HttpStatus.OK);

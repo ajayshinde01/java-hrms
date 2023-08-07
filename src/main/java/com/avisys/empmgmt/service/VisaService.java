@@ -44,8 +44,8 @@ public class VisaService {
 			    	visa.setCreatedAt(LocalDateTime.now());
 			    	visa.setDeleted(false);
 			    	visa.setEmployee(employee);
-			    	visaRepository.save(visa);					
-			return this.modelMapper.map(visa, VisaDto.class);
+			    	Visa visaObject = visaRepository.save(visa);					
+			return this.modelMapper.map(visaObject, VisaDto.class);
 			       
 			    } else
 			    	 throw new VisaException("Visa Number is already filled");
@@ -70,9 +70,10 @@ public class VisaService {
 		        visaDetails.setUpdatedAt(LocalDateTime.now());
 		        visaDetails.setUpdatedBy(visaDto.getUpdatedBy());
 		        visaDetails.setDeleted(false);
+		        visaDetails.setUpdatedBy(null);
 
-		        visaRepository.save(visaDetails);
-		    return this.modelMapper.map(visaDetails, VisaDto.class);
+		        Visa visaObject = visaRepository.save(visaDetails);
+		    return this.modelMapper.map(visaObject, VisaDto.class);
 		    } else 
 		    	throw new VisaException("Employee doesn't have this VisaId");
 		}

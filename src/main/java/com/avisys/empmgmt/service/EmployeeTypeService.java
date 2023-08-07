@@ -83,11 +83,8 @@ public class EmployeeTypeService {
         employeeType.setCreatedBy(employeeTypeDTO.getCreatedBy());
         employeeType.setUpdatedAt(LocalDateTime.now());
         employeeType.setDeleted(false);
-        employeeTypeRepository.save(employeeType);
-
- 
-
-        return this.mapper.map(employeeType, EmployeeTypeDTO.class);
+        EmployeeType employeeTypeObject = employeeTypeRepository.save(employeeType);
+        return this.mapper.map(employeeTypeObject, EmployeeTypeDTO.class);
     }
 
  
@@ -155,8 +152,8 @@ public class EmployeeTypeService {
                 employeeTypeDTO.setUpdatedAt(LocalDateTime.now());
                 EmployeeType empType = util.getEmployeeType(employeeTypeDTO);
                 empType.setType(employeeTypeDTO.getType());
-                employeeTypeRepository.save(empType);
-                return this.mapper.map(empType, EmployeeTypeDTO.class);
+                EmployeeType employeeTypeObject = employeeTypeRepository.save(empType);
+                return this.mapper.map(employeeTypeObject, EmployeeTypeDTO.class);
             } else {
                 throw new NoEmployeeFoundException("EmployeeType already Exist");
             }

@@ -46,11 +46,12 @@ public class EducationalQualificationService {
 		}
 		EducationalQualification education = this.modelMapper.map(educationalQualificationDto, EducationalQualification.class);
 		education.setCreatedAt(LocalDateTime.now());
+		education.setUpdatedBy(null);
 		education.setDeleted(false);
 		education.setEmployee(employee);
-		educationalRepository.save(education);
+		EducationalQualification educationObject=educationalRepository.save(education);
 		
-		return this.modelMapper.map(education, EducationalQualificationDto.class);
+		return this.modelMapper.map(educationObject, EducationalQualificationDto.class);
 	}
 
 
@@ -78,9 +79,9 @@ public class EducationalQualificationService {
 	        educationObj.setUpdatedBy(educationalQualificationDto.getUpdatedBy());
 	        educationObj.setDeleted(false);
 
-	        educationalRepository.save(educationObj);
+	        EducationalQualification education = educationalRepository.save(educationObj);
 	 
-	    return this.modelMapper.map(educationObj, EducationalQualificationDto.class);
+	    return this.modelMapper.map(education, EducationalQualificationDto.class);
 	    
 	    } else throw new EducationalQualificationException("EmployeeId doesn't have this QualificationId");
 	}

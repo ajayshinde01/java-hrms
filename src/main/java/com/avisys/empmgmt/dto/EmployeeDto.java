@@ -62,6 +62,7 @@ public class EmployeeDto {
 	
 	@NotNull(message="Email Id must not be null")
 	@NotBlank(message="Email Id must not be blank")
+	@Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$", message = "Please enter a valid email address.")
 	private String email;
 	
 	@NotBlank(message = "Organisation Code should not be blank")

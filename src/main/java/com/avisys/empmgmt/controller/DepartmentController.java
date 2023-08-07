@@ -35,20 +35,19 @@ public class DepartmentController {
 	private DepartmentService departmentService;
 
 	@GetMapping("/allDepartments")
-	public ResponseEntity<List<DepartmentDto>> getDepartments() throws DepartmentException {
+	public ResponseEntity<List<DepartmentDto>> getDepartments(){
 		List<DepartmentDto> allDepartments = this.departmentService.getAllDepartments();
 		return new ResponseEntity<List<DepartmentDto>>(allDepartments, HttpStatus.OK);
 	}
 
 	@GetMapping("/{department-Id}")
-	public ResponseEntity<DepartmentDto> getByIdDepartments(@PathVariable("department-Id") String departmentId)
-			throws DepartmentException {
+	public ResponseEntity<DepartmentDto> getByIdDepartments(@PathVariable("department-Id") String departmentId) {
 		DepartmentDto getDesignations = this.departmentService.getByIdDepartments(departmentId);
 		return new ResponseEntity<DepartmentDto>(getDesignations, HttpStatus.OK);
 	}
 
 	@PostMapping("/add-department")
-	public ResponseEntity<DepartmentDto> addDepartment(@Valid @RequestBody DepartmentDto department) throws DepartmentException {
+	public ResponseEntity<DepartmentDto> addDepartment(@Valid @RequestBody DepartmentDto department){
 		DepartmentDto createDeDepartmentDtopartment = this.departmentService.createDepartment(department);
 		return new ResponseEntity<DepartmentDto>(createDeDepartmentDtopartment, HttpStatus.OK);
 	}
@@ -61,14 +60,13 @@ public class DepartmentController {
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<DepartmentDto> updateDepartment(@Valid @RequestBody DepartmentDto department) throws DepartmentException {
+	public ResponseEntity<DepartmentDto> updateDepartment(@Valid @RequestBody DepartmentDto department) {
 		DepartmentDto updateDepartment = this.departmentService.updateDepartment(department);
 		return new ResponseEntity<DepartmentDto>(updateDepartment, HttpStatus.OK);
 	}
 
 	@GetMapping("/search")
-	public ResponseEntity<Page<DepartmentDto>> searchDepartment(@RequestParam(value = "keyword", defaultValue = "", required = false) String keyword, @PageableDefault Pageable pageable)
-			throws DepartmentException {
+	public ResponseEntity<Page<DepartmentDto>> searchDepartment(@RequestParam(value = "keyword", defaultValue = "", required = false) String keyword, @PageableDefault Pageable pageable) {
 		Page<DepartmentDto> result = this.departmentService.searchDepartment(pageable, keyword);
 		return new ResponseEntity<Page<DepartmentDto>>(result, HttpStatus.OK);
 	}

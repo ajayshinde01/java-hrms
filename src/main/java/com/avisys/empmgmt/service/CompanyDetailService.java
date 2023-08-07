@@ -40,12 +40,11 @@ public class CompanyDetailService {
 		}else {
 		CompanyDetail companyDetail = this.modelMapper.map(companyDetailDto, CompanyDetail.class);
 		companyDetail.setCreatedAt(LocalDateTime.now());
-		companyDetail.setUpdatedAt(null);
 		companyDetail.setUpdatedBy(null);
 		companyDetail.setDeleted(false);
 		companyDetail.setEmployee(employee);
-		companyDetailRepository.save(companyDetail);	
-		return this.modelMapper.map(companyDetail, CompanyDetailDTO.class);
+		CompanyDetail companyDetailObject=companyDetailRepository.save(companyDetail);	
+		return this.modelMapper.map(companyDetailObject, CompanyDetailDTO.class);
 	   }
 	}
 
@@ -73,9 +72,9 @@ public class CompanyDetailService {
 			CompanyDetail companyDetail = this.modelMapper.map(companyDetailDto,CompanyDetail.class);
 			companyDetail.setEmployee(employee);
 			companyDetail.setDeleted(false);
-			companyDetailRepository.save(companyDetail);
+			CompanyDetail companyDetailObj=companyDetailRepository.save(companyDetail);
 
-		return this.modelMapper.map(companyDetail,CompanyDetailDTO.class);
+		return this.modelMapper.map(companyDetailObj,CompanyDetailDTO.class);
 		}
 	}
 

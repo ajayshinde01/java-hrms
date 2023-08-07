@@ -49,8 +49,8 @@ public class PersonalDetailsService {
 		personalDetail.setUpdatedBy(null);
 		personalDetail.setDeleted(false);
 		personalDetail.setEmployee(employee);
-		personalDetailsRepo.save(personalDetail);
-		return this.modelMapper.map(personalDetail,PersonalDetailsDTO.class);
+		PersonalDetails personalDetailObject=personalDetailsRepo.save(personalDetail);
+		return this.modelMapper.map(personalDetailObject,PersonalDetailsDTO.class);
 		}
 	}
 
@@ -89,9 +89,9 @@ public class PersonalDetailsService {
         updatedPersonalDetails.setUpdatedAt(LocalDateTime.now());
         updatedPersonalDetails.setDeleted(false);
         updatedPersonalDetails.setEmployee(employee);
-        personalDetailsRepo.save(updatedPersonalDetails);
+        PersonalDetails updatedDetails = personalDetailsRepo.save(updatedPersonalDetails);
         
-		return this.modelMapper.map(updatedPersonalDetails, PersonalDetailsDTO.class);
+		return this.modelMapper.map(updatedDetails, PersonalDetailsDTO.class);
         }
 	}
 

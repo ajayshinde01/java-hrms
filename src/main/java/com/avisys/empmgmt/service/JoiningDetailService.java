@@ -46,8 +46,8 @@ public class JoiningDetailService {
 			joiningDetail.setUpdatedBy(null);
 			joiningDetail.setDeleted(false);
 			joiningDetail.setEmployee(employee);			
-			joiningDetailRepo.save(joiningDetail);
-			return this.modelMapper.map(joiningDetail,JoiningDetailDTO.class);
+			JoiningDetail joiningDetailObject=joiningDetailRepo.save(joiningDetail);
+			return this.modelMapper.map(joiningDetailObject,JoiningDetailDTO.class);
 		}
 	}
 
@@ -74,9 +74,9 @@ public class JoiningDetailService {
 	     	JoiningDetail joiningDetail = this.modelMapper.map(joiningDetailDto,JoiningDetail.class);
 			joiningDetail.setEmployee(employee);
 			joiningDetail.setDeleted(false);
-			joiningDetailRepo.save(joiningDetail);
+			JoiningDetail joiningDetailObject=joiningDetailRepo.save(joiningDetail);
 
-		return this.modelMapper.map(joiningDetail,JoiningDetailDTO.class);
+		return this.modelMapper.map(joiningDetailObject,JoiningDetailDTO.class);
 	}
 
 	public JoiningDetailDTO getJoiningDetailByEmployeeId(Long employeeId) {

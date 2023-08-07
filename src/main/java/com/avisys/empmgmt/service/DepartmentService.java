@@ -12,15 +12,15 @@ import com.avisys.empmgmt.exception.DepartmentException;
 @Service
 public interface DepartmentService {
 
-	DepartmentDto createDepartment(DepartmentDto department) throws DepartmentException;
+	DepartmentDto createDepartment(DepartmentDto department);
 
-	DepartmentDto updateDepartment(DepartmentDto departmentDto) throws DepartmentException;
+	DepartmentDto updateDepartment(DepartmentDto departmentDto);
 
-	List<DepartmentDto> getAllDepartments() throws DepartmentException;
+	List<DepartmentDto> getAllDepartments();
 
-	String deleteDepartment(String Id) throws DepartmentException;
+	String deleteDepartment(String Id);
 
-	Page<DepartmentDto> searchDepartment(Pageable pageable, String keyword) throws DepartmentException;
+	Page<DepartmentDto> searchDepartment(Pageable pageable, String keyword);
 
-	DepartmentDto getByIdDepartments(String departmentId) throws DepartmentException;
+	DepartmentDto getByIdDepartments(String departmentId);
 }

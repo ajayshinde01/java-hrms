@@ -46,8 +46,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employee.setCreatedAt(LocalDateTime.now());
 		employee.setCreatedBy(employeeDto.getCreatedBy());
 		employee.setDeleted(false);
-		employeeRepository.save(employee);
-		return this.modelMapper.map(employee, EmployeeDto.class);
+		employee.setUpdatedBy(null);
+		Employee employeeObject=employeeRepository.save(employee);
+		return this.modelMapper.map(employeeObject, EmployeeDto.class);
 	}
 
 	@Override
@@ -87,17 +88,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 	    }
 	    Employee employeeObj = employeeRepository.findByIdAndIsDeletedFalse(employeeDto.getId()).orElseThrow(()-> new EmployeeException("No Employee Present in the Database"));
 
-	        // Map the fields from EmployeeDto to Employee using ModelMapper
 	        modelMapper.map(employeeDto, employeeObj);
 
-	        // Set other fields that are not mapped automatically
 	        employeeObj.setUpdatedAt(LocalDateTime.now());
 	        employeeObj.setUpdatedBy(employeeDto.getUpdatedBy());
 	        employeeObj.setDeleted(false);
 
-	        employeeRepository.save(employeeObj);
+	        Employee employee = employeeRepository.save(employeeObj);
 	
-	    return this.modelMapper.map(employeeObj, EmployeeDto.class);
+	    return this.modelMapper.map(employee, EmployeeDto.class);
 	}
 	
 }

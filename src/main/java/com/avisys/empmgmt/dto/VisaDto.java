@@ -18,7 +18,7 @@ public class VisaDto {
 	@NotBlank(message="visaNumber field must not be blank")
 	private String visaNumber;
 
-	@NotNull(message="address1 field must not be null")
+	@NotNull(message="validDate field must not be null")
 	private LocalDate validDate;
 	
 	private String visaFile;
