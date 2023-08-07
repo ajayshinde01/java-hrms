@@ -22,7 +22,6 @@ public class DepartmentDto {
 	private String departmentName;
 	
 	@NotNull(message="Description should not be null")
-	@Pattern(regexp="^[A-Za-z !@&()_{}[\\]|;:\",.?0-9]{1,250}$",message="Department Description should not contain any special character except from letter,digit & !@&()_{}[]|;:\",.? with size 250")
 	private String departmentDescription;
 	
 	@NotEmpty(message="OrgCode must not be null")

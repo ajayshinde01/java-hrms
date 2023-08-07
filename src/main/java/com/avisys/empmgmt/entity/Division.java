@@ -24,7 +24,7 @@ public class Division extends Status{
 	@Column(name = "division_id")
 	@NotNull(message="Division Id should not be null")
 	@NotBlank(message="Division Id should not be blank")
-	@Pattern(regexp="^[A-Za-z-0-9]{1,50}$",message="Division Id should not contain any special character except from hyphen with size 50")
+	@Pattern(regexp="^[A-Za-z0-9-]{1,50}$",message="Division Id should not contain any special character except from hyphen with size 50")
 	private String divisionId;
 	
 	@NotNull(message="Division Id should not be null")
@@ -35,7 +35,6 @@ public class Division extends Status{
 	
 	@NotNull(message="Division Id should not be null")
 	@Column(name = "description")
-	@Pattern(regexp="^[A-Za-z !@&()_{}[\\]|;:\",.?0-9]{1,250}$",message="Division Description should not contain any special character except from letter,digit & !@&()_{}[]|;:\",.? with size 250")
 	private String divisionDescription;
 	
     public Division() {

@@ -10,7 +10,7 @@ public class DesignationDto {
 	
 	@NotBlank(message = "Designation ID should not be blank")
 	@NotNull(message = "Designation ID should not be null")
-	@Pattern(regexp="^[A-Za-z-0-9]{1,50}$",message="Designation Id should not contain any special character except from hyphen with size 50")
+	@Pattern(regexp="^[A-Za-z0-9-]{1,50}$",message="Designation Id should not contain any special character except from hyphen with size 50")
 	private String designationId;
 	
 	
@@ -21,7 +21,6 @@ public class DesignationDto {
 
 	@NotBlank(message = "Designation Description should not be blank")
 	@NotNull(message = "Designation Description should not be null")
-	@Pattern(regexp="^[A-Za-z !@&()_{}[\\]|;:\",.?0-9]{1,250}$",message="Designation Description should not contain any special character except from letter,digit & !@&()_{}[]|;:\",.? with size 250")
 	private String designationDesc;
 	
 

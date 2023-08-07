@@ -11,13 +11,13 @@ public class EmployeeTypeDTO {
 	private Long id;
 	@NotBlank(message = "Type Should not be blank")
 	@NotNull(message = "Type Should not be null")
-	@Pattern(regexp = "^[A-Za-z _ \\-]{1,50}$", message = "Type should only contain _ & - as special character")
+	@Pattern(regexp="^[A-Za-z _ -]{1,50}$",message="Employee Type should not contain any special character except from hyphen,underscore,space with size 50")
 	private String type;
 
 	@Column(name = "employee_type_id")
 	@NotNull(message = "Employee Type Id should not be null")
 	@NotBlank(message = "Employee Type Id should not be blank")
-	@Pattern(regexp="^[A-Za-z _ -]{1,50}$",message="Employee Type should not contain any special character except from hyphen,underscore,space,digit with size 50")
+    @Pattern(regexp="^[A-Za-z0-9-]{1,50}$",message="Employee Type Id must starts with alphabets , followed numbers & should not contain any special character except from hyphen with size 50")
 	private String employeeTypeId;
 
 	@NotBlank(message = "Org code Should not be blank")
@@ -28,6 +28,8 @@ public class EmployeeTypeDTO {
 	private LocalDateTime createdAt;
 
 	private LocalDateTime updatedAt;
+	
+	private String message;
 
 	@NotBlank(message = "Created by Should not be blank")
 	@NotNull(message = "Created by code Should not be null")
@@ -117,6 +119,16 @@ public class EmployeeTypeDTO {
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
 	}
+	
+	
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
 	@Override
 	public String toString() {
@@ -124,6 +136,6 @@ public class EmployeeTypeDTO {
 				+ orgCode + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", createdBy=" + createdBy
 				+ ", updatedBy=" + updatedBy + "]";
 	}
-
+	
 
 }

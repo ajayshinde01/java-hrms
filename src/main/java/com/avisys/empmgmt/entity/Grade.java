@@ -27,7 +27,7 @@ public class Grade extends Status{
 	@NotBlank(message = "Grade Id is required")
 	@NotNull(message = "Grade Id is not null")
 	@Column(name = "grade_id", unique = true)
-	@Pattern(regexp="^[A-Za-z-0-9]{1,50}$",message="Grade Id should not contain any special character except from hyphen with size 50")
+	@Pattern(regexp="^[A-Za-z0-9-]{1,50}$",message="Grade Id should not contain any special character except from hyphen with size 50")
 	private String gradeId;
 
 	@NotBlank(message = "Grade Name is required")

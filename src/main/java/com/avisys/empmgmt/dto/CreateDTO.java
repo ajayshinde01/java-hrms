@@ -9,7 +9,7 @@ public class CreateDTO {
 
 	@NotNull(message = "")
 	@NotBlank(message = "Role Id field cant be blank")
-	@Pattern(regexp="^[A-Za-z-0-9]{1,50}$",message="Role Id should not contain any special character except from hyphen with size 50")
+	@Pattern(regexp="^[A-Za-z0-9-]{1,50}$",message="Role Id should not contain any special character except from hyphen with size 50")
 	private String roleId;
 	
 	@NotNull

@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Size;
 public class CreateDivisionDto {
 	@NotNull(message="Division Id should not be null")
 	@NotBlank(message="Division Id should not be blank")
-	@Pattern(regexp="^[A-Za-z-0-9]{1,50}$",message="Division Id should not contain any special character except from hyphen with size 50")
+	@Pattern(regexp="^[A-Za-z0-9-]{1,50}$",message="Division Id should not contain any special character except from hyphen with size 50")
 	private String divisionId;
     
 	@NotNull(message="divisionName should not be null")
@@ -17,7 +17,6 @@ public class CreateDivisionDto {
 	private String divisionName;
     
     @NotBlank(message = "Division Description should not be blank" )
-	@Pattern(regexp="^[A-Za-z !@&()_{}[\\]|;:\",.?0-9]{1,250}$",message="Division Description should not contain any special character except from letter,digit & !@&()_{}[]|;:\",.? with size 250")
 	private String divisionDescription;
     
     @NotNull(message="Orgcode should not be null")

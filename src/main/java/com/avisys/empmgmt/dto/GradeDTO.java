@@ -13,7 +13,7 @@ public class GradeDTO {
 
 	@NotNull(message = "Grade Id is not null")
 	@NotBlank(message = "Grade Id is required")
-	@Pattern(regexp="^[A-Za-z-0-9]{1,50}$",message="Grade Id should not contain any special character except from hyphen with size 50")
+	@Pattern(regexp="^[A-Za-z0-9-]{1,50}$",message="Grade Id should not contain any special character except from hyphen with size 50")
 	private String gradeId;
 
 	@NotNull(message = "Grade Name  is not null")

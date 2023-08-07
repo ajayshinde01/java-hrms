@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 
 public class DivisionDto {
 	@NotNull(message = "Id should not be null")
@@ -13,7 +12,7 @@ public class DivisionDto {
     
     @NotBlank(message = "Division Id should not be blank")
     @NotNull(message = "Division Id should not be null")
-	@Pattern(regexp="^[A-Za-z-0-9]{1,50}$",message="Division Id should not contain any special character except from hyphen with size 50")
+	@Pattern(regexp="^[A-Za-z0-9-]{1,50}$",message="Division Id should not contain any special character except from hyphen with size 50")
 	private String divisionId;
     
     @NotBlank(message = "Division Name should not be blank" )
@@ -22,7 +21,6 @@ public class DivisionDto {
 	private String divisionName;
     
     @NotBlank(message = "Division Description should not be blank" )
-	@Pattern(regexp="^[A-Za-z !@&()_{}[\\]|;:\",.?0-9]{1,250}$",message="Division Description should not contain any special character except from letter,digit & !@&()_{}[]|;:\",.? with size 250")
 	private String divisionDescription;
 	
 	@Pattern(regexp = "^[a-zA-Z0-9-_]{1,50}$",message = "Organization code should not contain any special characters except hypen,underscore")

@@ -37,7 +37,7 @@ public class DivisionService implements IDivisionService {
 
 	@Override
 	public DivisionDto saveDivision(CreateDivisionDto divisionDto) {
-		if (divisonRepository.findByDivisionId(divisionDto.getDivisionId()).isPresent()) {
+		if (divisonRepository.findByDivisionIdAndIsDeletedFalse(divisionDto.getDivisionId()).isPresent()) {
 			throw new DivisionNotFound("Division already exist");
 		} else {
 			Division division = new Division(divisionDto.getDivisionId(), divisionDto.getDivisionName(),

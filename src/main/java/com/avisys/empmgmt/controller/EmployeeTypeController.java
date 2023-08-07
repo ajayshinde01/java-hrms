@@ -1,8 +1,12 @@
 package com.avisys.empmgmt.controller;
 
 import java.time.LocalDateTime;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+ 
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,63 +32,96 @@ import com.avisys.empmgmt.exception.ResourceNotFoundException;
 import com.avisys.empmgmt.service.EmployeeTypeService;
 import com.avisys.empmgmt.util.ApiResponse;
 
+ 
+
 import jakarta.validation.Valid;
+
+ 
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("employee-type")
 public class EmployeeTypeController {
 
-	@Autowired
-	EmployeeTypeService employeeTypeService;
+ 
 
-	Logger logger = LoggerFactory.getLogger(EmployeeTypeController.class);
+    @Autowired
+    EmployeeTypeService employeeTypeService;
 
-	/************** Save *******************/
-	@PostMapping(value = "/save")
-	public ResponseEntity<EmployeeTypeDTO> save(@Valid @RequestBody EmployeeTypeDTO employeeTypeDTO) {
-		logger.info("Save Information Successfully...");
-		EmployeeTypeDTO createorSaveEmployeeType = employeeTypeService.CreateorSaveEmployeeType(employeeTypeDTO);
-		return new ResponseEntity<EmployeeTypeDTO>(createorSaveEmployeeType, HttpStatus.OK);
-	}
+ 
 
-	/************** Show-All *******************/
-	@GetMapping("/show-all")
-	public ResponseEntity<?> lists() throws ResourceNotFoundException {
+    Logger logger = LoggerFactory.getLogger(EmployeeTypeController.class);
 
-		logger.info("Getting All Information Successfully...");
-		List<EmployeeTypeDTO> list = employeeTypeService.list();
-		return ResponseEntity.ok(list);
+ 
 
-	}
+    /************** Save *******************/
+    @PostMapping("/save")
+    public ResponseEntity<EmployeeTypeDTO> addEmployeeType(@Valid @RequestBody EmployeeTypeDTO employeeTypeDTO) {
+        EmployeeTypeDTO createEmployeeType = this.employeeTypeService.createEmployeeType(employeeTypeDTO);
+        createEmployeeType.setMessage("Record Save Successfully...");
+        return new ResponseEntity<EmployeeTypeDTO>(createEmployeeType, HttpStatus.OK);
+    }
 
-	/************** Get-ById *******************/
-	@GetMapping("/by-id/{employeeTypeId}")
-	public ResponseEntity<EmployeeTypeDTO> findEmpId(@PathVariable String employeeTypeId) {
-		EmployeeTypeDTO employeeTypeDTO = employeeTypeService.getByEmpId(employeeTypeId);
-		logger.info("Getting Information By Id Successfully...");
-		return ResponseEntity.ok(employeeTypeDTO);
-	}
+ 
 
-	/************** Delete-ById *******************/
-	@DeleteMapping("/delete/{employeeTypeId}")
-	public ResponseEntity<?> delete(@PathVariable String employeeTypeId) {
-		ResponseEntity<?> employeeDeleted = employeeTypeService.delete(employeeTypeId);
-		logger.info("Delete Information By Id Successfully...");
-		return employeeDeleted;
-	}
+    /************** Show-All *******************/
+    @GetMapping("/show-all")
+    public ResponseEntity<?> lists() throws ResourceNotFoundException {
 
-	/************** Update-ById *******************/
-	@PutMapping("/update")
+ 
+
+        logger.info("Getting All Information Successfully...");
+        List<EmployeeTypeDTO> list = employeeTypeService.list();
+        return ResponseEntity.ok(list);
+
+ 
+
+    }
+
+ 
+
+ 
+
+    /************** Get-ById *******************/
+    @GetMapping("/by-id/{employeeTypeId}")
+    public ResponseEntity<EmployeeTypeDTO> findEmpId(@PathVariable String employeeTypeId) {
+        EmployeeTypeDTO employeeTypeDTO = employeeTypeService.getByEmpId(employeeTypeId);
+        logger.info("Getting Information By Id Successfully...");
+        employeeTypeDTO
+                .setMessage("Record with ID:- " + employeeTypeDTO.getEmployeeTypeId() + " " + "Found Successfully...");
+        return ResponseEntity.ok(employeeTypeDTO);
+    }
+
+ 
+
+    /************** Delete-ById *******************/
+    @DeleteMapping("/delete/{employeeTypeId}")
+    public ResponseEntity<?> delete(@PathVariable String employeeTypeId) {
+        ResponseEntity<?> employeeDeleted = employeeTypeService.delete(employeeTypeId);
+        logger.info("Delete Information By Id Successfully...");
+        return employeeDeleted;
+    }
+
+ 
+
+    /************** Update-ById *******************/
+    @PutMapping("/update")
     public ResponseEntity<EmployeeTypeDTO> updateEmployee(@Valid @RequestBody EmployeeTypeDTO employeeTypeDTO) {
         logger.info("updateEmployeeType method called");
         EmployeeTypeDTO employeeType = employeeTypeService.updateEmployeeType(employeeTypeDTO);
+        LocalDateTime dateTime = employeeType.getCreatedAt();
+        employeeType.setMessage("Update Record with ID:- " + employeeTypeDTO.getEmployeeTypeId() + " Successfully...");
+        employeeType.setCreatedAt(dateTime.now());
         return new ResponseEntity<EmployeeTypeDTO>(employeeType, HttpStatus.OK);
     }
 
-	/************** Pagination *******************/
+ 
 
-	@GetMapping("/search")
+    /************** Pagination *******************/
+
+ 
+
+    @GetMapping("/search")
     public ResponseEntity<?> searchingSortingPagination(@RequestParam(defaultValue = "") String keyword,
             Pageable pageable) {
         logger.warn(EmployeeTypeController.class.getName() + ":GET SEARCH+SORT+PAGINATION  Method called");
@@ -93,5 +130,7 @@ public class EmployeeTypeController {
             return new ResponseEntity(new ApiResponse("No such Record found!"), HttpStatus.NOT_FOUND);
         return new ResponseEntity(pages, HttpStatus.OK);
     }
+
+ 
 
 }

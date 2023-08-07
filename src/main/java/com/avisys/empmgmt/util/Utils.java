@@ -62,9 +62,8 @@ public class Utils {
 				division.getdivisionDescription(), division.getOrgCode(), division.getCreatedAt(),
 				division.getUpdatedAt(), division.getCreatedBy(), division.getUpdatedBy());
 	}
-	public EmployeeType getEmployeeType(EmployeeTypeDTO employeeTypeDTO) {
-
-		 
+    public EmployeeType getEmployeeType(EmployeeTypeDTO employeeTypeDTO) {
+    	 
 
         return new EmployeeType(employeeTypeDTO.getId(), employeeTypeDTO.getType(), employeeTypeDTO.getOrgCode(), false,
                 employeeTypeDTO.getCreatedAt(), employeeTypeDTO.getUpdatedAt(), employeeTypeDTO.getCreatedBy(),
