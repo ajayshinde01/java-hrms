@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.avisys.empmgmt.dto.CreatePersonalDetailsDTO;
@@ -47,8 +48,8 @@ public class PersonalDetailsController {
 	}
 	
 	@DeleteMapping("/{employee-id}")
-	public ResponseEntity<?> deletePersonalDetail(@PathVariable("employee-id") Long employeeId){
-		String message = personalDetailsService.deletePersonalDetails(employeeId);
+	public ResponseEntity<?> deletePersonalDetail(@PathVariable("employee-id") Long employeeId,@RequestParam(value = "updatedBy") String updatedBy){
+		String message = personalDetailsService.deletePersonalDetails(employeeId,updatedBy);
 		return new ResponseEntity<>(new ApiResponse(message, LocalDateTime.now()),HttpStatus.OK);
 	}
     

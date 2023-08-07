@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.avisys.empmgmt.entity.Employee;
 import com.avisys.empmgmt.entity.Role;
 
 import jakarta.transaction.Transactional;
@@ -33,6 +34,8 @@ public interface RoleRepo extends JpaRepository<Role, Long> {
 
 )
 	public Optional<Page<Role>> searchRole(@Param("key") String key, Pageable pageable);
+
+	public Optional<Role> findByIdAndIsDeletedFalse(long id);
 	
 	
 	

@@ -23,6 +23,6 @@ public interface EmployeeService {
 
 	public EmployeeDto getByEmployee(Long employeeId);
 
-	public String deleteEmployee(Long employeeId);
+	public String deleteEmployee(Long employeeId,String updatedBy);
 	
 }

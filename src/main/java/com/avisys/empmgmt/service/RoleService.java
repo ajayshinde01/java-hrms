@@ -19,7 +19,7 @@ public interface RoleService {
 	
 	public Role findById(String id);
 	
-	public boolean deleteRole(String id);
+	public boolean deleteRole(String id,String updatedBy);
 	
 	public GETResponse updateRole(UpdateDTO updateDto);
 	

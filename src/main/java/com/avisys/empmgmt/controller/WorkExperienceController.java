@@ -47,8 +47,8 @@ public class WorkExperienceController {
 	}
 	
 	@DeleteMapping("/{employee-id}/{work-experience-id}")
-	public ResponseEntity<?> deleteEmployeeWorkExperience(@PathVariable("employee-id") Long employeeId, @PathVariable("work-experience-id") Long workExperienceId ){
-		String deletedWorkExperience = this.workExperienceService.deleteWorkExperience(employeeId,workExperienceId);
+	public ResponseEntity<?> deleteEmployeeWorkExperience(@PathVariable("employee-id") Long employeeId, @PathVariable("work-experience-id") Long workExperienceId,@RequestParam(value = "updatedBy") String updatedBy ){
+		String deletedWorkExperience = this.workExperienceService.deleteWorkExperience(employeeId,workExperienceId,updatedBy);
 		return new ResponseEntity<>(new ApiResponse(deletedWorkExperience,LocalDateTime.now()), HttpStatus.OK);
 	}
 	

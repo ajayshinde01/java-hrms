@@ -53,9 +53,6 @@ public class WorkExperienceService {
 		
 		
 		List<WorkExperience> workExperience=workExperienceRepository.findByEmployeeAndIsDeletedFalse(employee);
-		if (workExperience.isEmpty()) {
-			throw new WorkExperienceException("Array is empty");
-		}
 		List<WorkExperienceDto> workExperienceDto = workExperience.stream().map((experience)-> this.modelMapper.map(experience,WorkExperienceDto.class)).collect(Collectors.toList());
 		
 		return workExperienceDto;
@@ -79,12 +76,14 @@ public class WorkExperienceService {
 	    } else throw new WorkExperienceException("EmployeeId doesn't have this WorkExperience Id");
 	}
 
-	public String deleteWorkExperience(Long employeeId, Long workExperienceId) {
+	public String deleteWorkExperience(Long employeeId, Long workExperienceId,String updatedBy) {
 		Employee employee=this.employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
 		WorkExperience workExperience = this.workExperienceRepository.findByIdAndIsDeletedFalse(workExperienceId).orElseThrow(()->new WorkExperienceException("WorkExperience not found"));
 			
 		if(employee==workExperience.getEmployee()) {
 			workExperience.setDeleted(true);
+			workExperience.setUpdatedAt(LocalDateTime.now());
+			workExperience.setUpdatedBy(updatedBy);
 			workExperienceRepository.save(workExperience); 
 			return "Work experience deleted successfully";
 		}else throw new WorkExperienceException("EmployeeId doesn't match with WorkExperienceId");
@@ -105,10 +104,7 @@ public class WorkExperienceService {
         Page<WorkExperienceDto> workExperienceDto = workExperience.map(experience ->
                 this.modelMapper.map(experience, WorkExperienceDto.class));
 
-        if (workExperienceDto.isEmpty()) {
-            throw new WorkExperienceException("Array is empty");
-        } else {
             return workExperienceDto;
-        }
+        
     }
 }

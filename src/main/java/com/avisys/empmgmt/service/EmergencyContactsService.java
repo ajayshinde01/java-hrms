@@ -15,6 +15,6 @@ public interface EmergencyContactsService {
 
 	EmergencyContactsDto updateEmergencyContacts(EmergencyContactsDto emergencyContactsDto, Long employeeId);
 
-	String deleteEmergencyContacts(Long employeeId, Long emergencyContactsId);
+	String deleteEmergencyContacts(Long employeeId, Long emergencyContactsId,String updatedBy);
 	
 }

@@ -46,8 +46,8 @@ public class EducationalQualificationController {
 	}
 	
 	@DeleteMapping("/{employee-id}/{education-id}")
-	public ResponseEntity<?> deleteEducationalQualification(@PathVariable("employee-id") Long employeeId, @PathVariable("education-id") Long educationId ){
-		String deletedEducationalQualification = this.educationalQualificationService.deleteEducationalQualification(employeeId,educationId);
+	public ResponseEntity<?> deleteEducationalQualification(@PathVariable("employee-id") Long employeeId, @PathVariable("education-id") Long educationId,@RequestParam(value = "updatedBy") String updatedBy ){
+		String deletedEducationalQualification = this.educationalQualificationService.deleteEducationalQualification(employeeId,educationId,updatedBy);
 		return new ResponseEntity<>(new ApiResponse(deletedEducationalQualification,LocalDateTime.now()), HttpStatus.OK);
 	}
 	

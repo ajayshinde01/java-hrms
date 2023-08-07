@@ -89,11 +89,13 @@ public class DesignationService implements IDesignationService {
 
 
 	@Override
-	public String deleteDesignationById(String designationId) {
+	public String deleteDesignationById(String designationId,String updatedBy) {
 		Designation designationToDelete = designationRepo
 				.findByDesignationIdAndIsDeletedFalse(designationId.toUpperCase())
 				.orElseThrow(() -> new DesignationNotFound("Designation Not found to delete with id " + designationId));
 		designationToDelete.setDeleted(true);
+		designationToDelete.setUpdatedAt(LocalDateTime.now());
+		designationToDelete.setUpdatedBy(updatedBy);
 		designationRepo.save(designationToDelete);
 		return "Designation Deleted";
 	}
@@ -105,8 +107,7 @@ public class DesignationService implements IDesignationService {
 				.orElseThrow(() -> new DesignationNotFound("Designation Not found for key"));
 		Page<DesignationDto> designationDtoPage = designationPage
 				.map((d) -> designationUtils.designationToDesignationDto(d));
-		if (designationDtoPage.isEmpty())
-			throw new DesignationNotFound("Designation Not found for key");
+		
 		return designationDtoPage;
 	}
 

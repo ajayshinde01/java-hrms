@@ -20,7 +20,7 @@ public interface IDesignationService {
 
 	DesignationDto updateDesignation(DesignationDto designation);
 
-	String deleteDesignationById(String designationId);
+	String deleteDesignationById(String designationId,String updatedBy);
 	
 	Page<DesignationDto> searchDesignation(String designationKey,Pageable pageable);
 }

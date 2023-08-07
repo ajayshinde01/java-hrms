@@ -45,8 +45,8 @@ public class VisaController {
 	}
 	
 	@DeleteMapping("/{employee-id}/{visa-id}")
-	public ResponseEntity<?> deleteEmployeeVisa(@PathVariable("employee-id") Long employeeId, @PathVariable("visa-id") Long visaId ){
-		String deletedVisa = this.visaService.deleteVisa(employeeId,visaId);
+	public ResponseEntity<?> deleteEmployeeVisa(@PathVariable("employee-id") Long employeeId, @PathVariable("visa-id") Long visaId,@RequestParam(value = "updatedBy") String updatedBy ){
+		String deletedVisa = this.visaService.deleteVisa(employeeId,visaId,updatedBy);
 		return new ResponseEntity<>(new ApiResponse(deletedVisa,LocalDateTime.now()), HttpStatus.OK);
 	}
 	

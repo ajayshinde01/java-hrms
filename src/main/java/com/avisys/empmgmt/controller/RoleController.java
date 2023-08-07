@@ -80,8 +80,6 @@ public class RoleController {
 			Pageable pageable) {
 		logger.warn(RoleController.class.getName() + ":GET SEARCH+SORT+PAGINATION  Method called");
 		Optional<Page<Role>> pages = this.roleService.searchingSortingPagination(keyword, pageable);
-		if (pages.get().getContent().isEmpty())
-			return new ResponseEntity(new ApiResponse("No such Record found!",LocalDateTime.now()), HttpStatus.NOT_FOUND);
 		return new ResponseEntity(pages, HttpStatus.OK);
 	}
 
@@ -93,9 +91,9 @@ public class RoleController {
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<ApiResponse> deleteRole(@PathVariable("id") String id) {
+	public ResponseEntity<ApiResponse> deleteRole(@PathVariable("id") String id,@RequestParam(value = "updatedBy") String updatedBy) {
 		logger.warn(RoleController.class.getName() + ":DELETE DELETE ROLE Method called");
-		if (this.roleService.deleteRole(id) == false) {
+		if (this.roleService.deleteRole(id,updatedBy) == false) {
 			return new ResponseEntity(new ApiResponse("Permission denied!",LocalDateTime.now()), HttpStatus.BAD_REQUEST);
 		} else {
 

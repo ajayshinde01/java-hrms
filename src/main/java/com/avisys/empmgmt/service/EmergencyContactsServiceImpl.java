@@ -83,12 +83,14 @@ public class EmergencyContactsServiceImpl implements EmergencyContactsService{
 	}
 
 	@Override
-	public String deleteEmergencyContacts(Long employeeId, Long emergencyContactsId) {
+	public String deleteEmergencyContacts(Long employeeId, Long emergencyContactsId,String updatedBy) {
 		Employee employee=this.employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
 		EmergencyContacts contacts = this.emergencyContactsRepository.findByIdAndIsDeletedFalse(emergencyContactsId).orElseThrow(()->new EmergencyContactsException("Contact not found"));
 			
 		if(employee==contacts.getEmployee()) {
 			contacts.setDeleted(true);
+			contacts.setUpdatedAt(LocalDateTime.now());
+			contacts.setUpdatedBy(updatedBy);
 			emergencyContactsRepository.save(contacts); 
 			return "contact deleted successfully";
 		}else throw new EmergencyContactsException("EmployeeId doesn't match with EmergencyContactsId");

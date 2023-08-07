@@ -54,9 +54,7 @@ public class GradeService {
 	public ResponseEntity<?> getGradesWithPaging(Pageable pageable, String keyword) throws GradeException {
 		keyword = keyword.toLowerCase();
 		Page<Grade> page = gradeRepository.getGradeWithPagingAndSearch(pageable, keyword);
-		if (!page.hasContent()) {
-			throw new GradeException("No Grade Present");
-		}
+		
 		return new ResponseEntity<>(page, HttpStatus.OK);
 	}
 
@@ -70,11 +68,13 @@ public class GradeService {
 		}
 	}
 
-	public ResponseEntity<Object> deleteGrade(String gradeId) throws GradeException {
+	public ResponseEntity<Object> deleteGrade(String gradeId,String updatedBy) throws GradeException {
 		Optional<Grade> gradeOptinal = gradeRepository.findByGradeIdAndIsDeletedFalse(gradeId);
 		if (gradeOptinal.isPresent()) {
 			Grade grade = gradeOptinal.get();
 			grade.setDeleted(true);
+			grade.setUpdatedAt(LocalDateTime.now());
+			grade.setUpdatedBy(updatedBy);
 			gradeRepository.save(grade);
 			return new ResponseEntity<>(new ApiResponse("Grade Deleted successfully", LocalDateTime.now()),
 					HttpStatus.OK);

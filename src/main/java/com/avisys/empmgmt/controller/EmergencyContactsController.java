@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.avisys.empmgmt.dto.EmergencyContactsDto;
 import com.avisys.empmgmt.service.EmergencyContactsService;
@@ -42,8 +43,8 @@ public class EmergencyContactsController {
 	}
 	
 	@DeleteMapping("/{employee-id}/{contact-id}")
-	public ResponseEntity<?> deleteEmergencyContacts(@PathVariable("employee-id") Long employeeId, @PathVariable("contact-id") Long contactId ){
-		String deletedEmergencyContact = this.emergencyContactsService.deleteEmergencyContacts(employeeId,contactId);
+	public ResponseEntity<?> deleteEmergencyContacts(@PathVariable("employee-id") Long employeeId, @PathVariable("contact-id") Long contactId,@RequestParam(value = "updatedBy") String updatedBy ){
+		String deletedEmergencyContact = this.emergencyContactsService.deleteEmergencyContacts(employeeId,contactId,updatedBy);
 		return new ResponseEntity<>(new ApiResponse(deletedEmergencyContact,LocalDateTime.now()), HttpStatus.OK);
 	}
 	

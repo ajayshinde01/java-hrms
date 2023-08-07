@@ -96,8 +96,8 @@ public class EmployeeTypeController {
 
     /************** Delete-ById *******************/
     @DeleteMapping("/delete/{employeeTypeId}")
-    public ResponseEntity<?> delete(@PathVariable String employeeTypeId) {
-        ResponseEntity<?> employeeDeleted = employeeTypeService.delete(employeeTypeId);
+    public ResponseEntity<?> delete(@PathVariable String employeeTypeId,@RequestParam(value = "updatedBy") String updatedBy) {
+        ResponseEntity<?> employeeDeleted = employeeTypeService.delete(employeeTypeId,updatedBy);
         logger.info("Delete Information By Id Successfully...");
         return employeeDeleted;
     }
@@ -126,8 +126,7 @@ public class EmployeeTypeController {
             Pageable pageable) {
         logger.warn(EmployeeTypeController.class.getName() + ":GET SEARCH+SORT+PAGINATION  Method called");
         Optional<Page<EmployeeType>> pages = this.employeeTypeService.searchingSortingPagination(keyword, pageable);
-        if (pages.get().getContent().isEmpty())
-            return new ResponseEntity(new ApiResponse("No such Record found!"), HttpStatus.NOT_FOUND);
+        
         return new ResponseEntity(pages, HttpStatus.OK);
     }
 

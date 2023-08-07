@@ -11,8 +11,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.avisys.empmgmt.dto.EmployeeDto;
+import com.avisys.empmgmt.entity.Division;
 import com.avisys.empmgmt.entity.Employee;
+import com.avisys.empmgmt.exception.DivisionNotFound;
 import com.avisys.empmgmt.exception.EmployeeException;
+import com.avisys.empmgmt.repository.DivisonRepository;
 import com.avisys.empmgmt.repository.EmployeeRepo;
 
 import jakarta.validation.Valid;
@@ -24,10 +27,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private EmployeeRepo employeeRepository;
 	
 	@Autowired
+	private DivisonRepository divisionRepository;
+	
+	@Autowired
 	private ModelMapper modelMapper;
 
 	public List<EmployeeDto> getAllEmployee(){
 		List<Employee> employeeInfo=this.employeeRepository.findByIsDeletedFalse();
+		
 		List<EmployeeDto> employeeDtos = employeeInfo.stream()
 				.map((Employee) -> this.modelMapper.map(Employee, EmployeeDto.class))
 				.collect(Collectors.toList()).stream()
@@ -39,6 +46,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public EmployeeDto createEmployee(@Valid EmployeeDto employeeDto){
 		Optional<Employee> optionalEmployee = employeeRepository.findByEmployeeCode(employeeDto.getEmployeeCode());
+		Division division= divisionRepository.findByIdAndIsDeletedFalse(employeeDto.getDivision().getId()).orElseThrow(()-> new DivisionNotFound("Division Not Found"));
         if (optionalEmployee.isPresent()) {
             throw new EmployeeException("Employee code should not be duplicate");
         }
@@ -58,9 +66,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public String deleteEmployee(Long employeeId) {
+	public String deleteEmployee(Long employeeId,String updatedBy) {
 		Employee employee = this.employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()-> new EmployeeException("Employee not found"));
 			employee.setDeleted(true); // Set isDeleted flag to true
+			employee.setUpdatedAt(LocalDateTime.now());
+			employee.setUpdatedBy(updatedBy);
 			employeeRepository.save(employee); // Update the department entity
 			return "Employee deleted successfully";
 	}
@@ -71,15 +81,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Page<Employee> Employee = employeeRepository.searchByEmployee(pageable,keyword);
 		Page<EmployeeDto> employeeDto = (Page<EmployeeDto>) Employee
 				.map((employee) -> this.modelMapper.map(employee, EmployeeDto.class));
-		if (employeeDto.isEmpty()) {
-			throw new EmployeeException("Array is empty");
-		} else
+		
 			return employeeDto;
 	}
 	
 	@Override
 	public EmployeeDto updateEmployee(@Valid EmployeeDto employeeDto){
 		Optional<Employee> optionalEmployee = employeeRepository.findByEmployeeCode(employeeDto.getEmployeeCode());
+		Division division= divisionRepository.findByIdAndIsDeletedFalse(employeeDto.getDivision().getId()).orElseThrow(()-> new DivisionNotFound("Division Not Found"));
         if (optionalEmployee.isPresent()) {
             throw new EmployeeException("Employee code should not be duplicate");
         }

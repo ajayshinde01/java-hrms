@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.avisys.empmgmt.dto.DepartmentDto;
-import com.avisys.empmgmt.exception.DepartmentException;
 
 @Service
 public interface DepartmentService {
@@ -18,7 +17,8 @@ public interface DepartmentService {
 
 	List<DepartmentDto> getAllDepartments();
 
-	String deleteDepartment(String Id);
+
+	String deleteDepartment(String Id,String updatedBy);
 
 	Page<DepartmentDto> searchDepartment(Pageable pageable, String keyword);
 

@@ -79,12 +79,14 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public String deleteAddress(Long employeeId, Long addressId) {
+	public String deleteAddress(Long employeeId, Long addressId,String updatedBy) {
 		Employee employee=this.employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
 		Address address = addressRepository.findByIdAndIsDeletedFalse(addressId).orElseThrow(()->new AddressException("Address not found"));
 			
 		if(employee==address.getEmployee()) {
 			address.setDeleted(true);
+			address.setUpdatedAt(LocalDateTime.now());
+			address.setUpdatedBy(updatedBy);
 			addressRepository.save(address); 
 			return "Address deleted successfully";
 		}else throw new AddressException("employeeId doesn't match with AddressId");

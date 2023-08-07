@@ -50,8 +50,8 @@ public class EmployeeController {
 	}
 	
 	@DeleteMapping("/{employee-id}")
-	public ResponseEntity<?> deleteEmployee(@PathVariable("employee-id") Long employeeId) {
-		String deletedEmployee = this.employeeService.deleteEmployee(employeeId);
+	public ResponseEntity<?> deleteEmployee(@PathVariable("employee-id") Long employeeId,@RequestParam(value = "updatedBy") String updatedBy) {
+		String deletedEmployee = this.employeeService.deleteEmployee(employeeId,updatedBy);
 		return new ResponseEntity<>(new ApiResponse(deletedEmployee,LocalDateTime.now()), HttpStatus.OK);
 	}
 	

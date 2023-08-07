@@ -65,10 +65,12 @@ public class PersonalDetailsService {
 		
 	}
 
-	public String deletePersonalDetails(Long employeeId) {
+	public String deletePersonalDetails(Long employeeId,String updatedBy) {
 		Employee employee=employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee Not Found"));
 		PersonalDetails personalDetailsToBeDeleted = personalDetailsRepo.findByIdAndIsDeletedFalse(employee.getPersonalDetails().getId()).orElseThrow(()->new NoPersonalDetailsFound("Personal Details Not found to delete for Employee Id "+employeeId));
 		personalDetailsToBeDeleted.setDeleted(true);
+		personalDetailsToBeDeleted.setUpdatedAt(LocalDateTime.now());
+		personalDetailsToBeDeleted.setUpdatedBy(updatedBy);
 		personalDetailsRepo.save(personalDetailsToBeDeleted);
 		return "Personal Details Of Employee Deleted successfully";
 	}

@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.avisys.empmgmt.dto.CreateDivisionDto;
 import com.avisys.empmgmt.dto.DivisionDto;
 import com.avisys.empmgmt.entity.Division;
@@ -13,7 +15,7 @@ public interface IDivisionService {
 
    DivisionDto saveDivision(CreateDivisionDto division);
 
-   String deleteDivisionById(String divisionId);
+   String deleteDivisionById(String divisionId,String updatedBy);
 
    DivisionDto getDivisionById(String divisionId);
 

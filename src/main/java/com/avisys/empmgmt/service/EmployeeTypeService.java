@@ -113,7 +113,7 @@ public class EmployeeTypeService {
 
  
 
-    public ResponseEntity<?> delete(String employeeTypeId) {
+    public ResponseEntity<?> delete(String employeeTypeId,String updatedBy) {
         Optional<EmployeeType> findByIdAndDeleted = employeeTypeRepository
                 .findByEmployeeTypeIdAndIsDeleted(employeeTypeId, false);
 
@@ -122,6 +122,8 @@ public class EmployeeTypeService {
         if (findByIdAndDeleted.isPresent()) {
             EmployeeType employee = findByIdAndDeleted.get();
             employee.setDeleted(true);
+            employee.setUpdatedAt(LocalDateTime.now());
+            employee.setUpdatedBy(updatedBy);
             employeeTypeRepository.save(employee);
             LocalDateTime dateTime = employee.getCreatedAt();
             return ResponseEntity.ok(new ApiResponse("Record Deleted Successfully",dateTime.now()));
