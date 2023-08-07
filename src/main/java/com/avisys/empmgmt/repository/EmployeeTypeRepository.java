@@ -11,6 +11,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import com.avisys.empmgmt.entity.Employee;
 import com.avisys.empmgmt.entity.EmployeeType;
 
  
@@ -57,4 +59,8 @@ public interface EmployeeTypeRepository extends JpaRepository<EmployeeType, Long
  
 
     public EmployeeType findByEmployeeTypeIdIgnoreCase(String employeeTypeId);
+
+
+
+	Optional<EmployeeType> findByIdAndIsDeletedFalse(Long id);
 }

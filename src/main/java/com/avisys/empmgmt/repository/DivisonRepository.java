@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.avisys.empmgmt.entity.Division;
+import com.avisys.empmgmt.entity.Employee;
 
 @Repository
 public interface DivisonRepository extends JpaRepository<Division,Long>{
@@ -23,4 +24,6 @@ public interface DivisonRepository extends JpaRepository<Division,Long>{
 	 Optional<Page<Division>> searchDivision(@Param("searchValue")String searchValue, Pageable pageble);
 	 
 	 Optional<List<Division>> findByIsDeletedFalse();
+
+	 Optional<Division> findByIdAndIsDeletedFalse(Long id);
 }

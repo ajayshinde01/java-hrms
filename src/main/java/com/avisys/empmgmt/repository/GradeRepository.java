@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.avisys.empmgmt.entity.Employee;
 import com.avisys.empmgmt.entity.Grade;
 
 @Repository
@@ -21,4 +22,6 @@ public interface GradeRepository extends JpaRepository<Grade, Long> {
 
 	@Query("SELECT g FROM Grade g WHERE (LOWER(g.gradeId) LIKE %:key% OR LOWER(g.gradeName) LIKE %:key% OR LOWER(g.gradeType) LIKE %:key% OR LOWER(g.orgCode) LIKE %:key%) and g.isDeleted=false")
 	Page<Grade> getGradeWithPagingAndSearch(Pageable pageable, String key);
+
+	Optional<Grade> findByIdAndIsDeletedFalse(Long id);
 }
