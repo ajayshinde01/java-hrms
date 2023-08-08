@@ -30,12 +30,12 @@ public class Role extends Status{
 	@NotNull
 
 	@Column(name = "role_id")
-	@Pattern(regexp="^[A-Za-z0-9-]{1,50}$",message="Role Id should not contain any special character except from hyphen with size 50")
+	@Pattern(regexp="^[A-Za-z\\d][A-Za-z\\d-]*[A-Za-z\\d]$",message="Role Id should not contain any special character except from hyphen and should start with character or digit")
 	private String roleId;
 
 	@NotBlank
 	@NotNull
-	@Pattern(regexp="^[A-Za-z _ -.]{1,100}$",message="Role Name should not contain any special character except from hyphen,underscore,space,dot with size 100")
+    @Pattern(regexp="^[A-Za-z\\d][A-Za-z\\d _.-]*[A-Za-z\\d]$|^$",message="Role Name should not contain any special character except from hyphen,underscore,space,dot but not at starting and ending position")
 	@Column(name = "name")
 	private String roleName;
 

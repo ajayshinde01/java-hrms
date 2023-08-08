@@ -33,13 +33,13 @@ public class Designation extends Status{
 	@Column(name = "designation_id")
 	@NotBlank(message = "Designation ID should not be blank")
 	@NotNull(message = "Designation ID should not be null")
-	@Pattern(regexp="^[A-Za-z0-9-]{1,50}$",message="Designation Id should not contain any special character except from hyphen with size 50")
+    @Pattern(regexp="^[A-Za-z\\d][A-Za-z\\d-]*[A-Za-z\\d]$",message="Designation Id should not contain any special character except from hyphen and should start with character or digit")
 	private String designationId;
 	
 	@Column(name = "name")
 	@NotBlank(message = "Designation Name should not be blank")
 	@NotNull(message = "Designation Name should not be null")
-	@Pattern(regexp="^[A-Za-z _ -.]{1,100}$",message="Designation Name should not contain any special character except from hyphen,underscore,space,dot with size 100")
+    @Pattern(regexp="^[A-Za-z\\d][A-Za-z\\d _.-]*[A-Za-z\\d]$|^$",message="Designation Name should not contain any special character except from hyphen,underscore,space,dot but not at starting and ending position")
 	private String designationName;
 	
 	@Column(name = "description")

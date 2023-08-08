@@ -46,6 +46,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public EmployeeDto createEmployee(@Valid EmployeeDto employeeDto){
 		Optional<Employee> optionalEmployee = employeeRepository.findByEmployeeCode(employeeDto.getEmployeeCode());
+		if(employeeDto.getDivision()==null) {
+			throw new EmployeeException("Division is not present");
+		}
 		Division division= divisionRepository.findByIdAndIsDeletedFalse(employeeDto.getDivision().getId()).orElseThrow(()-> new DivisionNotFound("Division Not Found"));
         if (optionalEmployee.isPresent()) {
             throw new EmployeeException("Employee code should not be duplicate");
@@ -87,15 +90,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	@Override
 	public EmployeeDto updateEmployee(@Valid EmployeeDto employeeDto){
-		Optional<Employee> optionalEmployee = employeeRepository.findByEmployeeCode(employeeDto.getEmployeeCode());
+	
+		if(employeeDto.getDivision()==null) {
+			throw new EmployeeException("Division is not present");
+		}
 		Division division= divisionRepository.findByIdAndIsDeletedFalse(employeeDto.getDivision().getId()).orElseThrow(()-> new DivisionNotFound("Division Not Found"));
-        if (optionalEmployee.isPresent()) {
-            throw new EmployeeException("Employee code should not be duplicate");
-        }
-	    if (employeeDto.getId() == null) {
-	        throw new EmployeeException("Id Should Not be null");
-	    }
-	    Employee employeeObj = employeeRepository.findByIdAndIsDeletedFalse(employeeDto.getId()).orElseThrow(()-> new EmployeeException("No Employee Present in the Database"));
+
+		Optional<Employee> optionalEmployee = employeeRepository.findByEmployeeCode(employeeDto.getEmployeeCode());
+		if(!optionalEmployee.isPresent() || (optionalEmployee.isPresent() && employeeDto.getId() == optionalEmployee.get().getId())){
+			
+	    Employee employeeObj = employeeRepository.findByIdAndIsDeletedFalse(employeeDto.getId()).orElseThrow(()-> new EmployeeException("No Employee Present for given ID"));
 
 	        modelMapper.map(employeeDto, employeeObj);
 
@@ -107,5 +111,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	    return this.modelMapper.map(employee, EmployeeDto.class);
 	}
+		else throw new EmployeeException("employeeCode must not be duplicate"); 
+}
 	
 }

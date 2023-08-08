@@ -13,12 +13,12 @@ public class GradeDTO {
 
 	@NotNull(message = "Grade Id is not null")
 	@NotBlank(message = "Grade Id is required")
-	@Pattern(regexp="^[A-Za-z0-9-]{1,50}$",message="Grade Id should not contain any special character except from hyphen with size 50")
+	@Pattern(regexp="^[A-Za-z\\d][A-Za-z\\d-]*[A-Za-z\\d]$",message="Grade Id should not contain any special character except from hyphen and should start with character or digit")
 	private String gradeId;
 
 	@NotNull(message = "Grade Name  is not null")
 	@NotBlank(message = "Grade Name is required")
-	@Pattern(regexp="^[A-Za-z _ -.]{1,100}$",message="Grade Name should not contain any special character except from hyphen,underscore,space,dot with size 100")
+    @Pattern(regexp="^[A-Za-z\\d][A-Za-z\\d _.-]*[A-Za-z\\d]$|^$",message="Grade Name should not contain any special character except from hyphen,underscore,space,dot but not at starting and ending position")
 	private String gradeName;
 
 	@NotNull(message = "Grade Name is not null")
@@ -27,7 +27,7 @@ public class GradeDTO {
 	@Size(max = 20, message = "Grade Id Mix size 20")
 	private String gradeType;
 	
-	@Pattern(regexp = "^[a-zA-Z0-9-_]{1,50}$",message = "Organization code should not contain any special characters except hypen,underscore")
+    @Pattern(regexp = "^[A-Za-z\\d][A-Za-z\\d-_]*[A-Za-z\\d]$",message = "Organization code should not contain any special characters except hypen,underscore but should not at starting and ending position")
 	private String orgCode;
 	
 	private String createdBy;

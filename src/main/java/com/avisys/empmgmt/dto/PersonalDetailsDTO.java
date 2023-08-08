@@ -99,7 +99,7 @@ public class PersonalDetailsDTO{
 	
 	private String updatedBy;
 	
-	@Pattern(regexp = "^[a-zA-Z0-9-_]{1,50}$",message = "Organization code should not contain any special characters except hypen,underscore")
+    @Pattern(regexp = "^[A-Za-z\\d][A-Za-z\\d-_]*[A-Za-z\\d]$",message = "Organization code should not contain any special characters except hypen,underscore but should not at starting and ending position")
 	private String orgCode;
 	
 	public PersonalDetailsDTO(String orgCode, LocalDateTime createdAt, LocalDateTime updatedAt,

@@ -24,13 +24,13 @@ public class Department extends Status{
 	@Column(name="department_id", unique=true)
 	@NotNull(message="Id must not be null")
 	@NotBlank(message="Id must not be blank")
-	@Pattern(regexp="^[A-Za-z0-9-]{1,50}$",message="Department Id should not contain any special character except from hyphen with size 50")
+    @Pattern(regexp="^[A-Za-z\\d][A-Za-z\\d-]*[A-Za-z\\d]$",message="Department Id should not contain any special character except from hyphen and should start with character or digit")
 	private String departmentId;
 	
 	@Column(name="department_name")
 	@NotNull(message="Name must not be null")
 	@NotBlank(message="Name must not be blank")
-	@Pattern(regexp="^[A-Za-z _ -.]{1,100}$",message="Department Name should not contain any special character except from hyphen,underscore,space,dot with size 100")
+    @Pattern(regexp="^[A-Za-z\\d][A-Za-z\\d _.-]*[A-Za-z\\d]$|^$",message="Department Name should not contain any special character except from hyphen,underscore,space,dot but not at starting and ending position")
 	private String departmentName;
 	
 	@Column(name="description")

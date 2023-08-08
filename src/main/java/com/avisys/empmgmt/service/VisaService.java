@@ -96,9 +96,6 @@ public class VisaService {
 	                .orElseThrow(() -> new EmployeeException("Employee not found"));
 
 	        List<Visa> visa = visaRepository.findByEmployeeAndIsDeletedFalse(employee);
-	        if (visa.isEmpty()) {
-	            throw new VisaException("Array is empty");
-	        }
 
 	        keyword = keyword.toLowerCase();
 	        Page<Visa> pageableVisa = visaRepository.searchByVisaAndEmployeeId(keyword, pageable, employeeId);

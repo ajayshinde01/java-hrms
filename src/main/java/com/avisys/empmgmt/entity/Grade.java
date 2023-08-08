@@ -27,12 +27,12 @@ public class Grade extends Status{
 	@NotBlank(message = "Grade Id is required")
 	@NotNull(message = "Grade Id is not null")
 	@Column(name = "grade_id", unique = true)
-	@Pattern(regexp="^[A-Za-z0-9-]{1,50}$",message="Grade Id should not contain any special character except from hyphen with size 50")
+	@Pattern(regexp="^[A-Za-z\\d][A-Za-z\\d-]*[A-Za-z\\d]$",message="Grade Id should not contain any special character except from hyphen and should start with character or digit")
 	private String gradeId;
 
 	@NotBlank(message = "Grade Name is required")
 	@NotNull(message = "Grade Name  is not null")
-	@Pattern(regexp="^[A-Za-z _ -.]{1,100}$",message="Grade Name should not contain any special character except from hyphen,underscore,space,dot with size 100")
+	@Pattern(regexp="^[A-Z0-9a-z _ -.]{1,100}$",message="Grade Name should not contain any special character except from hyphen,underscore,space,dot with size 100")
 	@Column(name = "name")
 	private String gradeName;
 

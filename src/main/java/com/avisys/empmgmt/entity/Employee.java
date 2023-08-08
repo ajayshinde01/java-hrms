@@ -41,18 +41,21 @@ public class Employee extends Status{
 	private String employeeCode;
 	
 	@Column(name="first_name")
-	@NotNull(message="Name must not be null")
-	@NotBlank(message="Name must not be blank")
+	@NotNull(message="First Name must not be null")
+	@NotBlank(message="First Name must not be blank")
+	@Pattern(regexp = "^[a-zA-Z]+$", message = "First name should not contain digits and special characters")
 	private String firstName;
 	
 	@Column(name="middle_name")
-	@NotNull(message="Name must not be null")
-	@NotBlank(message="Name must not be blank")
+	@NotNull(message="Middle Name must not be null")
+	@NotBlank(message="Middle Name must not be blank")
+	@Pattern(regexp = "^[a-zA-Z]+$", message = "Middle name should not contain digits and special characters")
 	private String middleName;
 	
 	@Column(name="last_name")
-	@NotNull(message="Name must not be null")
-	@NotBlank(message="Name must not be blank")
+	@NotNull(message="Last Name must not be null")
+	@NotBlank(message="Last Name must not be blank")
+	@Pattern(regexp = "^[a-zA-Z]+$", message = "Last name should not contain digits and special characters")
 	private String lastName;
 	
 	@Column(name="date_of_birth")

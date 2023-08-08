@@ -11,18 +11,18 @@ public class EmployeeTypeDTO {
 	private Long id;
 	@NotBlank(message = "Type Should not be blank")
 	@NotNull(message = "Type Should not be null")
-	@Pattern(regexp="^[A-Za-z _ -]{1,50}$",message="Employee Type should not contain any special character except from hyphen,underscore,space with size 50")
+    @Pattern(regexp="^[A-Za-z\\d][A-Za-z\\d _.-]*[A-Za-z\\d]$|^$",message="Employee Type Name should not contain any special character except from hyphen,underscore,space,dot but not at starting and ending position")
 	private String type;
 
 	@Column(name = "employee_type_id")
 	@NotNull(message = "Employee Type Id should not be null")
 	@NotBlank(message = "Employee Type Id should not be blank")
-    @Pattern(regexp="^[A-Za-z0-9-]{1,50}$",message="Employee Type Id must starts with alphabets , followed numbers & should not contain any special character except from hyphen with size 50")
+	@Pattern(regexp="^[A-Za-z\\d][A-Za-z\\d-]*[A-Za-z\\d]$",message="Employee Type Id should not contain any special character except from hyphen and should start with character or digit")
 	private String employeeTypeId;
 
 	@NotBlank(message = "Org code Should not be blank")
 	@NotNull(message = "Org code Should not be null")
-	@Pattern(regexp = "^[a-zA-Z0-9-_]{1,50}$",message = "Organization code should not contain any special characters except hypen,underscore")
+    @Pattern(regexp = "^[A-Za-z\\d][A-Za-z\\d-_]*[A-Za-z\\d]$",message = "Organization code should not contain any special characters except hypen,underscore but should not at starting and ending position")
 	private String orgCode;
 
 	private LocalDateTime createdAt;

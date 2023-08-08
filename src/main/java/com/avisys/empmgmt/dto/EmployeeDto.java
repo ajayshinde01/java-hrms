@@ -20,16 +20,19 @@ public class EmployeeDto {
 	
 	private String profile_image;
 	
-	@NotNull(message="Name must not be null")
-	@NotBlank(message="Name must not be blank")
+	@NotNull(message="First Name must not be null")
+	@NotBlank(message="First Name must not be blank")
+	@Pattern(regexp = "^[a-zA-Z]+$", message = "First name should not contain digits and special characters")
 	private String firstName;
 	
-	@NotNull(message="Name must not be null")
-	@NotBlank(message="Name must not be blank")
+	@NotNull(message="Middle Name must not be null")
+	@NotBlank(message="Middle Name must not be blank")
+	@Pattern(regexp = "^[a-zA-Z]+$", message = "Middle name should not contain digits and special characters")
 	private String middleName;
 	
-	@NotNull(message="Name must not be null")
-	@NotBlank(message="Name must not be blank")
+	@NotNull(message="Last Name must not be null")
+	@NotBlank(message="Last Name must not be blank")
+	@Pattern(regexp = "^[a-zA-Z]+$", message = "Last name should not contain digits and special characters")
 	private String lastName;
 	
 	@NotNull(message="Date must not be null")
@@ -67,7 +70,7 @@ public class EmployeeDto {
 	
 	@NotBlank(message = "Organisation Code should not be blank")
 	@NotNull(message = "Organisation Code should not be null")
-	@Pattern(regexp = "^[a-zA-Z0-9-_]{1,50}$",message = "Organization code should not contain any special characters except hypen,underscore")
+    @Pattern(regexp = "^[A-Za-z\\d][A-Za-z\\d-_]*[A-Za-z\\d]$",message = "Organization code should not contain any special characters except hypen,underscore but should not at starting and ending position")
 	private String orgCode;
 
 	private String createdBy;

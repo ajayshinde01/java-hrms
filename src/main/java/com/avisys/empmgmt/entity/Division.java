@@ -11,7 +11,6 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "division")
@@ -24,12 +23,12 @@ public class Division extends Status{
 	@Column(name = "division_id")
 	@NotNull(message="Division Id should not be null")
 	@NotBlank(message="Division Id should not be blank")
-	@Pattern(regexp="^[A-Za-z0-9-]{1,50}$",message="Division Id should not contain any special character except from hyphen with size 50")
+	@Pattern(regexp="^[A-Za-z\\d][A-Za-z\\d-]*[A-Za-z\\d]$",message="Division Id should not contain any special character except from hyphen and should start with character or digit")
 	private String divisionId;
 	
 	@NotNull(message="Division Id should not be null")
 	@NotBlank(message="Division Id should not be blank")
-	@Pattern(regexp="^[A-Za-z _ -.]{1,100}$",message="Division Name should not contain any special character except from hyphen,underscore,space,dot with size 100")
+    @Pattern(regexp="^[A-Za-z\\d][A-Za-z\\d _.-]*[A-Za-z\\d]$|^$",message="Division Name should not contain any special character except from hyphen,underscore,space,dot but not at starting and ending position")
 	@Column(name = "name")
 	private String divisionName;
 	

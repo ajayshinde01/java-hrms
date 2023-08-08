@@ -12,18 +12,18 @@ public class DivisionDto {
     
     @NotBlank(message = "Division Id should not be blank")
     @NotNull(message = "Division Id should not be null")
-	@Pattern(regexp="^[A-Za-z0-9-]{1,50}$",message="Division Id should not contain any special character except from hyphen with size 50")
+	@Pattern(regexp="^[A-Za-z\\d][A-Za-z\\d-]*[A-Za-z\\d]$",message="Division Id should not contain any special character except from hyphen and should start with character or digit")
 	private String divisionId;
     
     @NotBlank(message = "Division Name should not be blank" )
     @NotNull(message = "Division Id should not be null")
-	@Pattern(regexp="^[A-Za-z _ -.]{1,100}$",message="Division Name should not contain any special character except from hyphen,underscore,space,dot with size 100")
+    @Pattern(regexp="^[A-Za-z\\d][A-Za-z\\d _.-]*[A-Za-z\\d]$|^$",message="Division Name should not contain any special character except from hyphen,underscore,space,dot but not at starting and ending position")
 	private String divisionName;
     
     @NotBlank(message = "Division Description should not be blank" )
 	private String divisionDescription;
 	
-	@Pattern(regexp = "^[a-zA-Z0-9-_]{1,50}$",message = "Organization code should not contain any special characters except hypen,underscore")
+    @Pattern(regexp = "^[A-Za-z\\d][A-Za-z\\d-_]*[A-Za-z\\d]$",message = "Organization code should not contain any special characters except hypen,underscore but should not at starting and ending position")
     private String orgCode;
     
     private LocalDateTime createdAt;
