@@ -93,11 +93,6 @@ public class WorkExperienceService {
         Employee employee = this.employeeRepository.findByIdAndIsDeletedFalse(employeeId)
                 .orElseThrow(() -> new EmployeeException("Employee not found"));
 
-        List<WorkExperience> workExperiences = workExperienceRepository.findByEmployeeAndIsDeletedFalse(employee);
-        if (workExperiences.isEmpty()) {
-            throw new WorkExperienceException("Array is empty");
-        }
-
         keyword = keyword.toLowerCase();
         Page<WorkExperience> workExperience = workExperienceRepository.searchByCompanyNameAndEmployeeId(keyword, pageable, employeeId);
 

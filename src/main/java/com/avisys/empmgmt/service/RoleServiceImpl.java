@@ -14,7 +14,6 @@ import com.avisys.empmgmt.dto.CreateDTO;
 import com.avisys.empmgmt.dto.GETResponse;
 import com.avisys.empmgmt.dto.UpdateDTO;
 import com.avisys.empmgmt.entity.Role;
-import com.avisys.empmgmt.exception.EmptyListException;
 import com.avisys.empmgmt.exception.NoRoleFoundException;
 import com.avisys.empmgmt.exception.RoleAlreadyPresentException;
 import com.avisys.empmgmt.repository.RoleRepo;

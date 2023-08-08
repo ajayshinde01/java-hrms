@@ -56,9 +56,6 @@ public class EmergencyContactsServiceImpl implements EmergencyContactsService{
 		
 		
 		List<EmergencyContacts> contacts=this.emergencyContactsRepository.findByEmployeeAndIsDeletedFalse(employee);
-		if (contacts.isEmpty()) {
-			throw new AddressException("Array is empty");
-		}
 		List<EmergencyContactsDto> emergencyContactsDto = contacts.stream().map((contact)-> this.modelMapper.map(contact,EmergencyContactsDto.class)).collect(Collectors.toList());
 		
 		return emergencyContactsDto;

@@ -35,16 +35,16 @@ private static final DataTableMetadata Division_TYPE_DEFINITION_METADATA;
 
         DESIGNATION_DEFINATION_METADATA=new DataTableMetadata()
                 .addColumnMetadata(new ColumnMetadata("", "id", "id", ColumnType.RADIO, 5))
-                .addColumnMetadata(new ColumnMetadata("Designation Id", "designationId","roleId" , ColumnType.TEXT, 10))
-                .addColumnMetadata(new ColumnMetadata("Designation Name", "designationName","roleName" , ColumnType.TEXT, 10))
-                .addColumnMetadata(new ColumnMetadata("Designation Description","designationDesc","orgCode",ColumnType.TEXT,10))
+                .addColumnMetadata(new ColumnMetadata("Designation Id", "designationId","designationId" , ColumnType.TEXT, 10))
+                .addColumnMetadata(new ColumnMetadata("Designation Name", "designationName","designationName" , ColumnType.TEXT, 10))
+                .addColumnMetadata(new ColumnMetadata("Designation Description","designationDesc","designationDesc",ColumnType.TEXT,10))
                 .addColumnMetadata(new ColumnMetadata("Org Code","orgCode","orgCode",ColumnType.TEXT,5));
 
         GRADE_DEFINATION_METADATA=new DataTableMetadata()
                 .addColumnMetadata(new ColumnMetadata("", "id", "id", ColumnType.RADIO, 5))
                 .addColumnMetadata(new ColumnMetadata("Grade Id", "gradeId","gradeId" , ColumnType.TEXT, 10))
                 .addColumnMetadata(new ColumnMetadata("Grade Name", "gradeName","gradeName" , ColumnType.TEXT, 10))
-                .addColumnMetadata(new ColumnMetadata("Grade Type","gradeType","gradeTpe",ColumnType.TEXT,10))
+                .addColumnMetadata(new ColumnMetadata("Grade Type","gradeType","gradeType",ColumnType.TEXT,10))
                 .addColumnMetadata(new ColumnMetadata("Org Code","orgCode","orgCode",ColumnType.TEXT,5));
 
         EmployeeType_TYPE_DEFINITION_METADATA = new DataTableMetadata()

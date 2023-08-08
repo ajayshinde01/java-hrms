@@ -59,9 +59,6 @@ public class EducationalQualificationService {
 		Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));	
 		
 		List<EducationalQualification> education=this.educationalRepository.findByEmployeeAndIsDeletedFalse(employee);
-		if (education.isEmpty()) {
-			throw new EducationalQualificationException("Array is empty");
-		}
 		List<EducationalQualificationDto> educationalQualificationDto = education.stream().map((educations)-> this.modelMapper.map(educations,EducationalQualificationDto.class)).collect(Collectors.toList());
 		
 		return educationalQualificationDto;
@@ -105,11 +102,6 @@ public class EducationalQualificationService {
 			Long employeeId) {
 		  Employee employee = this.employeeRepository.findByIdAndIsDeletedFalse(employeeId)
 	                .orElseThrow(() -> new EmployeeException("Employee not found"));
-
-	        List<EducationalQualification> educationalQualification = educationalRepository.findByEmployeeAndIsDeletedFalse(employee);
-	        if (educationalQualification.isEmpty()) {
-	            throw new EducationalQualificationException("Array is empty");
-	        }
 
 	        keyword = keyword.toLowerCase();
 	        Page<EducationalQualification> qualification = educationalRepository.searchByEducationalQualificationAndEmployeeId(keyword, pageable, employeeId);
