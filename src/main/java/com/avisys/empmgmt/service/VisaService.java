@@ -44,11 +44,12 @@ public class VisaService {
 			    	visa.setCreatedAt(LocalDateTime.now());
 			    	visa.setDeleted(false);
 			    	visa.setEmployee(employee);
+			        visa.setUpdatedBy(null);
 			    	Visa visaObject = visaRepository.save(visa);					
 			return this.modelMapper.map(visaObject, VisaDto.class);
 			       
 			    } else
-			    	 throw new VisaException("Visa Number is already filled");
+			    	 throw new VisaException("Visa Number is already exist");
 		}
 		
 		public List<VisaDto> getVisaByEmployeeId(Long employeeId){
@@ -65,16 +66,20 @@ public class VisaService {
 			    
 		    Visa visaDetails = visaRepository.findByIdAndIsDeletedFalse(visaDto.getId()).orElseThrow(()->new VisaException("visa not found"));
 		    if(employee==visaDetails.getEmployee()) {
+		    	Optional<Visa> optionalVisa = visaRepository.findByVisaNumber(visaDto.getVisaNumber());
+				if(!optionalVisa.isPresent() || (optionalVisa.isPresent() && visaDto.getId() == optionalVisa.get().getId())){
+			
 		        modelMapper.map(visaDto, visaDetails);
 
 		        visaDetails.setUpdatedAt(LocalDateTime.now());
 		        visaDetails.setUpdatedBy(visaDto.getUpdatedBy());
 		        visaDetails.setDeleted(false);
-		        visaDetails.setUpdatedBy(null);
-
+		    
 		        Visa visaObject = visaRepository.save(visaDetails);
 		    return this.modelMapper.map(visaObject, VisaDto.class);
 		    } else 
+		    	throw new VisaException("Visa Number must not be duplicate");
+		    } else
 		    	throw new VisaException("Employee doesn't have this VisaId");
 		}
 

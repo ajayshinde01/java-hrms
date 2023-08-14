@@ -16,7 +16,6 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 
 @Entity
-@Getter
 public class Grade extends Status{
 
 	@Id
@@ -45,8 +44,7 @@ public class Grade extends Status{
 		super();
 	}
 
-	public Grade(Long id, String gradeId, String gradeName, String gradeType, String orgCode, boolean isDeleted,
-			LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy) {
+	public Grade(Long id, String gradeId, String gradeName, String gradeType, String orgCode, boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy) {
 		super();
 		this.id = id;
 		this.gradeId = gradeId;

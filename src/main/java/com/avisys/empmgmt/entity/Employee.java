@@ -123,23 +123,7 @@ public class Employee extends Status{
 		super();
 	}
 
-
-	public Employee(
-			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
-			boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy,
-			String profile_image,
-			@NotNull(message = "employee code must not be null") @NotBlank(message = "employee code must not be blank") @Size(min = 2, max = 8, message = "Id should be in between 2 to 8 character") String employeeCode,
-			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String firstName,
-			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String middleName,
-			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String lastName,
-			@NotNull(message = "Date must not be null") LocalDate dateOfBirth,
-			@NotNull(message = "Gender must not be null") @NotBlank(message = "Gender must not be blank") String gender,
-			@NotNull(message = "Date must not be null") LocalDate dateOfJoining,
-			@NotNull(message = "Age must not be null") @NotBlank(message = "Age must not be blank") String age,
-			@NotNull(message = "Status must not be null") @NotBlank(message = "Status must not be blank") String status,
-			Division division, String userId, String mobile, String phone, String email, List<Address> addressList,
-			CompanyDetail companyDetail, PersonalDetails personalDetails, JoiningDetail joiningDetail,
-			List<WorkExperience> workExperience, List<EmergencyContacts> emergencyContacts, List<Visa> visa) {
+	public Employee(String orgCode, boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy, String profile_image, String employeeCode, String firstName, String middleName, String lastName, LocalDate dateOfBirth, String gender, LocalDate dateOfJoining, String age, String status, Division division, String userId, String mobile, String phone, String email, List<Address> addressList, CompanyDetail companyDetail, PersonalDetails personalDetails, JoiningDetail joiningDetail, List<WorkExperience> workExperience, List<EmergencyContacts> emergencyContacts, List<Visa> visa) {
 		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
 		this.profile_image = profile_image;
 		this.employeeCode = employeeCode;

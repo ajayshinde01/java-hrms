@@ -50,13 +50,7 @@ public class Visa extends Status {
 		super();
 	}
 
-	public Visa(
-			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
-			boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy,
-			@NotNull(message = "countryCode field must not be null") @NotBlank(message = "countryCode field must not be blank") String countryCode,
-			@NotNull(message = "visaNumber field must not be null") @NotBlank(message = "visaNumber field must not be blank") String visaNumber,
-			@NotNull(message = "validDate field must not be null") LocalDate validDate, String visaFile,
-			Employee employee) {
+	public Visa( String orgCode, boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy,String countryCode,String visaNumber, LocalDate validDate, String visaFile, Employee employee) {
 		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
 		this.countryCode = countryCode;
 		this.visaNumber = visaNumber;

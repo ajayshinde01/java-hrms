@@ -2,9 +2,6 @@ package com.avisys.empmgmt.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
-
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -28,7 +25,6 @@ public class PersonalDetailsDTO{
 	@NotNull(message="cpr number should not be null")
     private String cprNumber;
     
-    @Column(name="gosi")
 	@NotNull(message="gosi should not be null")
     private String gosi;
 
@@ -59,7 +55,6 @@ public class PersonalDetailsDTO{
 
     private String passportFile;
     
-    @Column(name="pan_card_number")
 	@NotNull(message="pan card number should not be null")
 	@NotBlank(message="pan card number should not be blank")
 	@Pattern(regexp = "^[A-Z]{5}[0-9]{4}[A-Z]$", message = "PAN card number must be a 10-character alphanumeric value in the format ABCDE1234F")

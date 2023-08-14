@@ -40,7 +40,6 @@ public class JoiningDetailDTO {
 	public JoiningDetailDTO(LocalDate confirmationDate,int noticePeriod,LocalDate resignationDate, LocalDate relievingDate, String orgCode,
 		   LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy) {
 		super();
-		this.id = id;
 		this.confirmationDate = confirmationDate;
 		this.noticePeriod = noticePeriod;
 		this.resignationDate = resignationDate;

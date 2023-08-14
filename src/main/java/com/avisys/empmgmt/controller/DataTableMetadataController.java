@@ -49,7 +49,7 @@ private static final DataTableMetadata Division_TYPE_DEFINITION_METADATA;
 
         EmployeeType_TYPE_DEFINITION_METADATA = new DataTableMetadata()
                 .addColumnMetadata(new ColumnMetadata("", "id","id" ,ColumnType.RADIO, 10))
-                .addColumnMetadata(new ColumnMetadata("EmployeeType Id", "employeeTypeId","employeeTypeId", ColumnType.TEXT, 30))
+                .addColumnMetadata(new ColumnMetadata("Employee Type Id", "employeeTypeId","employeeTypeId", ColumnType.TEXT, 30))
                 .addColumnMetadata(new ColumnMetadata("Type", "type","type", ColumnType.TEXT, 30))
                 .addColumnMetadata(new ColumnMetadata("Org Code", "orgCode","orgCode", ColumnType.TEXT, 30));
 
@@ -100,5 +100,6 @@ private static final DataTableMetadata Division_TYPE_DEFINITION_METADATA;
     public DataTableMetadata getDivisionDataTableMetadata() {
         return Division_TYPE_DEFINITION_METADATA;
     }
+    
 
 }

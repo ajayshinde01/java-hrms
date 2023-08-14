@@ -1,10 +1,8 @@
 package com.avisys.empmgmt.controller;
 
 import java.time.LocalDateTime;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
  
 
@@ -55,7 +53,7 @@ public class EmployeeTypeController {
  
 
     /************** Save *******************/
-    @PostMapping("/save")
+    @PostMapping("/create")
     public ResponseEntity<EmployeeTypeDTO> addEmployeeType(@Valid @RequestBody EmployeeTypeDTO employeeTypeDTO) {
         EmployeeTypeDTO createEmployeeType = this.employeeTypeService.createEmployeeType(employeeTypeDTO);
         createEmployeeType.setMessage("Record Save Successfully...");
@@ -65,7 +63,7 @@ public class EmployeeTypeController {
  
 
     /************** Show-All *******************/
-    @GetMapping("/show-all")
+    @GetMapping("/get-all")
     public ResponseEntity<?> lists() throws ResourceNotFoundException {
 
  

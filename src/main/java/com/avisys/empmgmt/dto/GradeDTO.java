@@ -1,5 +1,7 @@
 package com.avisys.empmgmt.dto;
 
+import java.time.LocalDateTime;
+
 import com.avisys.empmgmt.entity.Grade;
 
 import jakarta.validation.constraints.NotBlank;
@@ -33,12 +35,16 @@ public class GradeDTO {
 	private String createdBy;
 
 	private String updatedBy;
+	
+	private LocalDateTime createdAt;
+	
+	private LocalDateTime updatedAt;
 
 	public GradeDTO() {
 		super();
 	}
 
-	public GradeDTO(Long id, String gradeId, String gradeName, String gradeType, String orgCode, String createdBy, String updatedBy) {
+	public GradeDTO(Long id, String gradeId, String gradeName, String gradeType, String orgCode, String createdBy, String updatedBy,LocalDateTime createdAt,LocalDateTime updatedAt) {
 		super();
 		this.id = id;
 		this.gradeId = gradeId;
@@ -47,6 +53,8 @@ public class GradeDTO {
 		this.orgCode = orgCode;
 		this.createdBy=createdBy;
 		this.updatedBy=updatedBy;
+		this.createdAt=createdAt;
+		this.updatedAt=updatedAt;
 	}
 
 	public GradeDTO(Grade gradeObject) {
@@ -57,6 +65,8 @@ public class GradeDTO {
 		this.orgCode = gradeObject.getOrgCode();
 		this.createdBy=gradeObject.getCreatedBy();
 		this.updatedBy=gradeObject.getUpdatedBy();
+		this.createdAt=gradeObject.getCreatedAt();
+		this.updatedAt=gradeObject.getUpdatedAt();
 	}
 
 	public Long getId() {
@@ -113,6 +123,22 @@ public class GradeDTO {
 
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 	
 }

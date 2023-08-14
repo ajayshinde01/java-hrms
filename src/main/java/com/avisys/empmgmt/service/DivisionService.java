@@ -94,8 +94,7 @@ public class DivisionService implements IDivisionService {
 		Page<Division> divisions = divisonRepository.searchDivision(searchValue, pageable)
 				.orElseThrow(() -> new DivisionNotFound("Division Not Found"));
 		
-			return divisions;
-		
+			return divisions;		
 	}
 
 }

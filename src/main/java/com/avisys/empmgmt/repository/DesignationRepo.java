@@ -11,7 +11,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.avisys.empmgmt.entity.Designation;
-import com.avisys.empmgmt.entity.Employee;
 
 @Repository
 public interface DesignationRepo extends JpaRepository<Designation, Long> {
@@ -21,7 +20,7 @@ public interface DesignationRepo extends JpaRepository<Designation, Long> {
 	Optional<Designation> findByDesignationId(String designationId);
 	Optional<List<Designation>> findByIsDeletedFalse();
 	
-	@Query("select d from Designation d where (lower(d.designationId) like %:designationKey% or lower(d.designationName) like %:designationKey% or lower(d.designationDesc) like %:designationKey% or lower(d.orgCode) like %:designationKey%) and d.isDeleted=FALSE")
+	@Query("select d from Designation d where (lower(d.designationId) like %:designationKey% or lower(d.designationName) like %:designationKey% or lower(d.designationDesc) like %:designationKey%) and d.isDeleted=FALSE")
 	Optional<Page<Designation>> searchDesignation(@Param("designationKey") String designationKey,Pageable pageable);
 	
 	Optional<Designation> findByIdAndIsDeletedFalse(Long id);

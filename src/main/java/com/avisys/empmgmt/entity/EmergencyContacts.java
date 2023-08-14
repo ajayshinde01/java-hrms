@@ -22,12 +22,18 @@ public class EmergencyContacts extends Status {
 	private Long id;
 	
 	@Column(name="emergency_contact_name")
+	@NotNull(message="ContactName must not be null")
+	@NotBlank(message="ContactName must not be blank")
 	private String emergencyContactName;
 	
 	@Column(name="emergency_contact_number")
+	@NotNull(message="ContactNumber must not be null")
+	@NotBlank(message="ContactNumber must not be blank")
 	private String emergencyContactNumber;
 	
 	@Column(name="relation")
+	@NotNull(message="Relation must not be null")
+	@NotBlank(message="Relation must not be blank")
 	private String relation;
 	
 	@ManyToOne
@@ -38,10 +44,7 @@ public class EmergencyContacts extends Status {
 		super();
 	}
 
-	public EmergencyContacts(
-			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
-			boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy,
-			String emergencyContactName, String emergencyContactNumber, String relation, Employee employee) {
+	public EmergencyContacts(String orgCode, boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy,String emergencyContactName, String emergencyContactNumber, String relation, Employee employee) {
 		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
 		this.emergencyContactName = emergencyContactName;
 		this.emergencyContactNumber = emergencyContactNumber;

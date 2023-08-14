@@ -14,6 +14,7 @@ import com.avisys.empmgmt.dto.EmployeeTypeDTO;
 import com.avisys.empmgmt.entity.EmployeeType;
 import com.avisys.empmgmt.exception.ResourceNotFoundException;
 import com.avisys.empmgmt.exception.EmployeeException;
+import com.avisys.empmgmt.exception.EmployeeTypeException;
 import com.avisys.empmgmt.exception.NoEmployeeFoundException;
 import com.avisys.empmgmt.repository.EmployeeTypeRepository;
 import com.avisys.empmgmt.util.ApiResponse;
@@ -139,24 +140,31 @@ public class EmployeeTypeService {
 
  
 
-    public EmployeeTypeDTO updateEmployeeType(EmployeeTypeDTO employeeTypeDTO) {
-        EmployeeType employeeType = employeeTypeRepository.findById(employeeTypeDTO.getId())
-                .orElseThrow(() -> new NoEmployeeFoundException("EmployeeType Not Found"));
-        if (employeeType.isDeleted() == true) {
-            throw new NoEmployeeFoundException("EmployeeType Does Not Exist");
+    public EmployeeTypeDTO updateEmployeeType(EmployeeTypeDTO employeeTypeDTO){
+        if (employeeTypeDTO.getId() == null) {
+            throw new EmployeeTypeException("Id Should Not be null");
+        }
+Optional<EmployeeType> employeeTypeOptionalObj = employeeTypeRepository.findById(employeeTypeDTO.getId());
+
+        if (employeeTypeOptionalObj.isEmpty() || employeeTypeOptionalObj.get().isDeleted() == true) {
+            String message = "No EmployeeType Present in the Database";
+            throw new EmployeeTypeException(message);
+        }
+
+        EmployeeType employeeTypeObj = employeeTypeOptionalObj.get();
+        Optional<EmployeeType> employeeTypeIdObj = employeeTypeRepository.findByEmployeeTypeId(employeeTypeDTO.getEmployeeTypeId());
+        if (employeeTypeIdObj.isEmpty()|| employeeTypeDTO.getEmployeeTypeId().equals(employeeTypeObj.getEmployeeTypeId())) {
+            EmployeeType employeeeType = employeeTypeOptionalObj.get();
+            employeeeType.setEmployeeTypeId(employeeTypeDTO.getEmployeeTypeId());
+            employeeeType.setType(employeeTypeDTO.getType());
+            employeeeType.setOrgCode(employeeTypeDTO.getOrgCode());
+            employeeeType.setUpdatedBy(employeeTypeDTO.getUpdatedBy());
+            employeeeType.setUpdatedAt(LocalDateTime.now());
+            employeeeType.setDeleted(false);
+            EmployeeType empTypeObject= employeeTypeRepository.save(employeeeType);
+            return  this.mapper.map(empTypeObject, EmployeeTypeDTO.class);
         } else {
-            Optional<EmployeeType> employeeTypeByEmployeeTypeId = employeeTypeRepository
-                    .findByEmployeeTypeId(employeeTypeDTO.getEmployeeTypeId());
-            if (employeeTypeByEmployeeTypeId.isEmpty() || employeeTypeDTO.getId().equals(employeeType.getId())
-&& employeeTypeDTO.getEmployeeTypeId().equals(employeeType.getEmployeeTypeId())) {
-                employeeTypeDTO.setUpdatedAt(LocalDateTime.now());
-                EmployeeType empType = util.getEmployeeType(employeeTypeDTO);
-                empType.setType(employeeTypeDTO.getType());
-                EmployeeType employeeTypeObject = employeeTypeRepository.save(empType);
-                return this.mapper.map(employeeTypeObject, EmployeeTypeDTO.class);
-            } else {
-                throw new NoEmployeeFoundException("EmployeeType already Exist");
-            }
+            throw new EmployeeTypeException("Invalid EmployeeTypeId ");
         }
     }
 

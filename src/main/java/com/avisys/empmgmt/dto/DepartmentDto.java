@@ -1,5 +1,7 @@
 package com.avisys.empmgmt.dto;
 
+import java.time.LocalDateTime;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -33,10 +35,27 @@ public class DepartmentDto {
 
 	private String updatedBy;
 	
+	private LocalDateTime createdAt;
+	
+	private LocalDateTime updatedAt;
+	
 	public DepartmentDto() {
 		super();
 	}
 	
+	public DepartmentDto(Long id, String departmentId, String departmentName, String departmentDescription, String orgCode, String createdBy, String updatedBy, LocalDateTime createdAt,LocalDateTime updatedAt) {
+		super();
+		this.id = id;
+		this.departmentId = departmentId;
+		this.departmentName = departmentName;
+		this.departmentDescription = departmentDescription;
+		this.orgCode = orgCode;
+		this.createdBy = createdBy;
+		this.updatedBy = updatedBy;
+		this.createdAt=createdAt;
+		this.updatedAt=updatedAt;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -92,5 +111,22 @@ public class DepartmentDto {
 
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
 	}	
+	
 }

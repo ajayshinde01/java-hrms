@@ -1,6 +1,7 @@
 package com.avisys.empmgmt.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.avisys.empmgmt.entity.Division;
 
@@ -76,29 +77,16 @@ public class EmployeeDto {
 	private String createdBy;
 
 	private String updatedBy;
+	
+	private LocalDateTime createdAt;
+	private LocalDateTime updatedAt;
 
 	public EmployeeDto() {
 		super();
 	}
 	
 
-	public EmployeeDto(Long id,
-			@NotNull(message = "employee code must not be null") @NotBlank(message = "employee code must not be blank") @Size(min = 2, max = 8, message = "Id should be in between 2 to 8 character") String employeeCode,
-			String profile_image,
-			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String firstName,
-			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String middleName,
-			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String lastName,
-			@NotNull(message = "Date must not be null") LocalDate dateOfBirth,
-			@NotNull(message = "Gender must not be null") @NotBlank(message = "Gender must not be blank") String gender,
-			@NotNull(message = "Date must not be null") LocalDate dateOfJoining,
-			@NotNull(message = "Age must not be null") @NotBlank(message = "Age must not be blank") String age,
-			@NotNull(message = "Status must not be null") @NotBlank(message = "Status must not be blank") String status,
-			Division division, String userId,
-			@NotNull(message = "Mobile number must not be null") @NotBlank(message = "Mobile number must not be blank") String mobile,
-			String phone,
-			@NotNull(message = "Email Id must not be null") @NotBlank(message = "Email Id must not be blank") String email,
-			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
-            String createdBy, String updatedBy) {
+	public EmployeeDto(Long id, String employeeCode, String profile_image, String firstName, String middleName, String lastName, LocalDate dateOfBirth, String gender, LocalDate dateOfJoining, String age, String status, Division division, String userId, String mobile, String phone, String email, String orgCode, String createdBy, String updatedBy, LocalDateTime createdAt,LocalDateTime updatedAt) {
 		super();
 		Id = id;
 		this.employeeCode = employeeCode;
@@ -119,6 +107,8 @@ public class EmployeeDto {
 		this.orgCode = orgCode;
 		this.createdBy = createdBy;
 		this.updatedBy = updatedBy;
+		this.createdAt=createdAt;
+		this.updatedAt=updatedAt;
 	}
 
 
@@ -296,6 +286,22 @@ public class EmployeeDto {
 
 	public void setDivision(Division division) {
 		this.division = division;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
 	}	
 
 }

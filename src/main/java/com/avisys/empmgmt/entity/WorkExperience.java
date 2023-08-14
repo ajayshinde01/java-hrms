@@ -25,9 +25,13 @@ public class WorkExperience extends Status {
 	private Long id;
 	
 	@Column(name="company_name")
+	@NotNull(message="CompanyName field must not be null")
+	@NotBlank(message="CompanyName field must not be blank")
 	private String companyName;
 	
 	@Column(name="designation")
+	@NotNull(message="Designation field must not be null")
+	@NotBlank(message="Designation field must not be blank")
 	private String Designation;
 	
 	@Column(name="from_date")
@@ -47,11 +51,7 @@ public class WorkExperience extends Status {
 		super();
 	}
 
-	public WorkExperience(
-			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
-			boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy,
-			String companyName, String designation, LocalDate fromDate, LocalDate toDate, String address,
-			Employee employee) {
+	public WorkExperience( String orgCode, boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy,String companyName, String designation, LocalDate fromDate, LocalDate toDate, String address, Employee employee) {
 		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
 		this.companyName = companyName;
 		Designation = designation;

@@ -77,17 +77,8 @@ public class Address extends Status{
 	}
 
 	
-	public Address(
-			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
-			boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy,
-			@NotNull(message = "Id must not be null") @NotBlank(message = "Id must not be blank") @Size(min = 2, max = 15, message = "AddressType should be in between 2 to 15 character") String addressType,
-			@NotNull(message = "address1 field must not be null") @NotBlank(message = "address1 field must not be blank") String address1,
-			String address2, String landmark, String addressTenure,
-			@NotNull(message = "city must not be null") @NotBlank(message = "city must not be blank") String city,
-			@NotNull(message = "state must not be null") @NotBlank(message = "state must not be blank") String state,
-			@NotNull(message = "country must not be null") @NotBlank(message = "country must not be blank") String country,
-			@NotNull(message = "postcode must not be null") @NotBlank(message = "postcode must not be blank") String postcode,
-			String ownershipStatus, Employee employee) {
+	public Address(String orgCode, boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy, String addressType,
+			String address1, String address2, String landmark, String addressTenure, String city, String state, String country,String postcode,String ownershipStatus, Employee employee) {
 		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
 		this.addressType = addressType;
 		this.address1 = address1;

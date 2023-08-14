@@ -1,5 +1,7 @@
 package com.avisys.empmgmt.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -40,6 +42,15 @@ public class Department extends Status{
 	public Department() {
 		super();
 	}
+	
+
+	public Department(String orgCode,boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy,String departmentId,String departmentName,String departmentDescription) {
+		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
+		this.departmentId = departmentId;
+		this.departmentName = departmentName;
+		this.departmentDescription = departmentDescription;
+	}
+
 
 	public Long getId() {
 		return id;

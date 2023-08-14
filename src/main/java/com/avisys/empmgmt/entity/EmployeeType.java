@@ -40,10 +40,7 @@ public class EmployeeType extends Status {
 
     }
 
- 
-
-    public EmployeeType(Long id,String employeeTypeId,  String orgCode,
-            boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy) {
+    public EmployeeType(Long id,String employeeTypeId, String orgCode, boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy) {
         super();
         this.id = id;
         this.employeeTypeId = employeeTypeId;

@@ -25,5 +25,7 @@ public interface VisaRepository extends JpaRepository<Visa, Long>{
 	@Query("SELECT v FROM Visa v WHERE LOWER(v.countryCode) LIKE %:keyword% AND v.employee.id = :employeeId AND v.isDeleted = false")
 	Page<Visa> searchByVisaAndEmployeeId(@Param("keyword") String keyword, Pageable pageable, @Param("employeeId") Long employeeId);
 
+	Optional<Visa> findByVisaNumber(String visaNumber);
+
 		
 }

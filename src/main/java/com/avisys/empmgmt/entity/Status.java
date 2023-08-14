@@ -80,8 +80,7 @@ public class Status {
 		this.updatedBy = updatedBy;
 	}
 
-	Status(@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
-			boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy) {
+	Status(String orgCode, boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy) {
 		super();
 		this.orgCode = orgCode;
 		this.isDeleted = isDeleted;

@@ -1,6 +1,8 @@
 package com.avisys.empmgmt.dto;
 
 
+import java.time.LocalDateTime;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -53,22 +55,17 @@ public class AddressDto {
 	private String createdBy;
 
 	private String updatedBy;
+	
+	private LocalDateTime createdAt;
+	
+	private LocalDateTime updatedAt;
 
 	public AddressDto() {
 		super();
 	}
 	
 	
-	public AddressDto(
-			@NotNull(message = "AddressType must not be null") @NotBlank(message = "AddressType must not be blank") @Size(min = 2, max = 15, message = "AddressType should be in between 2 to 15 character") String addressType,
-			@NotNull(message = "address1 field must not be null") @NotBlank(message = "address1 field must not be blank") String address1,
-			String address2, String landmark, String addressTenure,
-			@NotNull(message = "city must not be null") @NotBlank(message = "city must not be blank") String city,
-			@NotNull(message = "state must not be null") @NotBlank(message = "state must not be blank") String state,
-			@NotNull(message = "country must not be null") @NotBlank(message = "country must not be blank") String country,
-			@NotNull(message = "postcode must not be null") @NotBlank(message = "postcode must not be blank") String postcode,
-			String ownershipStatus,
-			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode, String createdBy, String updatedBy) {
+	public AddressDto( String addressType, String address1, String address2, String landmark, String addressTenure, String city, String state, String country, String postcode, String ownershipStatus, String orgCode, String createdBy, String updatedBy, LocalDateTime createdAt,LocalDateTime updatedAt) {
 		super();
 		this.addressType = addressType;
 		this.address1 = address1;
@@ -83,6 +80,8 @@ public class AddressDto {
 		this.orgCode = orgCode;
 		this.createdBy = createdBy;
 		this.updatedBy = updatedBy;
+		this.createdAt =createdAt;
+		this.updatedAt=updatedAt;
 	}
 
 
@@ -195,6 +194,26 @@ public class AddressDto {
 
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 	
 }

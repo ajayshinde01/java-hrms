@@ -58,6 +58,7 @@ public class PersonalDetails extends Status{
 	@NotBlank(message="aadhaar name should not be blank")
     private String aadhaarName;
     
+    @Column(name="aadhaar_file")
     private String aadhaarFile;
     
     @Column(name="passport_number")
@@ -71,16 +72,19 @@ public class PersonalDetails extends Status{
 	@NotBlank(message="passport name should not be blank")
     private String passportName;
     
+    @Column(name="passport_issue_date")
     private LocalDate passportIssueDate;
     
+    @Column(name="passport_validity")
     private LocalDate passportValidity;
 
+    @Column(name="passport_file")
     private String passportFile;
     
     @Column(name="pan_card_number")
 	@NotNull(message="pan card number should not be null")
 	@NotBlank(message="pan card number should not be blank")
-    @Size(min = 10,max=10,message = "pan card number must contain 10 digits")
+    @Pattern(regexp = "^[A-Z]{5}[0-9]{4}[A-Z]$", message = "PAN card number must be a 10-character alphanumeric value in the format ABCDE1234F")
     private String panCardNumber;
     
     @Column(name="pan_card_name")
@@ -88,6 +92,7 @@ public class PersonalDetails extends Status{
 	@NotBlank(message="pan card name should not be blank")
     private String panCardName;
 	
+    @Column(name="pancard_file")
     private String panCardFile;
     
     @Column(name="bank_account_number")
@@ -116,7 +121,7 @@ public class PersonalDetails extends Status{
     private String pfNumber;
     
     @OneToOne
-    @JoinColumn(name="employee_id")
+    @JoinColumn(name="employee_id_fk")
     private Employee employee;
 
 	public PersonalDetails() {

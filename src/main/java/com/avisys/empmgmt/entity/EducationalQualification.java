@@ -47,11 +47,7 @@ public class EducationalQualification extends Status{
 		super();
 	}
 
-	public EducationalQualification(
-			@NotNull(message = "Qualification must not be null") @NotBlank(message = "Qualification must not be blank") String educationalQualification,
-			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String instituteName,
-			@NotNull(message = "Name must not be null") @NotBlank(message = "Name must not be blank") String qualificationLevel,
-			@NotNull(message = "year must not be null") String passingYear, Employee employee) {
+	public EducationalQualification(String educationalQualification,String instituteName,String qualificationLevel,String passingYear, Employee employee) {
 		super();
 		this.educationalQualification = educationalQualification;
 		this.instituteName = instituteName;

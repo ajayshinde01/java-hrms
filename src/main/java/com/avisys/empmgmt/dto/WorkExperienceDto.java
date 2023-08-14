@@ -1,6 +1,7 @@
 package com.avisys.empmgmt.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -36,21 +37,15 @@ public class WorkExperienceDto {
 	private String createdBy;
 
 	private String updatedBy;
+	
+	private LocalDateTime createdAt;
+	private LocalDateTime updatedAt;
 
 	public WorkExperienceDto() {
 		super();
 	}
 
-	
-
-	public WorkExperienceDto(
-			@NotNull(message = "companyName must not be null") @NotBlank(message = "companyName must not be blank") String companyName,
-			@NotNull(message = "Designation must not be null") @NotBlank(message = "Designation must not be blank") String designation,
-			@NotNull(message = "StartDate must not be null") LocalDate fromDate,
-			@NotNull(message = "EndDate must not be null") LocalDate toDate,
-			@NotNull(message = "address must not be null") @NotBlank(message = "address must not be blank") String address,
-			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
-			String createdBy, String updatedBy) {
+	public WorkExperienceDto( String companyName, String designation, LocalDate fromDate, LocalDate toDate, String address, String orgCode, String createdBy, String updatedBy, LocalDateTime createdAt,LocalDateTime updatedAt) {
 		super();
 		this.companyName = companyName;
 		Designation = designation;
@@ -60,9 +55,9 @@ public class WorkExperienceDto {
 		this.orgCode = orgCode;
 		this.createdBy = createdBy;
 		this.updatedBy = updatedBy;
+		this.createdAt=createdAt;
+		this.updatedAt=updatedAt;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -134,6 +129,22 @@ public class WorkExperienceDto {
 
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 	
 }

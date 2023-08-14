@@ -1,6 +1,7 @@
 package com.avisys.empmgmt.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -32,16 +33,14 @@ public class VisaDto {
 
 	private String updatedBy;
 	
+	private LocalDateTime createdAt;
+	private LocalDateTime updatedAt;
+	
 	public VisaDto() {
 		super();
 	}
 
-	public VisaDto(
-			@NotNull(message = "countryCode field must not be null") @NotBlank(message = "countryCode field must not be blank") String countryCode,
-			@NotNull(message = "visaNumber field must not be null") @NotBlank(message = "visaNumber field must not be blank") String visaNumber,
-			@NotNull(message = "address1 field must not be null") LocalDate validDate, String visaFile,
-			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") String orgCode,
-			String createdBy, String updatedBy) {
+	public VisaDto( String countryCode, String visaNumber, LocalDate validDate, String visaFile, String orgCode, String createdBy, String updatedBy, LocalDateTime createdAt,LocalDateTime updatedAt) {
 		super();
 		this.countryCode = countryCode;
 		this.visaNumber = visaNumber;
@@ -50,6 +49,8 @@ public class VisaDto {
 		this.orgCode = orgCode;
 		this.createdBy = createdBy;
 		this.updatedBy = updatedBy;
+		this.createdAt=createdAt;
+		this.updatedAt=updatedAt;
 	}
 
 
@@ -116,6 +117,22 @@ public class VisaDto {
 
 	public void setVisaFile(String visaFile) {
 		this.visaFile = visaFile;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 	
 	

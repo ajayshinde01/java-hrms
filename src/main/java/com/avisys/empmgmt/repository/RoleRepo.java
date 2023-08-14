@@ -9,8 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
-import com.avisys.empmgmt.entity.Employee;
 import com.avisys.empmgmt.entity.Role;
 
 import jakarta.transaction.Transactional;
@@ -29,8 +27,7 @@ public interface RoleRepo extends JpaRepository<Role, Long> {
 	
 	@Query(" SELECT r from Role r WHERE ( r.isDeleted=false) "
 			+ "AND		 ( 	  lower(r.roleId) LIKE  %:key% "
-						+ "OR lower(r.roleName) LIKE  %:key% "
-						+ "OR LOWER(r.orgCode) LIKE  %:key% )"
+						+ "OR lower(r.roleName) LIKE  %:key% )"
 
 )
 	public Optional<Page<Role>> searchRole(@Param("key") String key, Pageable pageable);

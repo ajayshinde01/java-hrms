@@ -15,8 +15,6 @@ public interface DepartmentRepo extends JpaRepository<Department, Long>{
 
 	List<Department> findByIsDeletedFalse();
 
-//	Optional<Department> findById(Long id);
-
 	Optional<Department> findByDepartmentId(String departmentId);
 	
 	@Query("SELECT d FROM Department d WHERE (LOWER(d.departmentId) LIKE %:key% OR LOWER(d.departmentName) LIKE %:key% OR LOWER(d.departmentDescription) LIKE %:key% ) and d.isDeleted=false")
