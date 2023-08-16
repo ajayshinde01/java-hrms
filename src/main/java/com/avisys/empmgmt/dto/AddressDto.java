@@ -15,7 +15,7 @@ public class AddressDto {
 	
 	@NotNull(message="Id must not be null")
 	@NotBlank(message="Id must not be blank")
-	@Size(min=2, max=15, message="AddressType should be in between 2 to 15 character")	
+	@Size(max=15, message="AddressType should be at max 15 character")	
 	private String addressType;
 
 	@NotNull(message="address1 field must not be null")

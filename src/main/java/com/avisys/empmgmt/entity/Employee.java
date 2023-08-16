@@ -29,15 +29,16 @@ public class Employee extends Status{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "employee_info_id_squenece_generator")
 	@SequenceGenerator(name="employee_info_id_squenece_generator", initialValue = 1, allocationSize = 1)
-	@Column(name="ID")
+	@Column(name="id")
 	private Long id;
 	
-	private String profile_image;
+	@Column(name="profile_image")
+	private String profileImage;
 	
 	@Column(name="employee_code", unique=true)
 	@NotNull(message="employee code must not be null")
 	@NotBlank(message="employee code must not be blank")
-	@Size(min=2, max=8, message="Id should be in between 2 to 8 character")
+	@Size(max=8, message="Id should be at max 8 character")
 	private String employeeCode;
 	
 	@Column(name="first_name")
@@ -123,9 +124,9 @@ public class Employee extends Status{
 		super();
 	}
 
-	public Employee(String orgCode, boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy, String profile_image, String employeeCode, String firstName, String middleName, String lastName, LocalDate dateOfBirth, String gender, LocalDate dateOfJoining, String age, String status, Division division, String userId, String mobile, String phone, String email, List<Address> addressList, CompanyDetail companyDetail, PersonalDetails personalDetails, JoiningDetail joiningDetail, List<WorkExperience> workExperience, List<EmergencyContacts> emergencyContacts, List<Visa> visa) {
+	public Employee(String orgCode, boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy, String profileImage, String employeeCode, String firstName, String middleName, String lastName, LocalDate dateOfBirth, String gender, LocalDate dateOfJoining, String age, String status, Division division, String userId, String mobile, String phone, String email, List<Address> addressList, CompanyDetail companyDetail, PersonalDetails personalDetails, JoiningDetail joiningDetail, List<WorkExperience> workExperience, List<EmergencyContacts> emergencyContacts, List<Visa> visa) {
 		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
-		this.profile_image = profile_image;
+		this.profileImage = profileImage;
 		this.employeeCode = employeeCode;
 		this.firstName = firstName;
 		this.middleName = middleName;
@@ -325,12 +326,12 @@ public class Employee extends Status{
 		this.joiningDetail = joiningDetail;
 	}
 	
-	public String getProfile_image() {
-		return profile_image;
+	public String getProfileImage() {
+		return profileImage;
 	}
 
-	public void setProfile_image(String profile_image) {
-		this.profile_image = profile_image;
+	public void setProfileImage(String profileImage) {
+		this.profileImage = profileImage;
 	}
 
 	public Division getDivision() {

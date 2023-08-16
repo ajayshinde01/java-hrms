@@ -16,10 +16,10 @@ public class EmployeeDto {
 	
 	@NotNull(message="employee code must not be null")
 	@NotBlank(message="employee code must not be blank")
-	@Size(min=2, max=8, message="Id should be in between 2 to 8 character")
+	@Size(max=8, message="Id should be at max 8 character")
 	private String employeeCode;
 	
-	private String profile_image;
+	private String profileImage;
 	
 	@NotNull(message="First Name must not be null")
 	@NotBlank(message="First Name must not be blank")
@@ -86,11 +86,11 @@ public class EmployeeDto {
 	}
 	
 
-	public EmployeeDto(Long id, String employeeCode, String profile_image, String firstName, String middleName, String lastName, LocalDate dateOfBirth, String gender, LocalDate dateOfJoining, String age, String status, Division division, String userId, String mobile, String phone, String email, String orgCode, String createdBy, String updatedBy, LocalDateTime createdAt,LocalDateTime updatedAt) {
+	public EmployeeDto(Long id, String employeeCode, String profileImage, String firstName, String middleName, String lastName, LocalDate dateOfBirth, String gender, LocalDate dateOfJoining, String age, String status, Division division, String userId, String mobile, String phone, String email, String orgCode, String createdBy, String updatedBy, LocalDateTime createdAt,LocalDateTime updatedAt) {
 		super();
 		Id = id;
 		this.employeeCode = employeeCode;
-		this.profile_image = profile_image;
+		this.profileImage = profileImage;
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
@@ -272,12 +272,12 @@ public class EmployeeDto {
 		this.updatedBy = updatedBy;
 	}
 
-	public String getProfile_image() {
-		return profile_image;
+	public String getProfileImage() {
+		return profileImage;
 	}
 
-	public void setProfile_image(String profile_image) {
-		this.profile_image = profile_image;
+	public void setProfile_image(String profileImage) {
+		this.profileImage = profileImage;
 	}
 
 	public Division getDivision() {

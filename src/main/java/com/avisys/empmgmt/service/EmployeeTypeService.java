@@ -81,6 +81,7 @@ public class EmployeeTypeService {
         employeeType.setCreatedAt(LocalDateTime.now());
         employeeType.setCreatedBy(employeeTypeDTO.getCreatedBy());
         employeeType.setUpdatedAt(LocalDateTime.now());
+        employeeType.setUpdatedBy(null);
         employeeType.setDeleted(false);
         EmployeeType employeeTypeObject = employeeTypeRepository.save(employeeType);
         return this.mapper.map(employeeTypeObject, EmployeeTypeDTO.class);
@@ -129,9 +130,6 @@ public class EmployeeTypeService {
         } else {
             throw new ResourceNotFoundException("Record with Id " + employeeTypeId + " Not Found...");
         }
-
- 
-
     }
 
  
@@ -172,9 +170,10 @@ Optional<EmployeeType> employeeTypeOptionalObj = employeeTypeRepository.findById
 
  
 
-    public Optional<Page<EmployeeType>> searchingSortingPagination(String key, Pageable pageable) {
-        Optional<Page<EmployeeType>> foundedPages = this.employeeTypeRepository.searchEmployeeType(key.toLowerCase(),
-                pageable);
-        return foundedPages;
+    public Page<EmployeeType> searchingSortingPagination(String key, Pageable pageable) {
+        Page<EmployeeType> employees = employeeTypeRepository.searchEmployeeType(key, pageable)
+                .orElseThrow(() -> new EmployeeTypeException("EmployeeType Not Found"));
+
+            return employees;        
     }
 }

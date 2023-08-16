@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<?> handleDataNotFoundException(ResourceNotFoundException exception, WebRequest request) {
 		Error_Details error_Details = new Error_Details(new Date(), exception.getMessage(),
 				request.getDescription(false));
-		return new ResponseEntity<>(error_Details, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(error_Details, HttpStatus.BAD_REQUEST);
 	}
 
 	
@@ -43,7 +43,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(DataAlreadyPresentException.class)
 	public ResponseEntity<String> DataAlreadyPresentException(DataAlreadyPresentException ex) {
 
-		return new ResponseEntity(new ApiResponse("Data Already Present..."), HttpStatus.NOT_FOUND);
+		return new ResponseEntity(new ApiResponse("Data Already Present..."), HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(DesignationNotFound.class)
@@ -51,7 +51,7 @@ public class GlobalExceptionHandler {
 		ApiResponse response = new ApiResponse();
 		response.setDateTime(LocalDateTime.now());
 		response.setMessage(exception.getMessage());
-		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 
 	}
 
@@ -59,13 +59,13 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(value = NoRoleFoundException.class)
 
 	public ResponseEntity<Object> exception(NoRoleFoundException exception) {
-		return new ResponseEntity(new ApiResponse("Role not found",LocalDateTime.now()), HttpStatus.NOT_FOUND);
+		return new ResponseEntity(new ApiResponse("Role not found",LocalDateTime.now()), HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(value = EmptyListException.class)
 
 	public ResponseEntity<Object> exception(EmptyListException exception) {
-		return new ResponseEntity<>(new ApiResponse("No Records found"), HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(new ApiResponse("No Records found"), HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(value = InvalidInputException.class)
@@ -89,7 +89,7 @@ public class GlobalExceptionHandler {
 		ApiResponse apiResponse = new ApiResponse();
 		apiResponse.setMessage(divisionNotFound.getMessage());
 		apiResponse.setDateTime(LocalDateTime.now());
-		return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
 
 	}
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
@@ -106,13 +106,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NoEmployeeFoundException.class)
     public ResponseEntity<Object> exception(NoEmployeeFoundException exception) {
-        return new ResponseEntity(new ApiResponse("Employee not found"), HttpStatus.NOT_FOUND);
+        return new ResponseEntity(new ApiResponse("Employee not found"), HttpStatus.BAD_REQUEST);
     }
 	@ExceptionHandler(GradeException.class)
 	public ResponseEntity<?> gradeIdNotPresent(GradeException ex) {
 		String message = ex.getMessage();
 		ApiResponse apiResponse = new ApiResponse(message,LocalDateTime.now());
-		return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
 
 	}
 
@@ -120,21 +120,21 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<ApiResponse> DataNotFoundException(DepartmentException ex) {
 		String message = ex.getMessage();
 		ApiResponse apiResponse = new ApiResponse(message,LocalDateTime.now());
-		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.BAD_REQUEST);
 	}
 	
 	@ExceptionHandler(EmployeeException.class)
 	public ResponseEntity<ApiResponse> DataNotFoundException(EmployeeException ex) {
 		String message = ex.getMessage();
 		ApiResponse apiResponse = new ApiResponse(message,LocalDateTime.now());
-		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.BAD_REQUEST);
 	}
 	
 	@ExceptionHandler(AddressException.class)
 	public ResponseEntity<ApiResponse> DataNotFoundException(AddressException ex) {
 		String message = ex.getMessage();
 		ApiResponse apiResponse = new ApiResponse(message,LocalDateTime.now());
-		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.BAD_REQUEST);
 	}
 	
 	@ExceptionHandler(CompanyDetailAlreadyPresent.class)
@@ -150,7 +150,7 @@ public class GlobalExceptionHandler {
 		ApiResponse response = new ApiResponse();
 		response.setDateTime(LocalDateTime.now());
 		response.setMessage(exception.getMessage());
-		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 	}
 
     @ExceptionHandler(NoPersonalDetailsFound.class)
@@ -158,7 +158,7 @@ public class GlobalExceptionHandler {
 		ApiResponse response = new ApiResponse();
 		response.setDateTime(LocalDateTime.now());
 		response.setMessage(exception.getMessage());
-		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 
 	}
        	
@@ -167,7 +167,7 @@ public class GlobalExceptionHandler {
 		ApiResponse response = new ApiResponse();
 		response.setDateTime(LocalDateTime.now());
 		response.setMessage(exception.getMessage());
-		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 
 	}   
        	
@@ -177,7 +177,7 @@ public class GlobalExceptionHandler {
 		ApiResponse response = new ApiResponse();
 		response.setDateTime(LocalDateTime.now());
 		response.setMessage(exception.getMessage());
-		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 
 	}
        	
@@ -186,28 +186,28 @@ public class GlobalExceptionHandler {
 		ApiResponse response = new ApiResponse();
 		response.setDateTime(LocalDateTime.now());
 		response.setMessage(exception.getMessage());
-		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
 	@ExceptionHandler(EmergencyContactsException.class)
 	public ResponseEntity<ApiResponse> DataNotFoundException(EmergencyContactsException ex) {
 		String message = ex.getMessage();
 		ApiResponse apiResponse = new ApiResponse(message,LocalDateTime.now());
-		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.BAD_REQUEST);
 	}
 	
 	@ExceptionHandler(VisaException.class)
 	public ResponseEntity<ApiResponse> DataNotFoundException(VisaException ex) {
 		String message = ex.getMessage();
 		ApiResponse apiResponse = new ApiResponse(message,LocalDateTime.now());
-		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.BAD_REQUEST);
 	}
 	
 	@ExceptionHandler(EducationalQualificationException.class)
 	public ResponseEntity<ApiResponse> DataNotFoundException(EducationalQualificationException ex) {
 		String message = ex.getMessage();
 		ApiResponse apiResponse = new ApiResponse(message,LocalDateTime.now());
-		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.BAD_REQUEST);
 	}
 	
 	
@@ -215,7 +215,7 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<ApiResponse> DataNotFoundException(WorkExperienceException ex) {
 		String message = ex.getMessage();
 		ApiResponse apiResponse = new ApiResponse(message,LocalDateTime.now());
-		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.BAD_REQUEST);
 
 	}
 	

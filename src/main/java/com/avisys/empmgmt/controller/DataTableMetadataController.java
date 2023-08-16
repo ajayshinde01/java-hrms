@@ -19,7 +19,7 @@ private static final DataTableMetadata GRADE_DEFINATION_METADATA;
 private static final DataTableMetadata EmployeeType_TYPE_DEFINITION_METADATA;
 private static final DataTableMetadata Department_TYPE_DEFINITION_METADATA;
 private static final DataTableMetadata Division_TYPE_DEFINITION_METADATA;
-
+private static final DataTableMetadata Employee_Info_DEFINITION_METADATA;
  
 
  
@@ -66,6 +66,12 @@ private static final DataTableMetadata Division_TYPE_DEFINITION_METADATA;
                 .addColumnMetadata(new ColumnMetadata("Division Name", "divisionName","divisionName", ColumnType.TEXT, 30))
                 .addColumnMetadata(new ColumnMetadata("Division Description", "divisionDescription","divisionDescription", ColumnType.TEXT, 30))
                 .addColumnMetadata(new ColumnMetadata("Org Code", "orgCode","orgCode", ColumnType.TEXT, 30));
+   
+        Employee_Info_DEFINITION_METADATA = new DataTableMetadata()
+                .addColumnMetadata(new ColumnMetadata("", "id","id" ,ColumnType.RADIO, 10))
+                .addColumnMetadata(new ColumnMetadata("Employee Code", "employeeCode","employeeCode", ColumnType.TEXT, 30))
+                .addColumnMetadata(new ColumnMetadata("First Name", "firstName","firstName", ColumnType.TEXT, 30))
+                .addColumnMetadata(new ColumnMetadata("Last Name", "lastName","lastName", ColumnType.TEXT, 30));
     }
 
 
@@ -101,5 +107,8 @@ private static final DataTableMetadata Division_TYPE_DEFINITION_METADATA;
         return Division_TYPE_DEFINITION_METADATA;
     }
     
-
+    @GetMapping("employee")
+    public DataTableMetadata getEmployeeDataTableMetadata() {
+        return Employee_Info_DEFINITION_METADATA;
+    }
 }

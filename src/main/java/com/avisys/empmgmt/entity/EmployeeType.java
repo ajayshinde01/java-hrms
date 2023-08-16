@@ -12,15 +12,14 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "employeetype")
+@Table(name = "employee_type")
 public class EmployeeType extends Status {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "emptype_generator")
 	@SequenceGenerator(name = "emptype_generator", sequenceName = "emptype_seq", allocationSize = 1)
-	@Column(name = "Id")
+	@Column(name = "id")
 	private Long id;
 	
 	@Column(name = "employee_type_id")

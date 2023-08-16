@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -120,12 +122,9 @@ public class EmployeeTypeController {
  
 
     @GetMapping("/search")
-    public ResponseEntity<?> searchingSortingPagination(@RequestParam(defaultValue = "") String keyword,
-            Pageable pageable) {
-        logger.warn(EmployeeTypeController.class.getName() + ":GET SEARCH+SORT+PAGINATION  Method called");
-        Optional<Page<EmployeeType>> pages = this.employeeTypeService.searchingSortingPagination(keyword, pageable);
-        
-        return new ResponseEntity(pages, HttpStatus.OK);
+    public ResponseEntity<?> searchingSortingPagination(@RequestParam(defaultValue = "") String keyword,@PageableDefault(direction = Direction.ASC) Pageable pageable){
+        logger.info("pagination method called");
+        return new ResponseEntity<>(employeeTypeService.searchingSortingPagination(keyword.toLowerCase(),pageable),HttpStatus.OK);    
     }
 
  
