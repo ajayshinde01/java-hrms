@@ -64,6 +64,9 @@ public class WorkExperienceService {
 
 		WorkExperience workExperience = workExperienceRepository.findByIdAndIsDeletedFalse(workExperienceDto.getId()).orElseThrow(()->new WorkExperienceException("WorkExperience not found"));
 	    if(employee==workExperience.getEmployee()) {
+	    	
+	    	workExperienceDto.setCreatedBy(workExperience.getCreatedBy());
+	    	workExperienceDto.setCreatedAt(workExperience.getCreatedAt());
 	        modelMapper.map(workExperienceDto, workExperience);
 	        
 	        workExperience.setUpdatedAt(LocalDateTime.now());

@@ -69,6 +69,8 @@ public class VisaService {
 		    	Optional<Visa> optionalVisa = visaRepository.findByVisaNumber(visaDto.getVisaNumber());
 				if(!optionalVisa.isPresent() || (optionalVisa.isPresent() && visaDto.getId() == optionalVisa.get().getId())){
 			
+					visaDetails.setCreatedBy(visaDto.getCreatedBy());
+					visaDetails.setCreatedAt(visaDto.getCreatedAt());
 		        modelMapper.map(visaDto, visaDetails);
 
 		        visaDetails.setUpdatedAt(LocalDateTime.now());

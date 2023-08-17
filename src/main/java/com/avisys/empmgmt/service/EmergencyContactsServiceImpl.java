@@ -67,6 +67,9 @@ public class EmergencyContactsServiceImpl implements EmergencyContactsService{
 
 	    EmergencyContacts contactObj = emergencyContactsRepository.findByIdAndIsDeletedFalse(emergencyContactsDto.getId()).orElseThrow(()->new EmergencyContactsException("Contact not found"));
 	    if(employee==contactObj.getEmployee()) {
+	    	
+	    	emergencyContactsDto.setCreatedBy(contactObj.getCreatedBy());
+	    	emergencyContactsDto.setCreatedAt(contactObj.getCreatedAt());
 	        modelMapper.map(emergencyContactsDto, contactObj);
 	        
 	        contactObj.setUpdatedAt(LocalDateTime.now());

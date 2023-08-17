@@ -44,6 +44,7 @@ public class AddressServiceImpl implements AddressService {
 		Address addressObject = this.modelMapper.map(addressDto, Address.class);
 		addressObject.setCreatedAt(LocalDateTime.now());
 		addressObject.setUpdatedBy(null);
+		addressObject.setUpdatedAt(null);
 		addressObject.setDeleted(false);
 		addressObject.setEmployee(employee);
 		Address address = addressRepository.save(addressObject);
@@ -66,10 +67,14 @@ public class AddressServiceImpl implements AddressService {
 
 	    Address addressObj = addressRepository.findByIdAndIsDeletedFalse(addressDto.getId()).orElseThrow(()->new AddressException("Address not found"));
 	    if(employee==addressObj.getEmployee()) {
+	    	
+	    	addressDto.setCreatedBy(addressObj.getCreatedBy());
+	    	addressDto.setCreatedAt(addressObj.getCreatedAt());
 	        modelMapper.map(addressDto, addressObj);
       
 	        addressObj.setUpdatedAt(LocalDateTime.now());
 	        addressObj.setUpdatedBy(addressDto.getUpdatedBy());
+	        
 	        addressObj.setDeleted(false);
 
 	        Address address = addressRepository.save(addressObj);

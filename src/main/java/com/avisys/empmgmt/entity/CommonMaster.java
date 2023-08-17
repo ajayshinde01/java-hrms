@@ -14,7 +14,7 @@ import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name="common_maters")
-public class CommonMaster extends Status{
+public class CommonMaster{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "common_master_id_squenece_generator")
@@ -30,15 +30,14 @@ public class CommonMaster extends Status{
 	@NotBlank(message="Code must not be blank")
 	private String code;
 	
+
 	private int priority;
 	
 	@NotNull(message="Value must not be null")
 	@NotBlank(message="Value must not be blank")
 	private String value;
 	
-	@Column(name="is_mst")
-	@NotNull(message="isMaster must not be null")
-	@NotBlank(message="isMaster must not be blank")
+	@Column(name="is_master")
 	private boolean isMaster;
 	
 	@Column(name="foreign_key")
@@ -46,11 +45,29 @@ public class CommonMaster extends Status{
 	
 	@Column(name="additional_value")
 	private String additionalValue;
+	
+	@Column(name = "is_deleted")
+	protected boolean isDeleted ;
 
-	public CommonMaster(String orgCode, boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt,
-			String createdBy, String updatedBy, Long id, String masterName, String code, int priority, String value,
-			boolean isMaster, String foreignKey, String additionalValue) {
-		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
+	@Column(name = "created_at")
+	protected LocalDateTime createdAt;
+	
+	@Column(name = "updated_at")
+	protected LocalDateTime updatedAt;
+	
+	@Column(name = "created_by")
+	protected String createdBy;
+	
+	@Column(name = "updated_by")
+	protected String updatedBy;
+
+
+	public CommonMaster() {
+		super();
+	}
+
+	public CommonMaster(Long id, String masterName,String code,int priority,String value,boolean isMaster, String foreignKey, String additionalValue, boolean isDeleted, LocalDateTime createdAt,LocalDateTime updatedAt, String createdBy, String updatedBy) {
+		super();
 		this.id = id;
 		this.masterName = masterName;
 		this.code = code;
@@ -59,10 +76,11 @@ public class CommonMaster extends Status{
 		this.isMaster = isMaster;
 		this.foreignKey = foreignKey;
 		this.additionalValue = additionalValue;
-	}
-
-	public CommonMaster() {
-		super();
+		this.isDeleted = isDeleted;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.createdBy = createdBy;
+		this.updatedBy = updatedBy;
 	}
 
 	public Long getId() {
@@ -105,14 +123,6 @@ public class CommonMaster extends Status{
 		this.value = value;
 	}
 
-	public boolean getIsMaster() {
-		return isMaster;
-	}
-
-	public void setIsMaster(boolean isMaster) {
-		this.isMaster = isMaster;
-	}
-
 	public String getForeignKey() {
 		return foreignKey;
 	}
@@ -128,4 +138,53 @@ public class CommonMaster extends Status{
 	public void setAdditionalValue(String additionalValue) {
 		this.additionalValue = additionalValue;
 	}
+
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+
+	public void setMaster(boolean isMaster) {
+		this.isMaster = isMaster;
+	}
+
+	public boolean isMaster() {
+		return isMaster;
+	}
+	
 }

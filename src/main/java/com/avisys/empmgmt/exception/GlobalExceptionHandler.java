@@ -226,4 +226,11 @@ public class GlobalExceptionHandler {
 	                HttpStatus.BAD_REQUEST);
 
 	    }
+	
+	@ExceptionHandler(CommonMasterException.class)
+	public ResponseEntity<ApiResponse> DataNotFoundException(CommonMasterException ex) {
+		String message = ex.getMessage();
+		ApiResponse apiResponse = new ApiResponse(message,LocalDateTime.now());
+		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.BAD_REQUEST);
+	}
 }

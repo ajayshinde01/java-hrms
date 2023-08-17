@@ -101,7 +101,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 			
 	    Employee employeeObj = employeeRepository.findByIdAndIsDeletedFalse(employeeDto.getId()).orElseThrow(()-> new EmployeeException("No Employee Present for given ID"));
 
-	        modelMapper.map(employeeDto, employeeObj);
+	    employeeDto.setCreatedBy(employeeObj.getCreatedBy());
+	    employeeDto.setCreatedAt(employeeObj.getCreatedAt());
+	       
+	    modelMapper.map(employeeDto, employeeObj);
 
 	        employeeObj.setUpdatedAt(LocalDateTime.now());
 	        employeeObj.setUpdatedBy(employeeDto.getUpdatedBy());

@@ -70,6 +70,9 @@ public class EducationalQualificationService {
 		
 		EducationalQualification educationObj = educationalRepository.findByIdAndIsDeletedFalse(educationalQualificationDto.getId()).orElseThrow(()->new EducationalQualificationException("educational qualification not found"));
 	    if(employee==educationObj.getEmployee()) {
+	    	
+	    	educationalQualificationDto.setCreatedBy(educationObj.getCreatedBy());
+	    	educationalQualificationDto.setCreatedAt(educationObj.getCreatedAt());
 	        modelMapper.map(educationalQualificationDto, educationObj);
 
 	        educationObj.setUpdatedAt(LocalDateTime.now());

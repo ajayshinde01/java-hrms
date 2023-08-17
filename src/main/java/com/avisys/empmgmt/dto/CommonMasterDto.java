@@ -23,8 +23,6 @@ public class CommonMasterDto {
 	@NotBlank(message="Value must not be blank")
 	private String value;
 
-	@NotNull(message="isMaster must not be null")
-	@NotBlank(message="isMaster must not be blank")
 	private boolean isMaster;
 
 	private String foreignKey;
@@ -39,13 +37,7 @@ public class CommonMasterDto {
 		super();
 	}
 
-	public CommonMasterDto(Long id,
-			@NotNull(message = "Master Name must not be null") @NotBlank(message = "Master Name must not be blank") String masterName,
-			@NotNull(message = "Code must not be null") @NotBlank(message = "Code must not be blank") String code,
-			int priority,
-			@NotNull(message = "Value must not be null") @NotBlank(message = "Value must not be blank") String value,
-			@NotNull(message = "isMaster must not be null") @NotBlank(message = "isMaster must not be blank") boolean isMaster,
-			String foreignKey, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy) {
+	public CommonMasterDto(Long id,String masterName, String code,int priority, String value, boolean isMaster, String foreignKey, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy) {
 		super();
 		this.id = id;
 		this.masterName = masterName;
