@@ -13,8 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.avisys.empmgmt.dto.CreateDesignationDto;
 import com.avisys.empmgmt.dto.DesignationDto;
+import com.avisys.empmgmt.entity.Department;
 import com.avisys.empmgmt.entity.Designation;
+import com.avisys.empmgmt.exception.DepartmentException;
 import com.avisys.empmgmt.exception.DesignationNotFound;
+import com.avisys.empmgmt.exception.DivisionNotFound;
 import com.avisys.empmgmt.repository.DesignationRepo;
 import com.avisys.empmgmt.util.Utils;
 
@@ -41,13 +44,16 @@ public class DesignationService implements IDesignationService {
 
 	@Override
 	public DesignationDto createDesignation(CreateDesignationDto designationDto) {	
-		if(designationRepo.findByDesignationId(designationDto.getDesignationId()).isPresent()) {
-			throw new DesignationNotFound("Designation Id already present");
-		}else {
+		Optional<Designation> optionalDesignation = designationRepo.findByDesignationId(designationDto.getDesignationId());
+		if (optionalDesignation.isPresent()) {
+			if(optionalDesignation.get().isDeleted()==true) {
+			throw new DesignationNotFound("Designation ID already present but marked deleted");
+			}else throw new DesignationNotFound("Designation ID already present");
+		}	
+	
 		Designation designationToCreate=new Designation(designationDto.getDesignationId().toUpperCase(), designationDto.getDesignationName(), designationDto.getDesignationDesc(), designationDto.getOrgCode(), false, LocalDateTime.now(), LocalDateTime.now(), designationDto.getCreatedBy(),null);
 		Designation designationCreated= designationRepo.save(designationToCreate);	
 		return designationUtils.designationToDesignationDto(designationCreated);
-			}
 		}
 
 

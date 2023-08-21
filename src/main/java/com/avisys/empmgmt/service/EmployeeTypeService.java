@@ -66,16 +66,16 @@ public class EmployeeTypeService {
 
     /************* Create Record ******************/
 
- 
-
     public EmployeeTypeDTO createEmployeeType(@Valid EmployeeTypeDTO employeeTypeDTO) {
         Optional<EmployeeType> optionalEmployeeType = employeeTypeRepository
-                .findByEmployeeTypeIdAndIsDeleted(employeeTypeDTO.getEmployeeTypeId(), false);
+                .findByEmployeeTypeId(employeeTypeDTO.getEmployeeTypeId());
         if (optionalEmployeeType.isPresent()) {
-            throw new EmployeeException("Employee Type code should not be duplicate");
+            if (optionalEmployeeType.get().isDeleted()) {
+                throw new EmployeeException("EmployeeType ID already present but marked deleted");
+            } else {
+                throw new EmployeeException("EmployeeType ID already present");
+            }
         }
-
- 
 
         EmployeeType employeeType = this.mapper.map(employeeTypeDTO, EmployeeType.class);
         employeeType.setCreatedAt(LocalDateTime.now());

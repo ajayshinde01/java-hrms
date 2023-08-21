@@ -41,6 +41,11 @@ public class Employee extends Status{
 	@Size(max=8, message="Id should be at max 8 character")
 	private String employeeCode;
 	
+	@Column(name = "title")
+	@NotNull(message="title must not be null")
+	@NotBlank(message="title must not be blank")
+    private String title;
+	
 	@Column(name="first_name")
 	@NotNull(message="First Name must not be null")
 	@NotBlank(message="First Name must not be blank")
@@ -124,10 +129,11 @@ public class Employee extends Status{
 		super();
 	}
 
-	public Employee(String orgCode, boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy, String profileImage, String employeeCode, String firstName, String middleName, String lastName, LocalDate dateOfBirth, String gender, LocalDate dateOfJoining, String age, String status, Division division, String userId, String mobile, String phone, String email, List<Address> addressList, CompanyDetail companyDetail, PersonalDetails personalDetails, JoiningDetail joiningDetail, List<WorkExperience> workExperience, List<EmergencyContacts> emergencyContacts, List<Visa> visa) {
+	public Employee(String orgCode, boolean isDeleted, LocalDateTime createdAt, String title, LocalDateTime updatedAt, String createdBy, String updatedBy, String profileImage, String employeeCode, String firstName, String middleName, String lastName, LocalDate dateOfBirth, String gender, LocalDate dateOfJoining, String age, String status, Division division, String userId, String mobile, String phone, String email, List<Address> addressList, CompanyDetail companyDetail, PersonalDetails personalDetails, JoiningDetail joiningDetail, List<WorkExperience> workExperience, List<EmergencyContacts> emergencyContacts, List<Visa> visa) {
 		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
 		this.profileImage = profileImage;
 		this.employeeCode = employeeCode;
+		this.title = title;
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
@@ -150,8 +156,6 @@ public class Employee extends Status{
 		this.visa = visa;
 	}
 
-
-
 	public Long getId() {
 		return id;
 	}
@@ -170,7 +174,14 @@ public class Employee extends Status{
 	public void setEmployeeCode(String employeeCode) {
 		this.employeeCode = employeeCode;
 	}
+	
+	public String getTitle() {
+		return title;
+	}
 
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
 	public String getFirstName() {
 		return firstName;

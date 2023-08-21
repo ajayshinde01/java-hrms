@@ -10,9 +10,11 @@ import com.avisys.empmgmt.dto.DesignationDto;
 import com.avisys.empmgmt.dto.DivisionDto;
 import com.avisys.empmgmt.dto.EmployeeTypeDTO;
 import com.avisys.empmgmt.dto.GETResponse;
+import com.avisys.empmgmt.dto.OrganizationDTO;
 import com.avisys.empmgmt.entity.Designation;
 import com.avisys.empmgmt.entity.Division;
 import com.avisys.empmgmt.entity.EmployeeType;
+import com.avisys.empmgmt.entity.Organization;
 import com.avisys.empmgmt.entity.Role;
 
 @Component
@@ -68,5 +70,17 @@ public class Utils {
         return new EmployeeType(employeeTypeDTO.getId(), employeeTypeDTO.getType(), employeeTypeDTO.getOrgCode(), false,
                 employeeTypeDTO.getCreatedAt(), employeeTypeDTO.getUpdatedAt(), employeeTypeDTO.getCreatedBy(),
                 employeeTypeDTO.getUpdatedBy());
+    }
+    
+    public OrganizationDTO organizationToOrganizationDto(Organization organization) {
+
+        System.out.println("Hi converting"+organization.toString());
+
+        return new OrganizationDTO(organization.getId(),organization.getOrganizationCode(),organization.getOrganizationName()
+
+                ,organization.getOrganizationDesc(),
+
+                organization.getCreatedAt(),organization.getUpdatedAt(),organization.getCreatedBy(),organization.getUpdatedBy());
+
     }
 }

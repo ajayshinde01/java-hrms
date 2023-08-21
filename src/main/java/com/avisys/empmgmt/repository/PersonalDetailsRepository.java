@@ -19,4 +19,6 @@ public interface PersonalDetailsRepository extends JpaRepository<PersonalDetails
 	Optional<PersonalDetails> findByAadhaarNumberOrPanCardNumberOrPassportNumberAndIsDeletedFalse(String aadhaarNumber,
 			String panCardNumber, String passportNumber);
 
+	Optional<PersonalDetails> findByEmployee(Employee employee);
+
 }

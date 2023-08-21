@@ -42,7 +42,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public DepartmentDto createDepartment(DepartmentDto departmentDto){
 		Optional<Department> optionalDepartment = departmentRepository.findByDepartmentId(departmentDto.getDepartmentId());
 		if (optionalDepartment.isPresent()) {
-			throw new DepartmentException("Department Id should not be duplicate");
+			if(optionalDepartment.get().isDeleted()==true) {
+			throw new DepartmentException("Department ID already present but marked deleted");
+			}else throw new DepartmentException("Department ID already present");
 		}
 		Department department = this.modelMapper.map(departmentDto, Department.class);
 		department.setCreatedAt(LocalDateTime.now());

@@ -42,10 +42,10 @@ public class CommonMasterController {
 		return new ResponseEntity<CommonMasterDto>(createmaster, HttpStatus.OK);
 	}
 	
-	@GetMapping("/{master-name}")
-	public ResponseEntity<List<CommonMasterDto>> getByMasterName(@PageableDefault Pageable pageable, @PathVariable("master-name") String masterName) {
-		List<CommonMasterDto> getMasters = this.commonMasterService.getByMasterName(pageable,masterName);
-		return new ResponseEntity<List<CommonMasterDto>>(getMasters, HttpStatus.OK);
+	@GetMapping("/{master-name}/childs")
+	public ResponseEntity<Page<CommonMasterDto>> getByMasterName(@PageableDefault Pageable pageable, @PathVariable("master-name") String masterName) {
+		Page<CommonMasterDto> getMasters = this.commonMasterService.getByMasterName(pageable,masterName);
+		return new ResponseEntity<Page<CommonMasterDto>>(getMasters, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
@@ -60,10 +60,10 @@ public class CommonMasterController {
 		return new ResponseEntity<>(updateCommonMaster, HttpStatus.OK);
 	}
 	
-	@GetMapping("/search")
+	@GetMapping("/parents")
 	public ResponseEntity<Page<CommonMasterDto>> searchCommonMaster(@PageableDefault Pageable pageable,
 			@RequestParam(value = "keyword", defaultValue = "", required = false) String keyword) {
-		Page<CommonMasterDto> result = this.commonMasterService.searchCommonMaster(pageable, keyword);
+		Page<CommonMasterDto> result = this.commonMasterService.searchParentCommonMaster(pageable, keyword);
 		return new ResponseEntity<Page<CommonMasterDto>>(result, HttpStatus.OK);
 	}
 }

@@ -17,11 +17,11 @@ public interface CommonMastersRepo extends JpaRepository<CommonMaster, Long>{
 
 	Optional<CommonMaster> findByMasterNameAndIsMasterTrueAndIsDeletedFalse(String masterName);
 
-	List<CommonMaster> findByMasterNameAndIsMasterFalseAndIsDeletedFalse(Pageable pageable, String masterName);
+	Page<CommonMaster> findByMasterNameAndIsMasterFalseAndIsDeletedFalse(Pageable pageable, String masterName);
 
 	CommonMaster findByCodeAndIsDeletedFalse(String code);
 
-	@Query("SELECT c FROM CommonMaster c WHERE (LOWER(c.masterName) LIKE %:key% OR LOWER(c.code) LIKE %:key% OR LOWER(c.value) LIKE %:key% ) and c.isDeleted=false")
+	@Query("SELECT c FROM CommonMaster c WHERE (LOWER(c.masterName) LIKE %:key% OR LOWER(c.code) LIKE %:key% OR LOWER(c.value) LIKE %:key% ) and c.isMaster=true and c.isDeleted=false")
 	Page<CommonMaster> searchByCommonMaster(Pageable pageable, String key);
 
 	CommonMaster findByIdAndIsDeletedFalse(Long id);

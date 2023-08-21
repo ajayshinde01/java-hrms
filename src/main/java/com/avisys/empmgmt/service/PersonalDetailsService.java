@@ -36,7 +36,7 @@ public class PersonalDetailsService {
 	public PersonalDetailsDTO createPersonalDetails(CreatePersonalDetailsDTO personalDetails,Long employeeId) {	
 		Employee employee=employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee Not Found"));
 		Optional<PersonalDetails> personalDetailsToValidate = personalDetailsRepo.findByAadhaarNumberOrPanCardNumberOrPassportNumberAndIsDeletedFalse(personalDetails.getAadhaarNumber(),personalDetails.getPanCardNumber(),personalDetails.getPassportNumber());
-		if(personalDetailsRepo.findByEmployeeAndIsDeletedFalse(employee).isPresent()) {
+		if(personalDetailsRepo.findByEmployee(employee).isPresent()) {
 			throw new NoPersonalDetailsFound("Personal Details Already Exist");
 		}
 		else if(personalDetailsToValidate.isPresent()&&!(personalDetailsToValidate.get().getEmployee().getId()==employeeId)) {

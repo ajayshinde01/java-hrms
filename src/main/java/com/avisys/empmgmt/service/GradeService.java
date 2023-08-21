@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.avisys.empmgmt.dto.GradeDTO;
 import com.avisys.empmgmt.entity.Grade;
+import com.avisys.empmgmt.exception.DepartmentException;
 import com.avisys.empmgmt.exception.GradeException;
 import com.avisys.empmgmt.repository.GradeRepository;
 import com.avisys.empmgmt.util.ApiResponse;
@@ -32,8 +33,14 @@ public class GradeService {
 	public ResponseEntity<GradeDTO> saveGrade(GradeDTO gradeDtoObject) throws GradeException {
 		Optional<Grade> objectPresent = gradeRepository.findByGradeId(gradeDtoObject.getGradeId());
 		if (objectPresent.isPresent()) {
-			String message = "GradeId already Present in the table";
+			if(objectPresent.get().isDeleted()==true) {
+				String message = "Grade ID already present but marked deleted";
+				throw new GradeException(message);
+				}
+			else {
+			String message = "Grade ID already present";
 			throw new GradeException(message);
+			}
 		} else {
 			@Valid
 			Grade gradeObject = modelMapper.map(gradeDtoObject, Grade.class);

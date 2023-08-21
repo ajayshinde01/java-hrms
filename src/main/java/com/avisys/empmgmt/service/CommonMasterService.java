@@ -1,8 +1,6 @@
 package com.avisys.empmgmt.service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -10,16 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import com.avisys.empmgmt.dto.AddressDto;
 import com.avisys.empmgmt.dto.CommonMasterDto;
-import com.avisys.empmgmt.dto.EmployeeDto;
-import com.avisys.empmgmt.entity.Address;
 import com.avisys.empmgmt.entity.CommonMaster;
-import com.avisys.empmgmt.entity.Employee;
-import com.avisys.empmgmt.exception.AddressException;
 import com.avisys.empmgmt.exception.CommonMasterException;
-import com.avisys.empmgmt.exception.EmployeeException;
 import com.avisys.empmgmt.repository.CommonMastersRepo;
 
 import jakarta.transaction.Transactional;
@@ -50,11 +41,11 @@ public class CommonMasterService {
 		else throw new CommonMasterException("Code should not be Duplicate");	
 	}
 	
-	public List<CommonMasterDto> getByMasterName(Pageable pageable, String masterName) {
+	public Page<CommonMasterDto> getByMasterName(Pageable pageable, String masterName) {
 		CommonMaster masters = masterRepository.findByMasterNameAndIsMasterTrueAndIsDeletedFalse(masterName).orElseThrow(()->new CommonMasterException("Master not found"));
 		
-		List<CommonMaster> commonMasters=this.masterRepository.findByMasterNameAndIsMasterFalseAndIsDeletedFalse(pageable, masterName);
-		List<CommonMasterDto> commonMasterDto= commonMasters.stream().map((master)-> this.modelMapper.map(master,CommonMasterDto.class)).collect(Collectors.toList());
+		Page<CommonMaster> commonMasters=this.masterRepository.findByMasterNameAndIsMasterFalseAndIsDeletedFalse(pageable, masterName);
+		Page<CommonMasterDto> commonMasterDto= (Page<CommonMasterDto>) commonMasters.map((master)-> this.modelMapper.map(master,CommonMasterDto.class));
 		return commonMasterDto;
 	}
 
@@ -90,7 +81,7 @@ public class CommonMasterService {
 	    } else throw new CommonMasterException("Common Master Id doesn't exist for update");
 	}
 	
-	public Page<CommonMasterDto> searchCommonMaster(Pageable pageable, String keyword){
+	public Page<CommonMasterDto> searchParentCommonMaster(Pageable pageable, String keyword){
 			keyword = keyword.toLowerCase();
 		Page<CommonMaster> commonMaster = masterRepository.searchByCommonMaster(pageable,keyword);
 		Page<CommonMasterDto> commonMasterDto = (Page<CommonMasterDto>) commonMaster .map((master) -> this.modelMapper.map(master, CommonMasterDto.class));

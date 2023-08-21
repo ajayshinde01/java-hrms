@@ -233,4 +233,11 @@ public class GlobalExceptionHandler {
 		ApiResponse apiResponse = new ApiResponse(message,LocalDateTime.now());
 		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.BAD_REQUEST);
 	}
+	@ExceptionHandler(OrganizationNotFound.class)
+    public ResponseEntity<?> handleOrganizationNotFound(OrganizationNotFound exception, WebRequest webRequest) {
+        ApiResponse response = new ApiResponse();
+        response.setDateTime(LocalDateTime.now());
+        response.setMessage(exception.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 }

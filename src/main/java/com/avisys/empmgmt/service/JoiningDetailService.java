@@ -33,7 +33,7 @@ public class JoiningDetailService {
 
 	public JoiningDetailDTO createJoiningDetail(CreateJoiningDetailDTO joiningDetailDto,Long employeeId) {
 		Employee employee=employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee Not Found"));
-		if(joiningDetailRepo.findByEmployeeAndIsDeletedFalse(employee).isPresent()) {
+		if(joiningDetailRepo.findByEmployee(employee).isPresent()) {
 			throw new JoiningDetailAlreadyPresent("Joining detail already present");
 		}
 		else {

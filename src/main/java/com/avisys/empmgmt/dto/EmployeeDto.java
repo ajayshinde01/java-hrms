@@ -21,6 +21,10 @@ public class EmployeeDto {
 	
 	private String profileImage;
 	
+	@NotNull(message="title must not be null")
+	@NotBlank(message="title must not be blank")
+    private String title;
+	
 	@NotNull(message="First Name must not be null")
 	@NotBlank(message="First Name must not be blank")
 	@Pattern(regexp = "^[a-zA-Z]+$", message = "First name should not contain digits and special characters")
@@ -84,13 +88,14 @@ public class EmployeeDto {
 	public EmployeeDto() {
 		super();
 	}
-	
 
-	public EmployeeDto(Long id, String employeeCode, String profileImage, String firstName, String middleName, String lastName, LocalDate dateOfBirth, String gender, LocalDate dateOfJoining, String age, String status, Division division, String userId, String mobile, String phone, String email, String orgCode, String createdBy, String updatedBy, LocalDateTime createdAt,LocalDateTime updatedAt) {
+
+	public EmployeeDto(Long id, String employeeCode, String profileImage,String title, String firstName, String middleName, String lastName, LocalDate dateOfBirth, String gender, LocalDate dateOfJoining, String age, String status, Division division, String userId, String mobile, String phone, String email, String orgCode, String createdBy, String updatedBy, LocalDateTime createdAt,LocalDateTime updatedAt) {
 		super();
 		Id = id;
 		this.employeeCode = employeeCode;
 		this.profileImage = profileImage;
+		this.title = title;
 		this.firstName = firstName;
 		this.middleName = middleName;
 		this.lastName = lastName;
@@ -139,6 +144,16 @@ public class EmployeeDto {
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
+	}
+
+	
+	public String getTitle() {
+		return title;
+	}
+
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 
@@ -272,14 +287,6 @@ public class EmployeeDto {
 		this.updatedBy = updatedBy;
 	}
 
-	public String getProfileImage() {
-		return profileImage;
-	}
-
-	public void setProfile_image(String profileImage) {
-		this.profileImage = profileImage;
-	}
-
 	public Division getDivision() {
 		return division;
 	}
@@ -303,5 +310,24 @@ public class EmployeeDto {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}	
+	
+	
+	public String getProfileImage() {
+		return profileImage;
+	}
+
+
+	public void setProfileImage(String profileImage) {
+		this.profileImage = profileImage;
+	}
+
+
+	public String getFullName() {
+	        return firstName + " " + lastName;
+	    }
+
+    public String getDivisionName() {
+	        return division.getdivisionName();
+	    }
 
 }

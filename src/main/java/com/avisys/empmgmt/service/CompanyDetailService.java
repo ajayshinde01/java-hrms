@@ -69,7 +69,7 @@ public class CompanyDetailService {
 		Designation designation=designationRepo.findByIdAndIsDeletedFalse(companyDetailDto.getDesignation().getId()).orElseThrow(()->new DesignationNotFound("Designation Not Founds"));
 		Role role=roleRepo.findByIdAndIsDeletedFalse(companyDetailDto.getRole().getId()).orElseThrow(()->new NoRoleFoundException());
 		EmployeeType employeeType=employeeTypeRepository.findByIdAndIsDeletedFalse(companyDetailDto.getEmployeeType().getId()).orElseThrow(()->new EmployeeTypeException("Employee Type Not Found"));
-		if(companyDetailRepository.findByEmployeeAndIsDeletedFalse(employee).isPresent()) {
+		if(companyDetailRepository.findByEmployee(employee).isPresent()) {
 			throw new CompanyDetailAlreadyPresent("Company detail already present");
 		}else {
 		CompanyDetail companyDetail = this.modelMapper.map(companyDetailDto, CompanyDetail.class);

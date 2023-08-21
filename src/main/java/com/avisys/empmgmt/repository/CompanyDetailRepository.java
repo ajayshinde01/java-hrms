@@ -13,5 +13,7 @@ public interface CompanyDetailRepository extends JpaRepository<CompanyDetail,Lon
 
 	Optional<CompanyDetail> findByIdAndIsDeletedFalse(Long id);
 
+	Optional<CompanyDetail> findByEmployee(Employee employee);
+
 
 }

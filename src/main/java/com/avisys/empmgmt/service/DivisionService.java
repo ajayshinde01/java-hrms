@@ -11,7 +11,10 @@ import org.springframework.stereotype.Service;
 
 import com.avisys.empmgmt.dto.CreateDivisionDto;
 import com.avisys.empmgmt.dto.DivisionDto;
+import com.avisys.empmgmt.entity.Department;
 import com.avisys.empmgmt.entity.Division;
+import com.avisys.empmgmt.exception.DepartmentException;
+import com.avisys.empmgmt.exception.DesignationNotFound;
 import com.avisys.empmgmt.exception.DivisionNotFound;
 import com.avisys.empmgmt.repository.DivisonRepository;
 import com.avisys.empmgmt.util.Utils;
@@ -37,14 +40,16 @@ public class DivisionService implements IDivisionService {
 
 	@Override
 	public DivisionDto saveDivision(CreateDivisionDto divisionDto) {
-		if (divisonRepository.findByDivisionIdAndIsDeletedFalse(divisionDto.getDivisionId()).isPresent()) {
-			throw new DivisionNotFound("Division already exist");
-		} else {
+		Optional<Division> optionalDivision = divisonRepository.findByDivisionId(divisionDto.getDivisionId());
+		if (optionalDivision.isPresent()) {
+			if(optionalDivision.get().isDeleted()==true) {
+			throw new DivisionNotFound("Division ID already present but marked deleted");
+			}else throw new DivisionNotFound("Division ID already present");
+		}
 			Division division = new Division(divisionDto.getDivisionId(), divisionDto.getDivisionName(),
 					divisionDto.getDivisionDescription(), divisionDto.getOrgCode(), false, LocalDateTime.now(),null, divisionDto.getCreatedBy(), null);
 			Division divisionObject=divisonRepository.save(division);
 			return util.getDivisionDto(divisionObject);
-		}
 	}
 
 	@Override

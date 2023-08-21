@@ -15,4 +15,6 @@ public interface JoiningDetailRepository extends JpaRepository<JoiningDetail,Lon
 
 	Optional<JoiningDetail> findByIdAndIsDeletedFalse(Long id);
 
+	Optional<JoiningDetail> findByEmployee(Employee employee);
+
 }
