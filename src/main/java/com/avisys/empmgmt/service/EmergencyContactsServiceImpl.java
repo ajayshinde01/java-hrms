@@ -64,6 +64,15 @@ public class EmergencyContactsServiceImpl implements EmergencyContactsService{
 		
 		return emergencyContactsDto;
 	}
+	
+	
+	public EmergencyContactsDto getByEmployeeIdAndContactId(Long employeeId, Long contactId) {
+        Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
+        EmergencyContacts contact=emergencyContactsRepository.findByIdAndIsDeletedFalse(contactId).orElseThrow(()->new EmergencyContactsException("Emergency Contact not found"));
+
+        return this.modelMapper.map(contact,EmergencyContactsDto.class);
+
+    }
 
 	@Override
 	public EmergencyContactsDto updateEmergencyContacts(EmergencyContactsDto emergencyContactsDto, Long employeeId) {

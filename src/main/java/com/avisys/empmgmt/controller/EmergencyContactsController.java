@@ -46,6 +46,13 @@ public class EmergencyContactsController {
 		return new ResponseEntity<List<EmergencyContactsDto>>(getEmergencyContacts,HttpStatus.OK);
 	}
 	
+	  @GetMapping("/{employee-id}/{contact-id}")
+	   public ResponseEntity<EmergencyContactsDto> getContactById(@PathVariable("employee-id") Long employeeId, @PathVariable("contact-id") Long contactId){
+		  EmergencyContactsDto getContact = this.emergencyContactsService.getByEmployeeIdAndContactId(employeeId, contactId);
+	       return new ResponseEntity<EmergencyContactsDto>(getContact,HttpStatus.OK);
+
+	    }
+	
 	@DeleteMapping("/{employee-id}/{contact-id}")
 	public ResponseEntity<?> deleteEmergencyContacts(@PathVariable("employee-id") Long employeeId, @PathVariable("contact-id") Long contactId,@RequestParam(value = "updatedBy") String updatedBy ){
 		String deletedEmergencyContact = this.emergencyContactsService.deleteEmergencyContacts(employeeId,contactId,updatedBy);

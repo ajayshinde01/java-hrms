@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.avisys.empmgmt.dto.AddressDto;
 import com.avisys.empmgmt.dto.EducationalQualificationDto;
 import com.avisys.empmgmt.service.EducationalQualificationService;
 import com.avisys.empmgmt.util.ApiResponse;
@@ -44,6 +46,13 @@ public class EducationalQualificationController {
 		List<EducationalQualificationDto> getEducationalQualification = this.educationalQualificationService.getEducationalQualificationByEmployee(employeeId);
 		return new ResponseEntity<List<EducationalQualificationDto>>(getEducationalQualification,HttpStatus.OK);
 	}
+	
+	@GetMapping("/{employee-id}/{education-id}")
+	public ResponseEntity<EducationalQualificationDto> getEducationById(@PathVariable("employee-id") Long employeeId, @PathVariable("education-id") Long educationId){
+		EducationalQualificationDto getEducation = this.educationalQualificationService.getByEmployeeIdAndEducationId(employeeId, educationId);
+		return new ResponseEntity<EducationalQualificationDto>(getEducation,HttpStatus.OK);
+	}
+	
 	
 	@DeleteMapping("/{employee-id}/{education-id}")
 	public ResponseEntity<?> deleteEducationalQualification(@PathVariable("employee-id") Long employeeId, @PathVariable("education-id") Long educationId,@RequestParam(value = "updatedBy") String updatedBy ){

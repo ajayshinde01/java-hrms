@@ -50,13 +50,19 @@ public class WorkExperienceService {
 
 	public List<WorkExperienceDto> getWorkExperienceByEmployee(Long employeeId) {
 		Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
-		
-		
+			
 		List<WorkExperience> workExperience=workExperienceRepository.findByEmployeeAndIsDeletedFalse(employee);
 		List<WorkExperienceDto> workExperienceDto = workExperience.stream().map((experience)-> this.modelMapper.map(experience,WorkExperienceDto.class)).collect(Collectors.toList());
 		
 		return workExperienceDto;
 	}
+	
+	
+	   public WorkExperienceDto getByEmployeeIdAndWorkExperienceId(Long employeeId, Long experienceId) {
+        Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
+        WorkExperience education=workExperienceRepository.findByIdAndIsDeletedFalse(experienceId).orElseThrow(()->new WorkExperienceException("Work Experience not found"));
+        return this.modelMapper.map(education,WorkExperienceDto.class);
+    }
 
 
 	public WorkExperienceDto updateWorkExperience(WorkExperienceDto workExperienceDto, Long employeeId) {

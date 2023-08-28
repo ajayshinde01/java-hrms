@@ -10,7 +10,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.avisys.empmgmt.dto.AddressDto;
 import com.avisys.empmgmt.dto.EducationalQualificationDto;
+import com.avisys.empmgmt.entity.Address;
 import com.avisys.empmgmt.entity.EducationalQualification;
 import com.avisys.empmgmt.entity.Employee;
 import com.avisys.empmgmt.exception.AddressException;
@@ -111,9 +113,15 @@ public class EducationalQualificationService {
 
 	        Page<EducationalQualificationDto> educationalQualificationDto = qualification.map(education ->
 	                this.modelMapper.map(education, EducationalQualificationDto.class));
-
 	      
 	            return educationalQualificationDto;
 	        
+	}
+	
+	public EducationalQualificationDto getByEmployeeIdAndEducationId(Long employeeId, Long educationId) {
+		Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
+		
+		EducationalQualification education=educationalRepository.findByIdAndIsDeletedFalse(educationId).orElseThrow(()->new EducationalQualificationException("educational qualification not found"));
+		return this.modelMapper.map(education,EducationalQualificationDto.class);
 	}
 }

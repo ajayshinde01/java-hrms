@@ -44,6 +44,12 @@ public class VisaController {
 		return new ResponseEntity<List<VisaDto>>(getVisa,HttpStatus.OK);
 	}
 	
+	@GetMapping("/{employee-id}/{visa-id}")
+    public ResponseEntity<VisaDto> getEducationById(@PathVariable("employee-id") Long employeeId, @PathVariable("visa-id") Long visaId){
+		 VisaDto getVisa = this.visaService.getByEmployeeIdAndVisaId(employeeId, visaId);
+	      return new ResponseEntity<VisaDto>(getVisa,HttpStatus.OK);
+	    }
+	
 	@DeleteMapping("/{employee-id}/{visa-id}")
 	public ResponseEntity<?> deleteEmployeeVisa(@PathVariable("employee-id") Long employeeId, @PathVariable("visa-id") Long visaId,@RequestParam(value = "updatedBy") String updatedBy ){
 		String deletedVisa = this.visaService.deleteVisa(employeeId,visaId,updatedBy);

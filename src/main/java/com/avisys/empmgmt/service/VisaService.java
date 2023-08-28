@@ -60,6 +60,13 @@ public class VisaService {
 			
 			return visaDto;
 		}
+		
+		
+		   public VisaDto getByEmployeeIdAndVisaId(Long employeeId, Long visaId) {
+	        Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
+	        Visa visa=visaRepository.findByIdAndIsDeletedFalse(visaId).orElseThrow(()->new VisaException("Visa not found"));
+	        return this.modelMapper.map(visa,VisaDto.class);
+	    }
 
 		public VisaDto updateVisa( VisaDto visaDto,Long employeeId) {
 			Employee employee=employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));

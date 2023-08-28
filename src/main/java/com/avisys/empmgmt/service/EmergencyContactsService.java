@@ -20,5 +20,7 @@ public interface EmergencyContactsService {
 	String deleteEmergencyContacts(Long employeeId, Long emergencyContactsId,String updatedBy);
 
 	Page<EmergencyContactsDto> searchEmergencyContacts(String keyword, Pageable pageable, Long employeeId);
+
+	EmergencyContactsDto getByEmployeeIdAndContactId(Long employeeId, Long contactId);
 	
 }

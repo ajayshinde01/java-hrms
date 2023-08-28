@@ -29,6 +29,7 @@ private static final DataTableMetadata Common_Master_Parent_METADATA;
 private static final DataTableMetadata Common_Master_Child_METADATA;
 private static final DataTableMetadata Visa_DEFINATION_METADATA;
 private static final DataTableMetadata Emergency_Contact_METADATA;
+private static final DataTableMetadata EDUCATIONAL_QUALIFICATIONS_DEFINATION_METADATA;
 
     static {
 
@@ -119,6 +120,13 @@ private static final DataTableMetadata Emergency_Contact_METADATA;
                 .addColumnMetadata(new ColumnMetadata("Contact Number", "emergencyContactNumber","emergencyContactNumber" ,ColumnType.TEXT, 31))
                 .addColumnMetadata(new ColumnMetadata("Contact Name", "emergencyContactName","emergencyContactName" ,ColumnType.TEXT, 32))
                 .addColumnMetadata(new ColumnMetadata("Relation", "relation","relation" ,ColumnType.TEXT, 32));
+        
+        EDUCATIONAL_QUALIFICATIONS_DEFINATION_METADATA = new DataTableMetadata()
+                .addColumnMetadata(new ColumnMetadata("", "id","id" ,ColumnType.RADIO, 05))
+                .addColumnMetadata(new ColumnMetadata("SCHOOL/UNIVERSITY", "instituteName","instituteName" ,ColumnType.TEXT, 25))
+                .addColumnMetadata(new ColumnMetadata("QUALIFICATION LEVEL", "qualificationLevel","qualificationLevel" ,ColumnType.TEXT, 25))
+                .addColumnMetadata(new ColumnMetadata("EDUCATIONAL QUALIFICATION", "educationalQualification","educationalQualification" ,ColumnType.TEXT, 25))
+               .addColumnMetadata(new ColumnMetadata("YEAR OF PASSING    ", "passingYear","passingYear" ,ColumnType.TEXT, 15));
     }
 
     @GetMapping("role")
@@ -179,5 +187,10 @@ private static final DataTableMetadata Emergency_Contact_METADATA;
     @GetMapping("emergency-contact")
     public DataTableMetadata getEmergencyContactsMetadata() {
         return Emergency_Contact_METADATA;
+    }
+    
+    @GetMapping("educational-qualification")
+    public DataTableMetadata getEducationalQualificationMetadata() {
+        return  EDUCATIONAL_QUALIFICATIONS_DEFINATION_METADATA;
     }
 }
