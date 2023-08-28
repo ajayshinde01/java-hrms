@@ -24,42 +24,41 @@ public class Address extends Status{
 	@Column(name="id")
 	private Long id;
 	
-	@Column(name = "address_type", length = 25)
+	@Column(name = "address_type")
 	@NotNull(message="Id must not be null")
 	@NotBlank(message="Id must not be blank")
 	@Size(max=15, message="AddressType should be at max 15 character")	
 	private String addressType;
 
-	@Column(name = "address_1", length = 45)
+	@Column(name = "address_1")
 	@NotNull(message="address1 field must not be null")
 	@NotBlank(message="address1 field must not be blank")
 	private String address1;
 
-	@Column(name = "address_2", length = 45)
+	@Column(name = "address_2")
 	private String address2;
 
-	@Column(length = 45)
 	private String landmark;
 
-	@Column(name="address_tenure",length = 45)
-	private String addressTenure;
+	@Column(name="tenure_year")
+	private int tenureYear;
 	
-	@Column(length = 25)
+	@Column(name="tenure_month")
+	private int tenureMonth;
+	
 	@NotNull(message="city must not be null")
 	@NotBlank(message="city must not be blank")
 	private String city;
 	
-	@Column(length = 25)
 	@NotNull(message="state must not be null")
 	@NotBlank(message="state must not be blank")
 	private String state;
 
-	@Column(length = 25)
 	@NotNull(message="country must not be null")
 	@NotBlank(message="country must not be blank")
 	private String country;
 
-	@Column(name="post_code", length=20)
+	@Column(name="post_code")
 	@NotNull(message="postcode must not be null")
 	@NotBlank(message="postcode must not be blank")
 	private String postcode;
@@ -71,20 +70,19 @@ public class Address extends Status{
 	@JoinColumn(name = "employee_id_fk")
 	private Employee employee;
 	
-
 	public Address() {
 		super();
 	}
 
-	
 	public Address(String orgCode, boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy, String addressType,
-			String address1, String address2, String landmark, String addressTenure, String city, String state, String country,String postcode,String ownershipStatus, Employee employee) {
+			String address1, String address2, String landmark, int tenureYear, int tenureMonth, String city, String state, String country,String postcode,String ownershipStatus, Employee employee) {
 		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
 		this.addressType = addressType;
 		this.address1 = address1;
 		this.address2 = address2;
 		this.landmark = landmark;
-		this.addressTenure = addressTenure;
+		this.tenureYear = tenureYear;
+		this.tenureMonth=tenureMonth;
 		this.city = city;
 		this.state = state;
 		this.country = country;
@@ -134,13 +132,6 @@ public class Address extends Status{
 		this.landmark = landmark;
 	}
 
-	public String getAddressTenure() {
-		return addressTenure;
-	}
-
-	public void setAddressTenure(String addressTenure) {
-		this.addressTenure = addressTenure;
-	}
 
 	public String getCity() {
 		return city;
@@ -189,4 +180,22 @@ public class Address extends Status{
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
+
+	public int getTenureYear() {
+		return tenureYear;
+	}
+
+	public void setTenureYear(int tenureYear) {
+		this.tenureYear = tenureYear;
+	}
+
+	public int getTenureMonth() {
+		return tenureMonth;
+	}
+
+	public void setTenureMonth(int tenureMonth) {
+		this.tenureMonth = tenureMonth;
+	}
+	
+	
 }

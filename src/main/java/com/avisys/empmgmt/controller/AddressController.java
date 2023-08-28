@@ -38,10 +38,16 @@ public class AddressController {
 		return new ResponseEntity<>(createAddress, HttpStatus.OK);
 	}
 	
-	@GetMapping("/{employee-id}/get-all")
-	public ResponseEntity<List<AddressDto>> getAddressByEmployeeId(@PathVariable("employee-id") Long employeeId){
-		List<AddressDto> getAddress = this.addressService.getAddressByEmployee(employeeId);
-		return new ResponseEntity<List<AddressDto>>(getAddress,HttpStatus.OK);
+	@GetMapping("/{employee-id}/get-address")
+	public ResponseEntity<AddressDto> getAddressByEmployeeId(@PathVariable("employee-id") Long employeeId){
+		AddressDto getAddress = this.addressService.getAddressByEmployee(employeeId);
+		return new ResponseEntity<AddressDto>(getAddress,HttpStatus.OK);
+	}
+	
+	@GetMapping("/{employee-id}/{address-type}")
+	public ResponseEntity<AddressDto> getAddressByEmployeeIdAndType(@PathVariable("employee-id") Long employeeId, @PathVariable("address-type") String addressType){
+		AddressDto getAddress = this.addressService.getByEmployeeIdAndAddressType(employeeId, addressType);
+		return new ResponseEntity<AddressDto>(getAddress,HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{employee-id}/{address-id}")

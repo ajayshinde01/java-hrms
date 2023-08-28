@@ -2,51 +2,34 @@ package com.avisys.empmgmt.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 
 
 public class PersonalDetailsDTO{
 
 	private Long id;
 
-	@NotNull(message="marital status should not be null")
-	@NotBlank(message="marital status should not be blank")
     private String maritalStatus;
+	
+	private String bloodGroup;
 
-	@NotNull(message="family background should not be null")
     private String familyBackground;
     
-	@NotNull(message="health details should not be null")
     private String healthDetails;
     
-	@NotNull(message="cpr number should not be null")
     private String cprNumber;
     
-	@NotNull(message="gosi should not be null")
     private String gosi;
 
-	@NotNull(message="aadhaar number should not be null")
-	@NotBlank(message="aadhaar_number should not be blank")
 	@Pattern(regexp = "\\d{12}", message = "Aadhaar number must be a 12-digit numeric value")
     private String aadhaarNumber;
     
-	@NotNull(message="aadhaar name should not be null")
-	@NotBlank(message="aadhaar name should not be blank")
     private String aadhaarName;
     
     private String aadhaarFile;
     
-	@NotNull(message="passport number should not be null")
-	@NotBlank(message="passport number should not be blank")
-    @Size(min = 12,message = "passport number must contain 12 digits")
-    @Size(max = 12,message = "passport number must contain 12 digits")
     private String passportNumber;
     
-	@NotNull(message="passport name should not be null")
-	@NotBlank(message="passport name should not be blank")
     private String passportName;
     
     private LocalDate passportIssueDate;
@@ -55,35 +38,22 @@ public class PersonalDetailsDTO{
 
     private String passportFile;
     
-	@NotNull(message="pan card number should not be null")
-	@NotBlank(message="pan card number should not be blank")
 	@Pattern(regexp = "^[A-Z]{5}[0-9]{4}[A-Z]$", message = "PAN card number must be a 10-character alphanumeric value in the format ABCDE1234F")
     private String panCardNumber;
     
-	@NotNull(message="pan card name should not be null")
-	@NotBlank(message="pan card name should not be blank")
     private String panCardName;
 	
     private String panCardFile;
     
-	@NotNull(message="bank account number should not be null")
-	@NotBlank(message="bank account number should not be blank")
     @Pattern (regexp = "^[0-9]{9,18}$",message = "bank account number should be a numeric value between 9 and 18 digits")
     private String bankAccountNumber;
     
-	@NotNull(message="bank name should not be null")
-	@NotBlank(message="bank name should not be blank")
     private String bankName;
     
-	@NotNull(message="ifsc code should not be null")
-	@NotBlank(message="ifsc code should not be blank")
     private String ifscCode;
 
-	@NotNull(message="uan number should not be null")
-	@NotBlank(message="uan number should not be blank")
     private String uanNumber;
 
-	@NotNull(message="pf number should not be null")
     private String pfNumber;
 
 	private LocalDateTime createdAt;
@@ -100,7 +70,7 @@ public class PersonalDetailsDTO{
 	public PersonalDetailsDTO(String orgCode, LocalDateTime createdAt, LocalDateTime updatedAt,
 			String createdBy, String updatedBy,String maritalStatus,String familyBackground,String healthDetails,String cprNumber,String gosi,String aadhaarNumber,String aadhaarName,
 			String aadhaarFile,String passportNumber, String passportName,LocalDate passportIssueDate, LocalDate passportValidity, String passportFile, String panCardNumber,String panCardName,
-			String panCardFile,String bankAccountNumber,String bankName,String ifscCode, String uanNumber,String pfNumber) {
+			String panCardFile,String bankAccountNumber,String bankName,String ifscCode, String uanNumber,String pfNumber, String bloodGroup) {
 		this.orgCode = orgCode;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
@@ -127,6 +97,7 @@ public class PersonalDetailsDTO{
 		this.ifscCode = ifscCode;
 		this.uanNumber = uanNumber;
 		this.pfNumber = pfNumber;
+		this.bloodGroup=bloodGroup;
 	}
 	
 	public PersonalDetailsDTO() {
@@ -347,6 +318,14 @@ public class PersonalDetailsDTO{
 
 	public void setOrgCode(String orgCode) {
 		this.orgCode = orgCode;
+	}
+
+	public String getBloodGroup() {
+		return bloodGroup;
+	}
+
+	public void setBloodGroup(String bloodGroup) {
+		this.bloodGroup = bloodGroup;
 	}
 	
 	

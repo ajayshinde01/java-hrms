@@ -53,12 +53,12 @@ public class AddressServiceImpl implements AddressService {
 	}
 	
 	@Override
-	public List<AddressDto> getAddressByEmployee(Long employeeId){
+	public AddressDto getAddressByEmployee(Long employeeId){
 		Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
 		
-		List<Address> addresses=this.addressRepository.findByEmployeeAndIsDeletedFalse(employee);
-		List<AddressDto> addressDto= addresses.stream().map((address)-> this.modelMapper.map(address,AddressDto.class)).collect(Collectors.toList());
-		return addressDto;
+		Address addresses=this.addressRepository.findByEmployeeAndIsDeletedFalse(employee);
+		return this.modelMapper.map(addresses,AddressDto.class);
+		
 	}
 
 	@Override
@@ -95,6 +95,17 @@ public class AddressServiceImpl implements AddressService {
 			addressRepository.save(address); 
 			return "Address deleted successfully";
 		}else throw new AddressException("employeeId doesn't match with AddressId");
+	}
+
+	@Override
+	public AddressDto getByEmployeeIdAndAddressType(Long employeeId, String addressType) {
+		Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
+		
+		Address address=addressRepository.findByEmployeeAndAddressTypeAndIsDeletedFalse(employeeId,addressType);
+		 if (address == null) {
+		        throw new AddressException("Address not found");
+		    }
+		return this.modelMapper.map(address,AddressDto.class);
 	}
 
 }

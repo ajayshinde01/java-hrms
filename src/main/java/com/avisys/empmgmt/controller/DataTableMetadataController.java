@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
- 
-
 import com.avisys.empmgmt.dto.ColumnMetadata;
 import com.avisys.empmgmt.dto.ColumnType;
 import com.avisys.empmgmt.dto.DataTableMetadata;
@@ -27,17 +25,12 @@ private static final DataTableMetadata Department_TYPE_DEFINITION_METADATA;
 private static final DataTableMetadata Division_TYPE_DEFINITION_METADATA;
 private static final DataTableMetadata Employee_Info_DEFINITION_METADATA;
 private static final DataTableMetadata Organization_DEFINITION_METADATA;
+private static final DataTableMetadata Common_Master_Parent_METADATA;
+private static final DataTableMetadata Common_Master_Child_METADATA;
+private static final DataTableMetadata Visa_DEFINATION_METADATA;
+private static final DataTableMetadata Emergency_Contact_METADATA;
 
- 
-
- 
-
- 
-
-    
     static {
-
- 
 
         ROLE_DEFINATION_METADATA=new DataTableMetadata()
                 .addColumnMetadata(new ColumnMetadata("", "id", "id", ColumnType.RADIO, 05))
@@ -92,55 +85,66 @@ private static final DataTableMetadata Organization_DEFINITION_METADATA;
         Employee_Info_DEFINITION_METADATA = new DataTableMetadata()
                 .addColumnMetadata(new ColumnMetadata("", "id","id" ,ColumnType.RADIO, 05))
                 .addColumnMetadata(new ColumnMetadata("Employee Code", "employeeCode","employeeCode", ColumnType.TEXT, 31))
-                .addColumnMetadata(new ColumnMetadata("First Name", "firstName","firstName", ColumnType.TEXT, 32))
-                .addColumnMetadata(new ColumnMetadata("Last Name", "lastName","lastName", ColumnType.TEXT, 32));
+                .addColumnMetadata(new ColumnMetadata("Full Name", "fullName","firstName", ColumnType.TEXT, 32))
+                .addColumnMetadata(new ColumnMetadata("Division", "division.divisionName","divisionName", ColumnType.TEXT, 32));
 
         Organization_DEFINITION_METADATA = new DataTableMetadata()
                 .addColumnMetadata(new ColumnMetadata("", "id","id" ,ColumnType.RADIO, 05))
                 .addColumnMetadata(new ColumnMetadata("Organization Code", "organizationCode","organizationCode", ColumnType.TEXT, 31))
                 .addColumnMetadata(new ColumnMetadata("Organization Name", "organizationName","organizationName", ColumnType.TEXT, 32))
                 .addColumnMetadata(new ColumnMetadata("Organization Description", "organizationDesc","organizationDesc", ColumnType.TEXT, 32));
+   
+        Common_Master_Parent_METADATA=new DataTableMetadata()
+                .addColumnMetadata(new ColumnMetadata("", "id", "id", ColumnType.RADIO, 05))
+                .addColumnMetadata(new ColumnMetadata("NAME", "masterName","masterName" , ColumnType.TEXT, 25))
+                .addColumnMetadata(new ColumnMetadata("CODE", "code","code" , ColumnType.TEXT, 25))
+                .addColumnMetadata(new ColumnMetadata("VALUE","value","value",ColumnType.TEXT,25))
+                .addColumnMetadata(new ColumnMetadata("MASTER","master","master",ColumnType.TEXT,20));
+
+        Common_Master_Child_METADATA=new DataTableMetadata()
+                .addColumnMetadata(new ColumnMetadata("", "id", "id", ColumnType.RADIO, 05))
+                .addColumnMetadata(new ColumnMetadata("NAME", "masterName","masterName" , ColumnType.TEXT, 25))
+                .addColumnMetadata(new ColumnMetadata("CODE", "code","code" , ColumnType.TEXT, 25))
+                .addColumnMetadata(new ColumnMetadata("VALUE","value","value",ColumnType.TEXT, 25))
+                .addColumnMetadata(new ColumnMetadata("PRIORITY","priority","priority",ColumnType.TEXT, 20));
+
+        Visa_DEFINATION_METADATA = new DataTableMetadata()
+                .addColumnMetadata(new ColumnMetadata("", "id","id" ,ColumnType.RADIO, 05))
+                .addColumnMetadata(new ColumnMetadata("Visa Number", "visaNumber","visaNumber" ,ColumnType.TEXT, 31))
+                .addColumnMetadata(new ColumnMetadata("Country Code", "countryCode","countryCode" ,ColumnType.TEXT, 32))
+                .addColumnMetadata(new ColumnMetadata("Valid Date", "validDate","validDate" ,ColumnType.TEXT, 32));
+        
+        Emergency_Contact_METADATA = new DataTableMetadata()
+                .addColumnMetadata(new ColumnMetadata("", "id","id" ,ColumnType.RADIO, 05))
+                .addColumnMetadata(new ColumnMetadata("Contact Number", "emergencyContactNumber","emergencyContactNumber" ,ColumnType.TEXT, 31))
+                .addColumnMetadata(new ColumnMetadata("Contact Name", "emergencyContactName","emergencyContactName" ,ColumnType.TEXT, 32))
+                .addColumnMetadata(new ColumnMetadata("Relation", "relation","relation" ,ColumnType.TEXT, 32));
     }
-
- 
-
- 
 
     @GetMapping("role")
     public DataTableMetadata getRoleDataTableMetadata() {
         return ROLE_DEFINATION_METADATA;
     }
 
- 
-
     @GetMapping("grade")
     public DataTableMetadata getGradeDataTableMetadata() {
         return GRADE_DEFINATION_METADATA;
     }
-
- 
 
     @GetMapping("designation")
     public DataTableMetadata getDesignationDataTableMetadata() {
         return DESIGNATION_DEFINATION_METADATA;
     }
 
- 
-
     @GetMapping("employeeType-type")
     public DataTableMetadata getEmployeeTypeDataTableMetadata() {
         return EmployeeType_TYPE_DEFINITION_METADATA;
     }
 
- 
-
     @GetMapping("department")
     public DataTableMetadata getDepartmentDataTableMetadata() {
         return Department_TYPE_DEFINITION_METADATA;
     }
-
-
- 
 
     @GetMapping("division")
     public DataTableMetadata getDivisionDataTableMetadata() {
@@ -155,5 +159,25 @@ private static final DataTableMetadata Organization_DEFINITION_METADATA;
     @GetMapping("employee")
     public DataTableMetadata getEmployeeDataTableMetadata() {
         return Employee_Info_DEFINITION_METADATA;
+    }
+
+    @GetMapping("parent-common-master")
+    public DataTableMetadata getCommonMasterParentMetadata() {
+        return Common_Master_Parent_METADATA;
+    }
+    
+    @GetMapping("child-common-master")
+    public DataTableMetadata getCommonMasterChildMetadata() {
+        return Common_Master_Child_METADATA;
+    } 
+    
+    @GetMapping("visa")
+    public DataTableMetadata getVisaDetailMetadata() {
+        return Visa_DEFINATION_METADATA;
+    }
+    
+    @GetMapping("emergency-contact")
+    public DataTableMetadata getEmergencyContactsMetadata() {
+        return Emergency_Contact_METADATA;
     }
 }

@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.avisys.empmgmt.dto.EmergencyContactsDto;
+import com.avisys.empmgmt.dto.VisaDto;
 import com.avisys.empmgmt.service.EmergencyContactsService;
 import com.avisys.empmgmt.util.ApiResponse;
 
@@ -52,5 +56,15 @@ public class EmergencyContactsController {
 	public ResponseEntity<EmergencyContactsDto> updateEmergencyContact(@Valid @RequestBody EmergencyContactsDto emergencyContactsDto, @PathVariable("employee-id") Long employeeId ) {
 		EmergencyContactsDto updateEmergencyContacts = this.emergencyContactsService.updateEmergencyContacts(emergencyContactsDto,employeeId);
 		return new ResponseEntity<EmergencyContactsDto>(updateEmergencyContacts, HttpStatus.OK);
+	}
+	
+	@GetMapping("/{employee-id}/search")
+	public ResponseEntity<Page<EmergencyContactsDto>> searchEmergencyContacts(
+			@RequestParam(value = "keyword", defaultValue = "") String keyword,
+	        @PageableDefault Pageable pageable,
+	        @PathVariable("employee-id") Long employeeId
+	) {
+	    Page<EmergencyContactsDto> result = this.emergencyContactsService.searchEmergencyContacts(keyword, pageable, employeeId);
+	    return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 }

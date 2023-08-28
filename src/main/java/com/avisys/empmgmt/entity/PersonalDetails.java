@@ -27,49 +27,38 @@ public class PersonalDetails extends Status{
     private Long id;
     
     @Column(name="marital_status")
-	@NotNull(message="marital status should not be null")
-	@NotBlank(message="marital status should not be blank")
     private String maritalStatus;
+    
+    @Column(name="blood_group")
+    private String bloodGroup;
 
     @Column(name="family_background")
-	@NotNull(message="family background should not be null")
     private String familyBackground;
     
     @Column(name="health_details")
-	@NotNull(message="health details should not be null")
     private String healthDetails;
     
     @Column(name="cpr_number")
-	@NotNull(message="cpr number should not be null")
     private String cprNumber;
     
     @Column(name="gosi")
-	@NotNull(message="gosi should not be null")
     private String gosi;
     
     @Column(name="aadhaar_number")
-	@NotNull(message="aadhaar number should not be null")
-	@NotBlank(message="aadhaar number should not be blank")
     @Pattern(regexp = "\\d{12}", message = "Aadhaar number must be a 12-digit numeric value")
     private String aadhaarNumber;
     
     @Column(name="aadhaar_name")
-	@NotNull(message="aadhaar name should not be null")
-	@NotBlank(message="aadhaar name should not be blank")
     private String aadhaarName;
     
     @Column(name="aadhaar_file")
     private String aadhaarFile;
     
     @Column(name="passport_number")
-	@NotNull(message="passport number should not be null")
-	@NotBlank(message="passport number should not be blank")
     @Size(min = 12,max=12,message = "passport number must contain 12 digits")
     private String passportNumber;
     
     @Column(name="passport_name")
-	@NotNull(message="passport name should not be null")
-	@NotBlank(message="passport name should not be blank")
     private String passportName;
     
     @Column(name="passport_issue_date")
@@ -82,42 +71,29 @@ public class PersonalDetails extends Status{
     private String passportFile;
     
     @Column(name="pan_card_number")
-	@NotNull(message="pan card number should not be null")
-	@NotBlank(message="pan card number should not be blank")
     @Pattern(regexp = "^[A-Z]{5}[0-9]{4}[A-Z]$", message = "PAN card number must be a 10-character alphanumeric value in the format ABCDE1234F")
     private String panCardNumber;
     
     @Column(name="pan_card_name")
-	@NotNull(message="pan card name should not be null")
-	@NotBlank(message="pan card name should not be blank")
     private String panCardName;
 	
     @Column(name="pancard_file")
     private String panCardFile;
     
     @Column(name="bank_account_number")
-	@NotNull(message="bank account number should not be null")
-	@NotBlank(message="bank account number should not be blank")
     @Pattern (regexp = "^[0-9]{9,18}$",message = "bank account number should be a numeric value between 9 and 18 digits")
     private String bankAccountNumber;
     
     @Column(name = "bank_name")
-	@NotNull(message="bank name should not be null")
-	@NotBlank(message="bank name should not be blank")
     private String bankName;
     
     @Column(name = "ifsc_code")
-	@NotNull(message="ifsc code should not be null")
-	@NotBlank(message="ifsc code should not be blank")
     private String ifscCode;
     
     @Column(name = "uan_number")
-	@NotNull(message="uan number should not be null")
-	@NotBlank(message="uan number should not be blank")
     private String uanNumber;
     
     @Column(name="pf_number")
-	@NotNull(message="pf number should not be null")
     private String pfNumber;
     
     @OneToOne
@@ -129,7 +105,7 @@ public class PersonalDetails extends Status{
 	}
 
 	public PersonalDetails(String orgCode,
-			boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy, String maritalStatus,String familyBackground, String healthDetails,String cprNumber,String gosi, String aadhaarNumber, String aadhaarName,
+			boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy, String bloodGroup, String maritalStatus,String familyBackground, String healthDetails,String cprNumber,String gosi, String aadhaarNumber, String aadhaarName,
 			String aadhaarFile,String passportNumber,String passportName,LocalDate passportIssueDate, LocalDate passportValidity, String passportFile, String panCardNumber,String panCardName,String panCardFile,String bankAccountNumber,String bankName, String ifscCode,String uanNumber, String pfNumber, Employee employee) {
 		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
 		this.maritalStatus = maritalStatus;
@@ -154,6 +130,7 @@ public class PersonalDetails extends Status{
 		this.uanNumber = uanNumber;
 		this.pfNumber = pfNumber;
 		this.employee = employee;
+		this.bloodGroup=bloodGroup;
 	}
 
 
@@ -340,6 +317,14 @@ public class PersonalDetails extends Status{
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
+	}
+
+	public String getBloodGroup() {
+		return bloodGroup;
+	}
+
+	public void setBloodGroup(String bloodGroup) {
+		this.bloodGroup = bloodGroup;
 	}
     
 }

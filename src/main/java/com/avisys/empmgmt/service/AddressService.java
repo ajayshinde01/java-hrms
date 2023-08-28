@@ -13,10 +13,12 @@ public interface AddressService {
 
 	AddressDto createAddress(@Valid AddressDto addressDto, Long employeeId);
 
-	List<AddressDto> getAddressByEmployee(Long employeeId);
+	AddressDto getAddressByEmployee(Long employeeId);
 
 	AddressDto updateAddress(AddressDto addressDto, Long employeeId);
 
 	String deleteAddress(Long employeeId, Long addressId,String updatedBy);
+
+	AddressDto getByEmployeeIdAndAddressType(Long employeeId, String addressType);
 
 }

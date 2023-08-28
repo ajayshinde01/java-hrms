@@ -53,15 +53,11 @@ public class Employee extends Status{
 	private String firstName;
 	
 	@Column(name="middle_name")
-	@NotNull(message="Middle Name must not be null")
-	@NotBlank(message="Middle Name must not be blank")
-	@Pattern(regexp = "^[a-zA-Z]+$", message = "Middle name should not contain digits and special characters")
 	private String middleName;
 	
 	@Column(name="last_name")
 	@NotNull(message="Last Name must not be null")
 	@NotBlank(message="Last Name must not be blank")
-	@Pattern(regexp = "^[a-zA-Z]+$", message = "Last name should not contain digits and special characters")
 	private String lastName;
 	
 	@Column(name="date_of_birth")
@@ -101,7 +97,6 @@ public class Employee extends Status{
 	private String phone;
 	
 	@Column(name="email")
-	@Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$", message = "Please enter a valid email address.")
 	private String email;
 	
 	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

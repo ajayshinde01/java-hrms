@@ -7,11 +7,15 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.avisys.empmgmt.dto.EmergencyContactsDto;
+import com.avisys.empmgmt.dto.VisaDto;
 import com.avisys.empmgmt.entity.EmergencyContacts;
 import com.avisys.empmgmt.entity.Employee;
+import com.avisys.empmgmt.entity.Visa;
 import com.avisys.empmgmt.exception.AddressException;
 import com.avisys.empmgmt.exception.EmergencyContactsException;
 import com.avisys.empmgmt.exception.EmployeeException;
@@ -96,4 +100,20 @@ public class EmergencyContactsServiceImpl implements EmergencyContactsService{
 		}else throw new EmergencyContactsException("EmployeeId doesn't match with EmergencyContactsId");
 	}
 
+	@Override
+	public Page<EmergencyContactsDto> searchEmergencyContacts(String keyword, Pageable pageable, Long employeeId) {
+		Employee employee = this.employeeRepository.findByIdAndIsDeletedFalse(employeeId)
+                .orElseThrow(() -> new EmployeeException("Employee not found"));
+
+        List<EmergencyContacts> emergencyContacts = emergencyContactsRepository.findByEmployeeAndIsDeletedFalse(employee);
+
+        keyword = keyword.toLowerCase();
+        Page<EmergencyContacts> pageableContacts = emergencyContactsRepository.searchByEmergencyContactsAndEmployeeId(keyword, pageable, employeeId);
+
+        Page<EmergencyContactsDto> contactsDto = pageableContacts.map(contacts ->
+                this.modelMapper.map(contacts, EmergencyContactsDto.class));
+
+            return contactsDto;
+
+	}
 }

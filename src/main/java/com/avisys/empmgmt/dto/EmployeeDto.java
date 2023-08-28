@@ -30,9 +30,6 @@ public class EmployeeDto {
 	@Pattern(regexp = "^[a-zA-Z]+$", message = "First name should not contain digits and special characters")
 	private String firstName;
 	
-	@NotNull(message="Middle Name must not be null")
-	@NotBlank(message="Middle Name must not be blank")
-	@Pattern(regexp = "^[a-zA-Z]+$", message = "Middle name should not contain digits and special characters")
 	private String middleName;
 	
 	@NotNull(message="Last Name must not be null")
@@ -70,7 +67,6 @@ public class EmployeeDto {
 	
 	@NotNull(message="Email Id must not be null")
 	@NotBlank(message="Email Id must not be blank")
-	@Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$", message = "Please enter a valid email address.")
 	private String email;
 	
 	@NotBlank(message = "Organisation Code should not be blank")
@@ -88,7 +84,6 @@ public class EmployeeDto {
 	public EmployeeDto() {
 		super();
 	}
-
 
 	public EmployeeDto(Long id, String employeeCode, String profileImage,String title, String firstName, String middleName, String lastName, LocalDate dateOfBirth, String gender, LocalDate dateOfJoining, String age, String status, Division division, String userId, String mobile, String phone, String email, String orgCode, String createdBy, String updatedBy, LocalDateTime createdAt,LocalDateTime updatedAt) {
 		super();

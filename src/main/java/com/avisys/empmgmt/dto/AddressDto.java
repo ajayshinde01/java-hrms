@@ -26,7 +26,9 @@ public class AddressDto {
 
 	private String landmark;
 
-	private String addressTenure;
+	private int tenureYear;
+	
+	private int tenureMonth;
 	
 	@NotNull(message="city must not be null")
 	@NotBlank(message="city must not be blank")
@@ -65,13 +67,14 @@ public class AddressDto {
 	}
 	
 	
-	public AddressDto( String addressType, String address1, String address2, String landmark, String addressTenure, String city, String state, String country, String postcode, String ownershipStatus, String orgCode, String createdBy, String updatedBy, LocalDateTime createdAt,LocalDateTime updatedAt) {
+	public AddressDto( String addressType, String address1, String address2, String landmark, int tenureYear, int tenureMonth, String city, String state, String country, String postcode, String ownershipStatus, String orgCode, String createdBy, String updatedBy, LocalDateTime createdAt,LocalDateTime updatedAt) {
 		super();
 		this.addressType = addressType;
 		this.address1 = address1;
 		this.address2 = address2;
 		this.landmark = landmark;
-		this.addressTenure = addressTenure;
+		this.tenureYear = tenureYear;
+		this.tenureMonth=tenureMonth;
 		this.city = city;
 		this.state = state;
 		this.country = country;
@@ -124,13 +127,26 @@ public class AddressDto {
 		this.landmark = landmark;
 	}
 
-	public String getAddressTenure() {
-		return addressTenure;
+
+	public int getTenureYear() {
+		return tenureYear;
 	}
 
-	public void setAddressTenure(String addressTenure) {
-		this.addressTenure = addressTenure;
+
+	public void setTenureYear(int tenureYear) {
+		this.tenureYear = tenureYear;
 	}
+
+
+	public int getTenureMonth() {
+		return tenureMonth;
+	}
+
+
+	public void setTenureMonth(int tenureMonth) {
+		this.tenureMonth = tenureMonth;
+	}
+
 
 	public String getCity() {
 		return city;
