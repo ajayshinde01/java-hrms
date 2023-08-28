@@ -27,6 +27,7 @@ private static final DataTableMetadata Department_TYPE_DEFINITION_METADATA;
 private static final DataTableMetadata Division_TYPE_DEFINITION_METADATA;
 private static final DataTableMetadata Employee_Info_DEFINITION_METADATA;
 private static final DataTableMetadata Organization_DEFINITION_METADATA;
+private static final DataTableMetadata EDUCATIONAL_QUALIFICATIONS_DEFINATION_METADATA;
 
  
 
@@ -100,6 +101,13 @@ private static final DataTableMetadata Organization_DEFINITION_METADATA;
                 .addColumnMetadata(new ColumnMetadata("Organization Code", "organizationCode","organizationCode", ColumnType.TEXT, 31))
                 .addColumnMetadata(new ColumnMetadata("Organization Name", "organizationName","organizationName", ColumnType.TEXT, 32))
                 .addColumnMetadata(new ColumnMetadata("Organization Description", "organizationDesc","organizationDesc", ColumnType.TEXT, 32));
+        
+        EDUCATIONAL_QUALIFICATIONS_DEFINATION_METADATA = new DataTableMetadata()
+                .addColumnMetadata(new ColumnMetadata("", "id","id" ,ColumnType.RADIO, 05))
+                .addColumnMetadata(new ColumnMetadata("SCHOOL/UNIVERSITY", "instituteName","instituteName" ,ColumnType.TEXT, 25))
+                .addColumnMetadata(new ColumnMetadata("QUALIFICATION LEVEL", "qualificationLevel","qualificationLevel" ,ColumnType.TEXT, 25))
+                .addColumnMetadata(new ColumnMetadata("EDUCATIONAL QUALIFICATION", "educationalQualification","educationalQualification" ,ColumnType.TEXT, 25))
+               .addColumnMetadata(new ColumnMetadata("YEAR OF PASSING    ", "passingYear","passingYear" ,ColumnType.TEXT, 15));
     }
 
  
@@ -155,5 +163,10 @@ private static final DataTableMetadata Organization_DEFINITION_METADATA;
     @GetMapping("employee")
     public DataTableMetadata getEmployeeDataTableMetadata() {
         return Employee_Info_DEFINITION_METADATA;
+    }
+    
+    @GetMapping("educational-qualification")
+    public DataTableMetadata getEducationalQualificationMetadata() {
+        return  EDUCATIONAL_QUALIFICATIONS_DEFINATION_METADATA;
     }
 }

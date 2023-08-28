@@ -32,7 +32,6 @@ public class CompanyDetail extends Status{
 	
 	@Column(name="client_email")
 	@NotNull(message = "Client Email should not be null")
-	@Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$", message = "Please enter a valid email address.")
 	private String clientEmail;
 	
 	@Column(name="billable")
