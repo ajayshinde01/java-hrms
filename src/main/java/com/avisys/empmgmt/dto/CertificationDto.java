@@ -32,24 +32,25 @@ public class CertificationDto {
 	private String updatedBy;	
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
-
 	
+
 	public CertificationDto(Long id,
 			@NotNull(message = "certification field must not be null") @NotBlank(message = "certification field must not be blank") String certification,
 			@NotNull(message = "date of certification must not be null") LocalDate dateOfCertification,
 			@NotNull(message = "issued by field must not be null") @NotBlank(message = "issued by field must not be blank") String issuedBy,
+			@NotBlank(message = "Organisation Code should not be blank") @NotNull(message = "Organisation Code should not be null") @Pattern(regexp = "^[A-Za-z\\d][A-Za-z\\d-_]*[A-Za-z\\d]$", message = "Organization code should not contain any special characters except hypen,underscore but should not at starting and ending position") String orgCode,
 			String createdBy, String updatedBy, LocalDateTime createdAt, LocalDateTime updatedAt) {
 		super();
 		this.id = id;
 		this.certification = certification;
 		this.dateOfCertification = dateOfCertification;
 		this.issuedBy = issuedBy;
+		this.orgCode = orgCode;
 		this.createdBy = createdBy;
 		this.updatedBy = updatedBy;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 	}
-
 
 	public CertificationDto() {
 		super();
