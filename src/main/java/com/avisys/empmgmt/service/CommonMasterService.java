@@ -53,6 +53,7 @@ public class CommonMasterService {
 		CommonMaster masters = masterRepository.findByMasterNameAndIsMasterTrueAndIsDeletedFalse(masterName).orElseThrow(()->new CommonMasterException("Master not found"));
 		keyword = keyword.toLowerCase();
 		Page<CommonMaster> commonMasters=this.masterRepository.searchByChildCommonMaster(keyword,pageable, masterName);
+		
 		Page<CommonMasterDto> commonMasterDto= (Page<CommonMasterDto>) commonMasters.map((master)-> this.modelMapper.map(master,CommonMasterDto.class));
 		return commonMasterDto;
 	}

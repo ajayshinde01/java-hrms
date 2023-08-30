@@ -40,7 +40,7 @@ public class CreateCompanyDetailDTO {
 	private String reportingManager;
 	
 	@NotNull(message = "probation should not be null")
-	private int probation;
+	private String probation;
 	
 	protected String createdBy;
 	
@@ -62,7 +62,7 @@ public class CreateCompanyDetailDTO {
 	}
 
 	public CreateCompanyDetailDTO(String companyEmail,String clientEmail, String billable,String shift,String reviewerManager,
-			String reportingManager,int probation, String createdBy, String orgCode,
+			String reportingManager,String probation, String createdBy, String orgCode,
 			Designation designation, Department department, Grade grade, Role role, EmployeeType employeeType) {
 		super();
 		this.companyEmail = companyEmail;
@@ -137,11 +137,11 @@ public class CreateCompanyDetailDTO {
 		this.reportingManager = reportingManager;
 	}
 
-	public int getProbation() {
+	public String getProbation() {
 		return probation;
 	}
 
-	public void setProbation(int probation) {
+	public void setProbation(String probation) {
 		this.probation = probation;
 	}
 

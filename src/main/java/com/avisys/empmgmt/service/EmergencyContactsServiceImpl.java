@@ -65,7 +65,7 @@ public class EmergencyContactsServiceImpl implements EmergencyContactsService{
 		return emergencyContactsDto;
 	}
 	
-	
+	@Override
 	public EmergencyContactsDto getByEmployeeIdAndContactId(Long employeeId, Long contactId) {
         Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee not found"));
         EmergencyContacts contact=emergencyContactsRepository.findByIdAndIsDeletedFalse(contactId).orElseThrow(()->new EmergencyContactsException("Emergency Contact not found"));

@@ -41,7 +41,7 @@ public class CompanyDetailDTO {
 	private String reportingManager;
 	
 	@NotNull(message = "probation should not be null")
-	private int probation;
+	private String probation;
 	
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
@@ -68,7 +68,7 @@ public class CompanyDetailDTO {
 	}
 	
 
-	public CompanyDetailDTO(Long id,String companyEmail,String clientEmail, String billable,String shift,String reviewerManager,String reportingManager,int probation, 
+	public CompanyDetailDTO(Long id,String companyEmail,String clientEmail, String billable,String shift,String reviewerManager,String reportingManager,String probation, 
 			LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy, String orgCode,
 			Designation designation, Department department, Grade grade, Role role, EmployeeType employeeType) {
 		super();
@@ -177,13 +177,13 @@ public class CompanyDetailDTO {
 
 
 
-	public int getProbation() {
+	public String getProbation() {
 		return probation;
 	}
 
 
 
-	public void setProbation(int probation) {
+	public void setProbation(String probation) {
 		this.probation = probation;
 	}
 

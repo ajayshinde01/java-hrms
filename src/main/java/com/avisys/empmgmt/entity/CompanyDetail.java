@@ -56,7 +56,7 @@ public class CompanyDetail extends Status{
 	
 	@Column(name="probation")
 	@NotNull(message = "probation should not be null")
-	private int probation;
+	private String probation;
 	
 	@OneToOne
 	@JoinColumn(name="employee_id_fk")
@@ -67,7 +67,7 @@ public class CompanyDetail extends Status{
 	private Designation designation;
 
 	@ManyToOne
-	@JoinColumn(name="department_id)")
+	@JoinColumn(name="department_id")
 	private Department department;
 
 	@ManyToOne
@@ -88,7 +88,7 @@ public class CompanyDetail extends Status{
 
 	public CompanyDetail(String orgCode,boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, 
 			String updatedBy,String companyEmail, String clientEmail,String billable,String shift,String reviewerManager,
-			String reportingManager,int probation, Employee employee,
+			String reportingManager,String probation, Employee employee,
 			Designation designation, Department department, Grade grade, Role role, EmployeeType employeeType) {
 		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
 		this.companyEmail = companyEmail;
@@ -162,11 +162,11 @@ public class CompanyDetail extends Status{
 		this.reportingManager = reportingManager;
 	}
 
-	public int getProbation() {
+	public String getProbation() {
 		return probation;
 	}
 
-	public void setProbation(int probation) {
+	public void setProbation(String probation) {
 		this.probation = probation;
 	}
 

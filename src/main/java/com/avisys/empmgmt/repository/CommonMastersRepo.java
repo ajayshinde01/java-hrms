@@ -28,7 +28,8 @@ public interface CommonMastersRepo extends JpaRepository<CommonMaster, Long>{
 	@Query("SELECT c FROM CommonMaster c WHERE c.masterName = :masterName and c.foreignKey = :dependent and c.isMaster=false and c.isDeleted=false")
 	List<CommonMaster> findByDependentMaster(Pageable pageable, @Param("masterName") String masterName, @Param("dependent") String dependent);
 
-	@Query("SELECT c FROM CommonMaster c WHERE c.masterName = :masterName and (LOWER(c.masterName) LIKE %:key% OR LOWER(c.code) LIKE %:key% OR LOWER(c.value) LIKE %:key% ) and c.isMaster=false and c.isDeleted=false")
+	@Query("SELECT c FROM CommonMaster c WHERE c.masterName = :masterName and (LOWER(c.masterName) LIKE %:key% OR LOWER(c.code) LIKE %:key% OR LOWER(c.value) LIKE %:key% ) and c.isMaster=false and c.isDeleted=false" +
+	        " ORDER BY c.priority ASC, c.code ASC")
 	Page<CommonMaster> searchByChildCommonMaster(String key, Pageable pageable, String masterName);
 
 	Optional<CommonMaster> findByCode(String code);

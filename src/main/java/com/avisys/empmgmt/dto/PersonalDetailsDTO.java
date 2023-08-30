@@ -21,7 +21,6 @@ public class PersonalDetailsDTO{
     
     private String gosi;
 
-	@Pattern(regexp = "\\d{12}", message = "Aadhaar number must be a 12-digit numeric value")
     private String aadhaarNumber;
     
     private String aadhaarName;
@@ -38,14 +37,12 @@ public class PersonalDetailsDTO{
 
     private String passportFile;
     
-	@Pattern(regexp = "^[A-Z]{5}[0-9]{4}[A-Z]$", message = "PAN card number must be a 10-character alphanumeric value in the format ABCDE1234F")
     private String panCardNumber;
     
     private String panCardName;
 	
     private String panCardFile;
     
-    @Pattern (regexp = "^[0-9]{9,18}$",message = "bank account number should be a numeric value between 9 and 18 digits")
     private String bankAccountNumber;
     
     private String bankName;

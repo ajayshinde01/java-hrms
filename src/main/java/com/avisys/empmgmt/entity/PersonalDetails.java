@@ -45,7 +45,6 @@ public class PersonalDetails extends Status{
     private String gosi;
     
     @Column(name="aadhaar_number")
-    @Pattern(regexp = "\\d{12}", message = "Aadhaar number must be a 12-digit numeric value")
     private String aadhaarNumber;
     
     @Column(name="aadhaar_name")
@@ -55,7 +54,6 @@ public class PersonalDetails extends Status{
     private String aadhaarFile;
     
     @Column(name="passport_number")
-    @Size(min = 12,max=12,message = "passport number must contain 12 digits")
     private String passportNumber;
     
     @Column(name="passport_name")
@@ -71,7 +69,6 @@ public class PersonalDetails extends Status{
     private String passportFile;
     
     @Column(name="pan_card_number")
-    @Pattern(regexp = "^[A-Z]{5}[0-9]{4}[A-Z]$", message = "PAN card number must be a 10-character alphanumeric value in the format ABCDE1234F")
     private String panCardNumber;
     
     @Column(name="pan_card_name")
@@ -81,7 +78,6 @@ public class PersonalDetails extends Status{
     private String panCardFile;
     
     @Column(name="bank_account_number")
-    @Pattern (regexp = "^[0-9]{9,18}$",message = "bank account number should be a numeric value between 9 and 18 digits")
     private String bankAccountNumber;
     
     @Column(name = "bank_name")

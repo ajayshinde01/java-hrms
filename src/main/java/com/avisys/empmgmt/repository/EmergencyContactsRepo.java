@@ -24,6 +24,6 @@ import com.avisys.empmgmt.entity.Employee;
 
 		List<EmergencyContacts> findByEmployee(Employee employee);
 	
-		@Query("SELECT e FROM EmergencyContacts e WHERE LOWER(e.emergencyContactName) LIKE %:keyword% OR LOWER(e.relation) LIKE %:keyword% AND e.employee.id = :employeeId AND e.isDeleted = false")
+		@Query("SELECT e FROM EmergencyContacts e WHERE (LOWER(e.emergencyContactName) LIKE %:keyword% OR LOWER(e.relation) LIKE %:keyword%) AND e.employee.id = :employeeId AND e.isDeleted = false")
 		Page<EmergencyContacts> searchByEmergencyContactsAndEmployeeId(@Param("keyword") String keyword, Pageable pageable, @Param("employeeId") Long employeeId);
 }
