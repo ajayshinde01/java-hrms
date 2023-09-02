@@ -2,7 +2,7 @@ package com.avisys.empmgmt.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,11 +38,34 @@ public class AddressController {
 		return new ResponseEntity<>(createAddress, HttpStatus.OK);
 	}
 	
-	@GetMapping("/{employee-id}/get-address")
-	public ResponseEntity<AddressDto> getAddressByEmployeeId(@PathVariable("employee-id") Long employeeId){
-		AddressDto getAddress = this.addressService.getAddressByEmployee(employeeId);
-		return new ResponseEntity<AddressDto>(getAddress,HttpStatus.OK);
+	@PostMapping("/{employee-id}/add")
+	public ResponseEntity<List<AddressDto>> addAddresses(@Valid @RequestBody List<AddressDto> addresses, @PathVariable("employee-id") Long employeeId) {
+	    List<AddressDto> createdAddresses = new ArrayList<>();
+	    
+	    for (AddressDto address : addresses) {
+	        AddressDto createdAddress = addressService.createAddress(address, employeeId);
+	        createdAddresses.add(createdAddress);
+	    }
+	    
+	    return new ResponseEntity<>(createdAddresses, HttpStatus.OK);
 	}
+	
+	@GetMapping("/{employee-id}/get-all")
+	  public ResponseEntity<List<AddressDto>> getAddressByEmployeeId(@PathVariable("employee-id") Long employeeId){
+	    List<AddressDto> getAddress = this.addressService.getAddressByEmployee(employeeId);
+	    return new ResponseEntity<List<AddressDto>>(getAddress,HttpStatus.OK);
+
+	  }
+	
+	
+	
+	
+	
+//	@GetMapping("/{employee-id}/get-address")
+//	public ResponseEntity<List<AddressDto>> getAddressByEmployeeId(@PathVariable("employee-id") Long employeeId){
+//		AddressDto getAddress = this.addressService.getAddressByEmployee(employeeId);
+//		return new ResponseEntity<List<AddressDto>>(getAddress,HttpStatus.OK);
+//	}
 	
 	@GetMapping("/{employee-id}/{address-type}")
 	public ResponseEntity<AddressDto> getAddressByEmployeeIdAndType(@PathVariable("employee-id") Long employeeId, @PathVariable("address-type") String addressType){
@@ -60,5 +83,17 @@ public class AddressController {
 	public ResponseEntity<AddressDto> updateEmployeeAddress(@Valid @RequestBody AddressDto addressDto, @PathVariable("employee-id") Long employeeId ) {
 		AddressDto updateEmployeeAddress = this.addressService.updateAddress(addressDto,employeeId);
 		return new ResponseEntity<>(updateEmployeeAddress, HttpStatus.OK);
+	}
+	
+	@PutMapping("/{employee-id}/update-addresses")
+	public ResponseEntity<List<AddressDto>> updateEmployeeAddresses(@Valid @RequestBody List<AddressDto> addressDtos, @PathVariable("employee-id") Long employeeId) {
+	    List<AddressDto> updatedAddresses = new ArrayList<>();
+
+	    for (AddressDto addressDto : addressDtos) {
+	        AddressDto updatedAddress = this.addressService.updateAddress(addressDto, employeeId);
+	        updatedAddresses.add(updatedAddress);
+	    }
+
+	    return new ResponseEntity<>(updatedAddresses, HttpStatus.OK);
 	}
 }

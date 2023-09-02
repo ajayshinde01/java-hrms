@@ -15,18 +15,14 @@ public class GradeDTO {
 
 	@NotNull(message = "Grade Id is not null")
 	@NotBlank(message = "Grade Id is required")
-	@Pattern(regexp="^[A-Za-z\\d][A-Za-z\\d-]*[A-Za-z\\d]$",message="Grade Id should not contain any special character except from hyphen and should start with character or digit")
 	private String gradeId;
 
 	@NotNull(message = "Grade Name  is not null")
 	@NotBlank(message = "Grade Name is required")
-    @Pattern(regexp="^[A-Za-z\\d][A-Za-z\\d _.-]*[A-Za-z\\d]$|^$",message="Grade Name should not contain any special character except from hyphen,underscore,space,dot but not at starting and ending position")
 	private String gradeName;
 
 	@NotNull(message = "Grade Name is not null")
 	@NotBlank(message = "Grade Name is required")
-	@Size(min = 2, message = "Grade Id Min size 2")
-	@Size(max = 20, message = "Grade Id Mix size 20")
 	private String gradeType;
 	
     @Pattern(regexp = "^[A-Za-z\\d][A-Za-z\\d-_]*[A-Za-z\\d]$",message = "Organization code should not contain any special characters except hypen,underscore but should not at starting and ending position")

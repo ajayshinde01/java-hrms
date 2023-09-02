@@ -10,12 +10,10 @@ public class JoiningDetailDTO {
 	
     private Long id;
     
-	@NotNull(message = "confirmation date is required")
 	private LocalDate confirmationDate;
 
 	private int noticePeriod;
 
-	@NotNull(message = "resignation date is required")
 	private LocalDate resignationDate;
 	
 	private LocalDate relievingDate;

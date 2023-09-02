@@ -15,7 +15,7 @@ public class EducationalQualificationDto {
 	@NotNull(message="Qualification must not be null")
 	@NotBlank(message="Qualification must not be blank")
 	private String educationalQualification;
-	
+
 	@NotNull(message="Name must not be null")
 	@NotBlank(message="Name must not be blank")
 	private String instituteName;

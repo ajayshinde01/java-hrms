@@ -31,7 +31,7 @@ public class WorkExperience extends Status {
 	@Column(name="designation")
 	@NotNull(message="Designation field must not be null")
 	@NotBlank(message="Designation field must not be blank")
-	private String Designation;
+	private String designation;
 	
 	@Column(name="from_date")
 	private LocalDate fromDate;
@@ -53,7 +53,7 @@ public class WorkExperience extends Status {
 	public WorkExperience( String orgCode, boolean isDeleted, LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, String updatedBy,String companyName, String designation, LocalDate fromDate, LocalDate toDate, String address, Employee employee) {
 		super(orgCode, isDeleted, createdAt, updatedAt, createdBy, updatedBy);
 		this.companyName = companyName;
-		Designation = designation;
+		this.designation = designation;
 		this.fromDate = fromDate;
 		this.toDate = toDate;
 		this.address = address;
@@ -77,11 +77,11 @@ public class WorkExperience extends Status {
 	}
 
 	public String getDesignation() {
-		return Designation;
+		return designation;
 	}
 
 	public void setDesignation(String designation) {
-		Designation = designation;
+		this.designation = designation;
 	}
 
 	public LocalDate getFromDate() {

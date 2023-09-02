@@ -12,14 +12,9 @@ import jakarta.validation.constraints.Size;
 public class AddressDto {
 	
 	private Long id;
-	
-	@NotNull(message="Id must not be null")
-	@NotBlank(message="Id must not be blank")
-	@Size(max=15, message="AddressType should be at max 15 character")	
+		
 	private String addressType;
 
-	@NotNull(message="address1 field must not be null")
-	@NotBlank(message="address1 field must not be blank")
 	private String address1;
 
 	private String address2;
@@ -30,23 +25,14 @@ public class AddressDto {
 	
 	private int tenureMonth;
 	
-	@NotNull(message="city must not be null")
-	@NotBlank(message="city must not be blank")
 	private String city;
 	
-	@NotNull(message="state must not be null")
-	@NotBlank(message="state must not be blank")
 	private String state;
 
-	@NotNull(message="country must not be null")
-	@NotBlank(message="country must not be blank")
 	private String country;
 
-	@NotNull(message="postcode must not be null")
-	@NotBlank(message="postcode must not be blank")
 	private String postcode;
 	
-
 	private String ownershipStatus;
 	
 	@NotBlank(message = "Organisation Code should not be blank")

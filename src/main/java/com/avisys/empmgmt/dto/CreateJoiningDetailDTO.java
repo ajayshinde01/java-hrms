@@ -8,12 +8,10 @@ import jakarta.validation.constraints.Pattern;
 
 public class CreateJoiningDetailDTO {
 	
-	@NotNull(message = "confirmation date is required")
 	private LocalDate confirmationDate;
 	
 	private int noticePeriod;
 	
-	@NotNull(message = "resignation date is required")
 	private LocalDate resignationDate;
 	
 	private LocalDate relievingDate;
@@ -85,6 +83,4 @@ public class CreateJoiningDetailDTO {
 	public void setOrgCode(String orgCode) {
 		this.orgCode = orgCode;
 	}
-
-	
 }

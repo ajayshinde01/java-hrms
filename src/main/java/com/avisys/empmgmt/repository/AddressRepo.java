@@ -19,7 +19,7 @@ public interface AddressRepo extends JpaRepository<Address, Long>{
 
 	Optional<Address> findByIdAndIsDeletedFalse(Long addressId);
 
-	Address findByEmployeeAndIsDeletedFalse(Employee employee);
+	List<Address> findByEmployeeAndIsDeletedFalse(Employee employee);
 
 	List<Address> findByEmployee(Employee employee);
 

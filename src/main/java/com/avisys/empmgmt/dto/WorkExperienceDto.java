@@ -17,7 +17,7 @@ public class WorkExperienceDto {
 	
 	@NotNull(message="Designation must not be null")
 	@NotBlank(message="Designation must not be blank")
-	private String Designation;
+	private String designation;
 	
 	@NotNull(message="StartDate must not be null")
 	private LocalDate fromDate;
@@ -48,7 +48,7 @@ public class WorkExperienceDto {
 	public WorkExperienceDto( String companyName, String designation, LocalDate fromDate, LocalDate toDate, String address, String orgCode, String createdBy, String updatedBy, LocalDateTime createdAt,LocalDateTime updatedAt) {
 		super();
 		this.companyName = companyName;
-		Designation = designation;
+		this.designation = designation;
 		this.fromDate = fromDate;
 		this.toDate = toDate;
 		this.address = address;
@@ -76,11 +76,11 @@ public class WorkExperienceDto {
 	}
 
 	public String getDesignation() {
-		return Designation;
+		return designation;
 	}
 
 	public void setDesignation(String designation) {
-		Designation = designation;
+		this.designation = designation;
 	}
 
 	public LocalDate getFromDate() {

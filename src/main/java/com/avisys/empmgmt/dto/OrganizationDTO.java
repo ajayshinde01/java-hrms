@@ -11,18 +11,12 @@ public class OrganizationDTO {
 	private Long Id;
 
 	
-	
-	//@NotBlank(message = "Organization Code should not be blank")
-	//@NotNull(message = "Organization Code should not be null")
 	private String organizationCode;
 	
 	
-	//@NotBlank(message = "Organization Name should not be blank")
-	//@NotNull(message = "Organization Name should not be null")
 	private String organizationName;
 	
 	
-	//@NotNull(message = "Organization Description should not be null")
 	private String organizationDesc;
 	
 	private LocalDateTime createdAt;

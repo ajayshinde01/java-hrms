@@ -24,14 +24,12 @@ public class JoiningDetail extends Status{
 	private Long id;
 	
 	@Column(name="confirmation_date")
-	@NotNull(message = "confirmation date is required")
 	private LocalDate confirmationDate;
 	
 	@Column(name="notice_period")
 	private int noticePeriod;
 	
 	@Column(name="resignation_date")
-	@NotNull(message = "resignation date is required")
 	private LocalDate resignationDate;
 	
 	@Column(name="relieving_date")

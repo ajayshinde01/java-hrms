@@ -36,7 +36,7 @@ public class CommonMasterService {
 		if (masters.isPresent()) {
 			if(masters.get().isDeleted()==true) {
 			throw new CommonMasterException("Common master already present but marked deleted");
-			}else throw new CommonMasterException("Common master ID already present");
+			}else throw new CommonMasterException("Common master already present");
 		}
 		CommonMaster commonMasters=this.modelMapper.map(masterDto, CommonMaster.class);
 		commonMasters.setCreatedAt(LocalDateTime.now());

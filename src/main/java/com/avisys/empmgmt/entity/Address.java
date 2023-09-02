@@ -25,14 +25,9 @@ public class Address extends Status{
 	private Long id;
 	
 	@Column(name = "address_type")
-	@NotNull(message="Id must not be null")
-	@NotBlank(message="Id must not be blank")
-	@Size(max=15, message="AddressType should be at max 15 character")	
 	private String addressType;
 
 	@Column(name = "address_1")
-	@NotNull(message="address1 field must not be null")
-	@NotBlank(message="address1 field must not be blank")
 	private String address1;
 
 	@Column(name = "address_2")
@@ -46,21 +41,13 @@ public class Address extends Status{
 	@Column(name="tenure_month")
 	private int tenureMonth;
 	
-	@NotNull(message="city must not be null")
-	@NotBlank(message="city must not be blank")
 	private String city;
 	
-	@NotNull(message="state must not be null")
-	@NotBlank(message="state must not be blank")
 	private String state;
 
-	@NotNull(message="country must not be null")
-	@NotBlank(message="country must not be blank")
 	private String country;
 
 	@Column(name="post_code")
-	@NotNull(message="postcode must not be null")
-	@NotBlank(message="postcode must not be blank")
 	private String postcode;
 	
 	@Column(name="ownership_status")

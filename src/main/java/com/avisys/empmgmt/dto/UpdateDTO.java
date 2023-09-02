@@ -15,17 +15,14 @@ public class UpdateDTO {
 
 	@NotNull(message = "Role Id field is required")
 	@NotBlank(message = "Role Id cant be blank")
-	@Pattern(regexp="^[A-Za-z\\d][A-Za-z\\d-]*[A-Za-z\\d]$",message="Role Id should not contain any special character except from hyphen and should start with character or digit")
 	private String roleId;
 
 	@NotNull
 	@NotBlank(message = "Role Name cant be blank")
-    @Pattern(regexp="^[A-Za-z\\d][A-Za-z\\d _.-]*[A-Za-z\\d]$|^$",message="Role Name should not contain any special character except from hyphen,underscore,space,dot but not at starting and ending position")
 	private String roleName;
 
 	@NotNull
 	@NotBlank(message = "Organization Code  cant be blank")
-    @Pattern(regexp = "^[A-Za-z\\d][A-Za-z\\d-_]*[A-Za-z\\d]$",message = "Organization code should not contain any special characters except hypen,underscore but should not at starting and ending position")
 	private String orgCode;
 
 	
@@ -72,11 +69,7 @@ public class UpdateDTO {
 		this.updatedBy = updatedBy;
 	}
 
-	public UpdateDTO(
-			@NotNull(message = "Role Id field is required") @NotBlank(message = "Role Id cant be blank") @Pattern(regexp = "^[a-zA-Z0-9]{1,50}$", message = "ID must starts with alphabets followed numbers & cannot contain special character") String roleId,
-			@NotNull @NotBlank(message = "Role Name cant be blank") @Pattern(regexp = "^[a-zA-Z-_ ]{1,100}$", message = "Name must starts with alphabets") String roleName,
-			@NotNull @NotBlank(message = "Organization Code  cant be blank") @Pattern(regexp = "^[a-zA-Z-_]{1,10}$", message = "Organization code can't contain white spaces & special characters") String orgCode,
-			@NotBlank(message = "Updaed  by field is required") @NotNull(message = "Updaed  by cant be null") String updatedBy) {
+	public UpdateDTO(String roleId, String roleName, String orgCode, String updatedBy) {
 		super();
 		this.roleId = roleId;
 		this.roleName = roleName;

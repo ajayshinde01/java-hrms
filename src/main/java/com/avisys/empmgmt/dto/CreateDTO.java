@@ -9,17 +9,14 @@ public class CreateDTO {
 
 	@NotNull(message = "")
 	@NotBlank(message = "Role Id field cant be blank")
-	@Pattern(regexp="^[A-Za-z\\d][A-Za-z\\d-]*[A-Za-z\\d]$",message="Role Id should not contain any special character except from hyphen and should start with character or digit")
 	private String roleId;
 	
 	@NotNull
 	@NotBlank(message = "Role Name field cant be blank")
-    @Pattern(regexp="^[A-Za-z\\d][A-Za-z\\d _.-]*[A-Za-z\\d]$|^$",message="Role Name should not contain any special character except from hyphen,underscore,space,dot but not at starting and ending position")
 	private String roleName;
 	
 	@NotNull
 	@NotBlank(message = "Organization Code field cant be blank")
-    @Pattern(regexp = "^[A-Za-z\\d][A-Za-z\\d-_]*[A-Za-z\\d]$",message = "Organization code should not contain any special characters except hypen,underscore but should not at starting and ending position")
 	private String orgCode;
 	
 	@NotNull

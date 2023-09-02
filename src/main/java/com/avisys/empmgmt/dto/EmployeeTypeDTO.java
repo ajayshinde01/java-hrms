@@ -11,18 +11,15 @@ public class EmployeeTypeDTO {
 	private Long id;
 	@NotBlank(message = "Type Should not be blank")
 	@NotNull(message = "Type Should not be null")
-    @Pattern(regexp="^[A-Za-z\\d][A-Za-z\\d _.-]*[A-Za-z\\d]$|^$",message="Employee Type Name should not contain any special character except from hyphen,underscore,space,dot but not at starting and ending position")
 	private String type;
 
 	@Column(name = "employee_type_id")
 	@NotNull(message = "Employee Type Id should not be null")
 	@NotBlank(message = "Employee Type Id should not be blank")
-	@Pattern(regexp="^[A-Za-z\\d][A-Za-z\\d-]*[A-Za-z\\d]$",message="Employee Type Id should not contain any special character except from hyphen and should start with character or digit")
 	private String employeeTypeId;
 
 	@NotBlank(message = "Org code Should not be blank")
 	@NotNull(message = "Org code Should not be null")
-    @Pattern(regexp = "^[A-Za-z\\d][A-Za-z\\d-_]*[A-Za-z\\d]$",message = "Organization code should not contain any special characters except hypen,underscore but should not at starting and ending position")
 	private String orgCode;
 
 	private LocalDateTime createdAt;
@@ -33,10 +30,8 @@ public class EmployeeTypeDTO {
 
 	@NotBlank(message = "Created by Should not be blank")
 	@NotNull(message = "Created by code Should not be null")
-	@Size(min = 3, max = 15, message = "created by size min = 3 & max = 15")
 	private String createdBy;
 
-	@Size(min = 3, max = 15, message = "updated by size min = 3 & max = 15")
 	@Column(name = "Updated_By")
 	private String updatedBy;
 
