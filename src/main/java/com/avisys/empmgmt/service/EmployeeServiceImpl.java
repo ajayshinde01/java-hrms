@@ -1,7 +1,9 @@
 package com.avisys.empmgmt.service;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -11,10 +13,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.avisys.empmgmt.dto.EmployeeDto;
+import com.avisys.empmgmt.dto.MailData;
 import com.avisys.empmgmt.entity.Division;
 import com.avisys.empmgmt.entity.Employee;
 import com.avisys.empmgmt.exception.DivisionNotFound;
 import com.avisys.empmgmt.exception.EmployeeException;
+import com.avisys.empmgmt.external.EmailService;
 import com.avisys.empmgmt.repository.DivisonRepository;
 import com.avisys.empmgmt.repository.EmployeeRepo;
 
@@ -31,6 +35,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private EmailService mailService;
 
 	public List<EmployeeDto> getAllEmployee(){
 		List<Employee> employeeInfo=this.employeeRepository.findByIsDeletedFalse();
@@ -59,6 +66,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employee.setDeleted(false);
 		employee.setUpdatedBy(null);
 		Employee employeeObject=employeeRepository.save(employee);
+		
+		MailData mailData=new MailData();	
+		mailData.setId(44L);
+		mailData.setEmail(employeeDto.getEmail());
+		
+		Map<String, String> map=new HashMap<>();
+		map.put("empName", employeeDto.getFirstName());
+		map.put("companyName", "Avisys Services Private Limited");
+		map.put("team", "Avisys HRMS Team" );
+		mailData.setData(map);
+		mailService.sendMail(mailData);
 		return this.modelMapper.map(employeeObject, EmployeeDto.class);
 	}
 
