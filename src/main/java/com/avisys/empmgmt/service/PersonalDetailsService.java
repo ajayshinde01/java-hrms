@@ -35,23 +35,28 @@ public class PersonalDetailsService {
 	
 	public PersonalDetailsDTO createPersonalDetails(CreatePersonalDetailsDTO personalDetails,Long employeeId) {	
 		Employee employee=employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee Not Found"));
-		Optional<PersonalDetails> personalDetailsToValidate = personalDetailsRepo.findByAadhaarNumberOrPanCardNumberOrPassportNumberAndIsDeletedFalse(personalDetails.getAadhaarNumber(),personalDetails.getPanCardNumber(),personalDetails.getPassportNumber());
+		Optional<PersonalDetails> personalDetailsToValidate = personalDetailsRepo.findByAadhaarNumberOrPanCardNumberOrPassportNumber(personalDetails.getAadhaarNumber(),personalDetails.getPanCardNumber(),personalDetails.getPassportNumber());
 		if(personalDetailsRepo.findByEmployee(employee).isPresent()) {
 			throw new NoPersonalDetailsFound("Personal Details Already Exist");
 		}
-		else if(personalDetailsToValidate.isPresent()&&!(personalDetailsToValidate.get().getEmployee().getId()==employeeId)) {
-			throw new DuplicatePersonalDetail("Personal Details Already Exist");
+//		else if(personalDetailsToValidate.isPresent()&&!(personalDetailsToValidate.get().getEmployee().getId()==employeeId)) {
+//			throw new DuplicatePersonalDetail("Personal Details Already Exist");
+//		}
+//		else {
+		if(personalDetailsToValidate.isPresent()) {
+			throw new DuplicatePersonalDetail("Personal Details already present");
 		}
 		else {
-		PersonalDetails personalDetail = this.modelMapper.map(personalDetails,PersonalDetails.class);
-		personalDetail.setCreatedAt(LocalDateTime.now());
-		personalDetail.setUpdatedAt(null);
-		personalDetail.setUpdatedBy(null);
-		personalDetail.setDeleted(false);
-		personalDetail.setEmployee(employee);
-		PersonalDetails personalDetailObject=personalDetailsRepo.save(personalDetail);
-		return this.modelMapper.map(personalDetailObject,PersonalDetailsDTO.class);
+			PersonalDetails personalDetail = this.modelMapper.map(personalDetails,PersonalDetails.class);
+			personalDetail.setCreatedAt(LocalDateTime.now());
+			personalDetail.setUpdatedAt(null);
+			personalDetail.setUpdatedBy(null);
+			personalDetail.setDeleted(false);
+			personalDetail.setEmployee(employee);
+			PersonalDetails personalDetailObject=personalDetailsRepo.save(personalDetail);
+			return this.modelMapper.map(personalDetailObject,PersonalDetailsDTO.class);
 		}
+//		}
 	}
 
 	public List<PersonalDetailsDTO> getAllPersonalDetails() {
@@ -77,13 +82,16 @@ public class PersonalDetailsService {
 
 	public PersonalDetailsDTO updatePersonalDetails(@Valid PersonalDetailsDTO personalDetailsDto,Long employeeId) {
 	    Employee employee=employeeRepository.findByIdAndIsDeletedFalse(employeeId).orElseThrow(()->new EmployeeException("Employee Not Found"));
-        PersonalDetails personalDetailToUpdate = personalDetailsRepo.findById(personalDetailsDto.getId()).orElseThrow(()->new NoPersonalDetailsFound("Personal Details Not Found To Update"));
-        Optional<PersonalDetails> personalDetailsToValidate = personalDetailsRepo.findByAadhaarNumberOrPanCardNumberOrPassportNumberAndIsDeletedFalse(personalDetailsDto.getAadhaarNumber(),personalDetailsDto.getPanCardNumber(),personalDetailsDto.getPassportNumber());
+	    if(personalDetailsDto.getId() == null) {
+	    	throw new NoPersonalDetailsFound("Personal Details Id not found");
+	    }
+        PersonalDetails personalDetailToUpdate = personalDetailsRepo.findById(personalDetailsDto.getId()).orElseThrow(()->new NoPersonalDetailsFound("Personal Details not found to update"));
+        Optional<PersonalDetails> personalDetailsToValidate = personalDetailsRepo.findByAadhaarNumberOrPanCardNumberOrPassportNumber(personalDetailsDto.getAadhaarNumber(),personalDetailsDto.getPanCardNumber(),personalDetailsDto.getPassportNumber());
         if (personalDetailToUpdate.isDeleted()) {
-			throw new NoPersonalDetailsFound("Personal Details Not Found To Update");
+			throw new NoPersonalDetailsFound("Personal Details not found to update");
 		}
 		else if(personalDetailsToValidate.isPresent()&&!(personalDetailsToValidate.get().getEmployee().getId()==employeeId)) {
-			throw new DuplicatePersonalDetail("Duplicate Personal Details Already Exist");
+			throw new DuplicatePersonalDetail("Personal Details already present");
 		}
         else {
         PersonalDetails updatedPersonalDetails = this.modelMapper.map(personalDetailsDto, PersonalDetails.class);

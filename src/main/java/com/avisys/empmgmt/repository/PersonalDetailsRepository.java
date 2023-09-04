@@ -21,4 +21,7 @@ public interface PersonalDetailsRepository extends JpaRepository<PersonalDetails
 
 	Optional<PersonalDetails> findByEmployee(Employee employee);
 
+	Optional<PersonalDetails> findByAadhaarNumberOrPanCardNumberOrPassportNumber(String aadhaarNumber,
+			String panCardNumber, String passportNumber);
+
 }

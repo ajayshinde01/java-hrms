@@ -133,9 +133,9 @@ private static final DataTableMetadata Certification_Defination_METADATA;
                 .addColumnMetadata(new ColumnMetadata("", "id","id" ,ColumnType.RADIO, 05))
                 .addColumnMetadata(new ColumnMetadata("Company", "companyName","companyName", ColumnType.TEXT, 15))
                 .addColumnMetadata(new ColumnMetadata("Designation ", "designation","designation", ColumnType.TEXT, 15))
-                .addColumnMetadata(new ColumnMetadata("From Date", "fromDate","fromDate", ColumnType.TEXT, 20))
-                .addColumnMetadata(new ColumnMetadata("To Date", "toDate","toDate", ColumnType.TEXT, 20))
-                .addColumnMetadata(new ColumnMetadata("Address", "address","address", ColumnType.TEXT, 25));
+                .addColumnMetadata(new ColumnMetadata("From Date", "fromDate","fromDate", ColumnType.TEXT, 15))
+                .addColumnMetadata(new ColumnMetadata("To Date", "toDate","toDate", ColumnType.TEXT, 15))
+                .addColumnMetadata(new ColumnMetadata("Address", "address","address", ColumnType.TEXT, 30));
         
         Certification_Defination_METADATA = new DataTableMetadata()
         		.addColumnMetadata(new ColumnMetadata("", "id","id" ,ColumnType.RADIO, 05))
